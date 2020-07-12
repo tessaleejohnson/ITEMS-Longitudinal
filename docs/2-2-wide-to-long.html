@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.3 Bivariate Descriptives | ITEMS: Longitudinal Data Analysis</title>
-  <meta name="description" content="3.3 Bivariate Descriptives | ITEMS: Longitudinal Data Analysis" />
+  <title>2.2 Wide to Long | ITEMS: Longitudinal Data Analysis</title>
+  <meta name="description" content="2.2 Wide to Long | ITEMS: Longitudinal Data Analysis" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.3 Bivariate Descriptives | ITEMS: Longitudinal Data Analysis" />
+  <meta property="og:title" content="2.2 Wide to Long | ITEMS: Longitudinal Data Analysis" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.3 Bivariate Descriptives | ITEMS: Longitudinal Data Analysis" />
+  <meta name="twitter:title" content="2.2 Wide to Long | ITEMS: Longitudinal Data Analysis" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="3-2-univariate-descriptives.html"/>
-<link rel="next" href="3-4-trajectories.html"/>
+<link rel="prev" href="2-1-load-data.html"/>
+<link rel="next" href="3-exploratory-data-analysis.html"/>
 
 
 
@@ -1933,567 +1933,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="bivariate-descriptives" class="section level2">
-<h2><span class="header-section-number">3.3</span> Bivariate Descriptives</h2>
-<p>One limitation of long-format data is in calculating bivariate descriptive statistics like correlations and covariances. Tidyverse makes converting from long to wide and back fairly simple. To demonstrate, we take our long-format data and convert back to wide in order to calculate the correlation of anti-social behavior scores measured at different ages. These statistics can help us identify possible error covariance structures for our data, important for modeling later on.</p>
-<p>Missing data note: Because children were measured generally every 2-3 years, each child will have “missing” data for their anti-social behavior score at ages when they weren’t measured (in addition to non-response and other missing data mechanisms). Due to this structure, we treated missing data in the correlation matrix using pairwise complete observations. Missing data treatments like imputation are out of the scope of this module, but suffice it to say that there is a wealth of literature on missing data in longitudinal studies to help guide you.</p>
-<div id="bivariate-setup" class="section level3">
-<h3><span class="header-section-number">3.3.1</span> Bivariate Setup</h3>
-<p>Using the <code>pivot_wider</code> function like we did in <a href="3-2-univariate-descriptives.html#univariate-setup">Univariate Setup</a>, we can create a wide-format dataset with a column for each unique child age (e.g., 6, 7, 8, 9, …). Then, calculating the correlation matrix proceeds in a straightforward manner. As with calculating the variances by age in <a href="3-2-univariate-descriptives.html#univariate-setup">Univariate Setup</a>, calculating the anti-social score correlations by age can help inform us about various modeling choices later.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="3-3-bivariate-descriptives.html#cb24-1"></a>cor_tab &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
-<span id="cb24-2"><a href="3-3-bivariate-descriptives.html#cb24-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(., person_id, child_age, anti_score) <span class="op">%&gt;%</span></span>
-<span id="cb24-3"><a href="3-3-bivariate-descriptives.html#cb24-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(., <span class="op">!</span><span class="kw">is.na</span>(child_age)) <span class="op">%&gt;%</span></span>
-<span id="cb24-4"><a href="3-3-bivariate-descriptives.html#cb24-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">arrange</span>(., child_age, person_id) <span class="op">%&gt;%</span></span>
-<span id="cb24-5"><a href="3-3-bivariate-descriptives.html#cb24-5"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_wider</span>(</span>
-<span id="cb24-6"><a href="3-3-bivariate-descriptives.html#cb24-6"></a>    <span class="dt">names_from =</span> <span class="st">&quot;child_age&quot;</span>,</span>
-<span id="cb24-7"><a href="3-3-bivariate-descriptives.html#cb24-7"></a>    <span class="dt">values_from =</span> <span class="kw">c</span>(<span class="st">&quot;anti_score&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb24-8"><a href="3-3-bivariate-descriptives.html#cb24-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(., <span class="op">-</span>person_id) <span class="op">%&gt;%</span></span>
-<span id="cb24-9"><a href="3-3-bivariate-descriptives.html#cb24-9"></a><span class="st">  </span>corrr<span class="op">::</span><span class="kw">correlate</span>(., <span class="dt">diagonal =</span> <span class="dv">1</span>, <span class="dt">use =</span> <span class="st">&quot;pairwise&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb24-10"><a href="3-3-bivariate-descriptives.html#cb24-10"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(., <span class="dt">child_age =</span> <span class="kw">as.numeric</span>(rowname), <span class="dt">.before =</span> rowname) <span class="op">%&gt;%</span></span>
-<span id="cb24-11"><a href="3-3-bivariate-descriptives.html#cb24-11"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(., <span class="op">-</span>rowname) <span class="op">%&gt;%</span></span>
-<span id="cb24-12"><a href="3-3-bivariate-descriptives.html#cb24-12"></a><span class="st">  </span>purrr<span class="op">::</span><span class="kw">map_df</span>(., <span class="op">~</span><span class="kw">format</span>(<span class="kw">round</span>(.x, <span class="dv">2</span>), <span class="dt">nsmall =</span> <span class="dv">2</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb24-13"><a href="3-3-bivariate-descriptives.html#cb24-13"></a><span class="st">  </span><span class="kw">print</span>(.)</span></code></pre></div>
-<pre><code>## Warning in stats::cor(x = x, y = y, use = use, method = method): the standard
-## deviation is zero</code></pre>
-<pre><code>## # A tibble: 9 x 10
-##   child_age `6`    `7`    `8`    `9`    `10`   `11`    `12`    `13`  `14`  
-##   &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; 
-## 1 &quot; 6.00&quot;   &quot;1.00&quot; &quot;  NA&quot; &quot;0.49&quot; &quot;0.31&quot; &quot;0.57&quot; &quot; 0.30&quot; &quot; 0.09&quot; 0.50  &quot;  NA&quot;
-## 2 &quot; 7.00&quot;   &quot;  NA&quot; &quot;1.00&quot; &quot;  NA&quot; &quot;0.51&quot; &quot;0.34&quot; &quot; 0.53&quot; &quot; 0.39&quot; 0.38  &quot;0.59&quot;
-## 3 &quot; 8.00&quot;   &quot;0.49&quot; &quot;  NA&quot; &quot;1.00&quot; &quot;  NA&quot; &quot;0.56&quot; &quot; 0.27&quot; &quot; 0.44&quot; 0.82  &quot;0.44&quot;
-## 4 &quot; 9.00&quot;   &quot;0.31&quot; &quot;0.51&quot; &quot;  NA&quot; &quot;1.00&quot; &quot;0.87&quot; &quot; 0.55&quot; &quot; 0.57&quot; 0.58  &quot;0.00&quot;
-## 5 &quot;10.00&quot;   &quot;0.57&quot; &quot;0.34&quot; &quot;0.56&quot; &quot;0.87&quot; &quot;1.00&quot; &quot;   NA&quot; &quot; 0.56&quot; 0.73  &quot;0.55&quot;
-## 6 &quot;11.00&quot;   &quot;0.30&quot; &quot;0.53&quot; &quot;0.27&quot; &quot;0.55&quot; &quot;  NA&quot; &quot; 1.00&quot; &quot;-0.15&quot; 0.60  &quot;  NA&quot;
-## 7 &quot;12.00&quot;   &quot;0.09&quot; &quot;0.39&quot; &quot;0.44&quot; &quot;0.57&quot; &quot;0.56&quot; &quot;-0.15&quot; &quot; 1.00&quot; 0.65  &quot;0.47&quot;
-## 8 &quot;13.00&quot;   &quot;0.50&quot; &quot;0.38&quot; &quot;0.82&quot; &quot;0.58&quot; &quot;0.73&quot; &quot; 0.60&quot; &quot; 0.65&quot; 1.00  &quot;0.84&quot;
-## 9 &quot;14.00&quot;   &quot;  NA&quot; &quot;0.59&quot; &quot;0.44&quot; &quot;0.00&quot; &quot;0.55&quot; &quot;   NA&quot; &quot; 0.47&quot; 0.84  &quot;1.00&quot;</code></pre>
+<div id="wide-to-long" class="section level2">
+<h2><span class="header-section-number">2.2</span> Wide to Long</h2>
+<p>Because we have 3 repeated measures variables (“ag”, “an” and “r”), we use the “names_pattern” argument of <code>tidyr::pivot_longer</code>. “names_pattern” uses a regular expression &quot;(.+)_(.+)&quot; in combo with the “names_to” argument c(“.value”, “wave”) to save all of the data from each repeated measures variable under the names “an”, “r”, and “ag”. The new “wave” variable contains information about when each measurement was taken, drawing its values from the number at the end of the original column name. For example, all of the data from the original column “an_2” will be stored in the new “an” variable with a “wave” code of “2”. Because there are 4 waves of measurement, there will now be 4 rows for each person with complete data (n.b., children with missing data will have fewer rows), which you can double check by looking at the “id” column.</p>
+<p>In the <code>dplyr::mutate</code> step, we subtract 1 from each value of “wave” because we want our initial measurement to be coded “0”. This will have implications for the interpretation of the intercept when we move to the modeling phase.</p>
+<p>Finally, we rename all our variables to something more informative. This step isn’t strictly necessary, but often it is useful for revisiting and collaborating on code to use informative variable names.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="2-2-wide-to-long.html#cb3-1"></a><span class="co"># pivot wide to long</span></span>
+<span id="cb3-2"><a href="2-2-wide-to-long.html#cb3-2"></a>dat_long &lt;-<span class="st"> </span>dat_wide <span class="op">%&gt;%</span></span>
+<span id="cb3-3"><a href="2-2-wide-to-long.html#cb3-3"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(</span>
+<span id="cb3-4"><a href="2-2-wide-to-long.html#cb3-4"></a>    <span class="dt">cols =</span> <span class="kw">c</span>(dplyr<span class="op">::</span><span class="kw">contains</span>(<span class="st">&quot;_&quot;</span>)),</span>
+<span id="cb3-5"><a href="2-2-wide-to-long.html#cb3-5"></a>    <span class="dt">names_to =</span> <span class="kw">c</span>(<span class="st">&quot;.value&quot;</span>, <span class="st">&quot;wave&quot;</span>),</span>
+<span id="cb3-6"><a href="2-2-wide-to-long.html#cb3-6"></a>    <span class="dt">names_pattern =</span> <span class="kw">c</span>(<span class="st">&quot;(.+)_(.+)&quot;</span>)</span>
+<span id="cb3-7"><a href="2-2-wide-to-long.html#cb3-7"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb3-8"><a href="2-2-wide-to-long.html#cb3-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(., <span class="dt">wave =</span> <span class="kw">as.numeric</span>(wave) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></span>
+<span id="cb3-9"><a href="2-2-wide-to-long.html#cb3-9"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(</span>
+<span id="cb3-10"><a href="2-2-wide-to-long.html#cb3-10"></a>    <span class="dt">person_id =</span> id,</span>
+<span id="cb3-11"><a href="2-2-wide-to-long.html#cb3-11"></a>    <span class="dt">assigned_sex =</span> gen,</span>
+<span id="cb3-12"><a href="2-2-wide-to-long.html#cb3-12"></a>    <span class="dt">mom_age =</span> momage,</span>
+<span id="cb3-13"><a href="2-2-wide-to-long.html#cb3-13"></a>    <span class="dt">home_cog =</span> homecog,</span>
+<span id="cb3-14"><a href="2-2-wide-to-long.html#cb3-14"></a>    <span class="dt">home_emo =</span> homeemo,</span>
+<span id="cb3-15"><a href="2-2-wide-to-long.html#cb3-15"></a>    <span class="dt">anti_score =</span> an,</span>
+<span id="cb3-16"><a href="2-2-wide-to-long.html#cb3-16"></a>    <span class="dt">read_score =</span> r,</span>
+<span id="cb3-17"><a href="2-2-wide-to-long.html#cb3-17"></a>    <span class="dt">child_age =</span> ag</span>
+<span id="cb3-18"><a href="2-2-wide-to-long.html#cb3-18"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb3-19"><a href="2-2-wide-to-long.html#cb3-19"></a><span class="st">  </span><span class="kw">print</span>(.)</span></code></pre></div>
+<pre><code>## # A tibble: 1,620 x 9
+##    person_id assigned_sex mom_age home_cog home_emo  wave anti_score read_score
+##        &lt;dbl&gt; &lt;fct&gt;          &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+##  1         1 male              27        7       11     0          1         27
+##  2         1 male              27        7       11     1          0         49
+##  3         1 male              27        7       11     2          1         50
+##  4         1 male              27        7       11     3          0         NA
+##  5         2 male              27       10        7     0          1         31
+##  6         2 male              27       10        7     1          1         47
+##  7         2 male              27       10        7     2          0         56
+##  8         2 male              27       10        7     3          1         64
+##  9         3 female            27        7        7     0          5         36
+## 10         3 female            27        7        7     1          0         52
+## # ... with 1,610 more rows, and 1 more variable: child_age &lt;dbl&gt;</code></pre>
 </div>
-<div id="bivariate-table" class="section level3">
-<h3><span class="header-section-number">3.3.2</span> Bivariate Table</h3>
-<p>With a few small tweaks to the raw correlation matrix produced above, we can now use the <code>gt</code> package as <a href="3-2-univariate-descriptives.html#univariate-table">before</a> to produce a display-quality correlation table. Note that the “—” symbol blocks off the upper triangle of the correlation matrix to reduce visual redundancy, and “NA” symbols within the lower triangle indicate correlations that could not be calculated due to missing data (for example, the correlation for anti-social behavior at age 6 and age 14 is missing because no children were measured at both age 6 and 14).</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="3-3-bivariate-descriptives.html#cb27-1"></a><span class="co"># table results</span></span>
-<span id="cb27-2"><a href="3-3-bivariate-descriptives.html#cb27-2"></a>cor_tab_upper &lt;-<span class="st"> </span>cor_tab <span class="op">%&gt;%</span></span>
-<span id="cb27-3"><a href="3-3-bivariate-descriptives.html#cb27-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(., <span class="op">-</span>child_age)</span>
-<span id="cb27-4"><a href="3-3-bivariate-descriptives.html#cb27-4"></a></span>
-<span id="cb27-5"><a href="3-3-bivariate-descriptives.html#cb27-5"></a>cor_tab_upper[<span class="kw">upper.tri</span>(cor_tab_upper, <span class="dt">diag =</span> <span class="ot">FALSE</span>)] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb27-6"><a href="3-3-bivariate-descriptives.html#cb27-6"></a></span>
-<span id="cb27-7"><a href="3-3-bivariate-descriptives.html#cb27-7"></a>gt_cor_tab &lt;-<span class="st"> </span>cor_tab_upper <span class="op">%&gt;%</span></span>
-<span id="cb27-8"><a href="3-3-bivariate-descriptives.html#cb27-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(., <span class="dt">child_age =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">14</span>, <span class="dt">.before =</span> <span class="st">&quot;6&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb27-9"><a href="3-3-bivariate-descriptives.html#cb27-9"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">gt</span>(.) <span class="op">%&gt;%</span></span>
-<span id="cb27-10"><a href="3-3-bivariate-descriptives.html#cb27-10"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_header</span>(</span>
-<span id="cb27-11"><a href="3-3-bivariate-descriptives.html#cb27-11"></a>    <span class="dt">data =</span> ., </span>
-<span id="cb27-12"><a href="3-3-bivariate-descriptives.html#cb27-12"></a>    <span class="dt">title =</span> <span class="st">&quot;Correlation of Anti-Social Scores Across Age&quot;</span>,</span>
-<span id="cb27-13"><a href="3-3-bivariate-descriptives.html#cb27-13"></a>    <span class="dt">subtitle =</span> <span class="st">&quot;Complete pairwise observations were retained.&quot;</span></span>
-<span id="cb27-14"><a href="3-3-bivariate-descriptives.html#cb27-14"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb27-15"><a href="3-3-bivariate-descriptives.html#cb27-15"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_spanner</span>(</span>
-<span id="cb27-16"><a href="3-3-bivariate-descriptives.html#cb27-16"></a>    <span class="dt">data =</span> ., </span>
-<span id="cb27-17"><a href="3-3-bivariate-descriptives.html#cb27-17"></a>    <span class="dt">label =</span> <span class="st">&quot;Self-Correlated Scores by Age&quot;</span>, </span>
-<span id="cb27-18"><a href="3-3-bivariate-descriptives.html#cb27-18"></a>    <span class="dt">columns =</span> tidyselect<span class="op">::</span><span class="kw">matches</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">d&quot;</span>)</span>
-<span id="cb27-19"><a href="3-3-bivariate-descriptives.html#cb27-19"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb27-20"><a href="3-3-bivariate-descriptives.html#cb27-20"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_label</span>(., <span class="dt">child_age =</span> <span class="st">&quot;Child Age&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb27-21"><a href="3-3-bivariate-descriptives.html#cb27-21"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">fmt_missing</span>(., <span class="dt">columns =</span> tidyselect<span class="op">::</span><span class="kw">matches</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">d&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb27-22"><a href="3-3-bivariate-descriptives.html#cb27-22"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_options</span>(., <span class="dt">row.striping.include_table_body =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb27-23"><a href="3-3-bivariate-descriptives.html#cb27-23"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_style</span>(</span>
-<span id="cb27-24"><a href="3-3-bivariate-descriptives.html#cb27-24"></a>    <span class="dt">data =</span> ., </span>
-<span id="cb27-25"><a href="3-3-bivariate-descriptives.html#cb27-25"></a>    <span class="dt">style =</span> gt<span class="op">::</span><span class="kw">cell_borders</span>(</span>
-<span id="cb27-26"><a href="3-3-bivariate-descriptives.html#cb27-26"></a>      <span class="dt">sides =</span> <span class="kw">c</span>(<span class="st">&quot;top&quot;</span>, <span class="st">&quot;bottom&quot;</span>),</span>
-<span id="cb27-27"><a href="3-3-bivariate-descriptives.html#cb27-27"></a>      <span class="dt">color =</span> <span class="st">&quot;#ffffff&quot;</span>,</span>
-<span id="cb27-28"><a href="3-3-bivariate-descriptives.html#cb27-28"></a>      <span class="dt">weight =</span> gt<span class="op">::</span><span class="kw">px</span>(<span class="dv">0</span>),</span>
-<span id="cb27-29"><a href="3-3-bivariate-descriptives.html#cb27-29"></a>      <span class="dt">style =</span> <span class="st">&quot;solid&quot;</span></span>
-<span id="cb27-30"><a href="3-3-bivariate-descriptives.html#cb27-30"></a>    ),</span>
-<span id="cb27-31"><a href="3-3-bivariate-descriptives.html#cb27-31"></a>    <span class="dt">locations =</span> gt<span class="op">::</span><span class="kw">cells_body</span>(</span>
-<span id="cb27-32"><a href="3-3-bivariate-descriptives.html#cb27-32"></a>      <span class="dt">columns =</span> dplyr<span class="op">::</span><span class="kw">everything</span>(),</span>
-<span id="cb27-33"><a href="3-3-bivariate-descriptives.html#cb27-33"></a>      <span class="dt">rows =</span> dplyr<span class="op">::</span><span class="kw">everything</span>()</span>
-<span id="cb27-34"><a href="3-3-bivariate-descriptives.html#cb27-34"></a>    )</span>
-<span id="cb27-35"><a href="3-3-bivariate-descriptives.html#cb27-35"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb27-36"><a href="3-3-bivariate-descriptives.html#cb27-36"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_align</span>(., <span class="dt">align =</span> <span class="st">&quot;center&quot;</span>, <span class="dt">columns =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb27-37"><a href="3-3-bivariate-descriptives.html#cb27-37"></a></span>
-<span id="cb27-38"><a href="3-3-bivariate-descriptives.html#cb27-38"></a><span class="co"># print plot</span></span>
-<span id="cb27-39"><a href="3-3-bivariate-descriptives.html#cb27-39"></a>gt_cor_tab</span></code></pre></div>
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
-}
-
-#mfiixnelrx .gt_table {
-  display: table;
-  border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#mfiixnelrx .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#mfiixnelrx .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#mfiixnelrx .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 4px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#mfiixnelrx .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#mfiixnelrx .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#mfiixnelrx .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#mfiixnelrx .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#mfiixnelrx .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#mfiixnelrx .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#mfiixnelrx .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#mfiixnelrx .gt_group_heading {
-  padding: 8px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#mfiixnelrx .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#mfiixnelrx .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#mfiixnelrx .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#mfiixnelrx .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#mfiixnelrx .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#mfiixnelrx .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 12px;
-}
-
-#mfiixnelrx .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#mfiixnelrx .gt_first_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-}
-
-#mfiixnelrx .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#mfiixnelrx .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#mfiixnelrx .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#mfiixnelrx .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#mfiixnelrx .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding: 4px;
-}
-
-#mfiixnelrx .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#mfiixnelrx .gt_sourcenote {
-  font-size: 90%;
-  padding: 4px;
-}
-
-#mfiixnelrx .gt_left {
-  text-align: left;
-}
-
-#mfiixnelrx .gt_center {
-  text-align: center;
-}
-
-#mfiixnelrx .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#mfiixnelrx .gt_font_normal {
-  font-weight: normal;
-}
-
-#mfiixnelrx .gt_font_bold {
-  font-weight: bold;
-}
-
-#mfiixnelrx .gt_font_italic {
-  font-style: italic;
-}
-
-#mfiixnelrx .gt_super {
-  font-size: 65%;
-}
-
-#mfiixnelrx .gt_footnote_marks {
-  font-style: italic;
-  font-size: 65%;
-}
-</style>
-<div id="mfiixnelrx" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
-  <thead class="gt_header">
-    <tr>
-      <th colspan="10" class="gt_heading gt_title gt_font_normal" style>Correlation of Anti-Social Scores Across Age</th>
-    </tr>
-    <tr>
-      <th colspan="10" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Complete pairwise observations were retained.</th>
-    </tr>
-  </thead>
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1">Child Age</th>
-      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="9">
-        <span class="gt_column_spanner">Self-Correlated Scores by Age</span>
-      </th>
-    </tr>
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">6</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">7</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">8</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">9</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">10</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">11</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">12</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">13</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">14</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">6</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">1.00</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">7</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">  NA</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">1.00</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">8</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.49</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">  NA</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">1.00</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">9</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.31</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.51</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">  NA</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">1.00</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">10</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.57</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.34</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.56</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.87</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">1.00</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">11</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.30</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.53</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.27</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.55</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">  NA</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;"> 1.00</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">12</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.09</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.39</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.44</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.57</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.56</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">-0.15</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;"> 1.00</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">13</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.50</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.38</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.82</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.58</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.73</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;"> 0.60</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;"> 0.65</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">1.00</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">14</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">  NA</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.59</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.44</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.00</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.55</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">   NA</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;"> 0.47</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.84</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">1.00</td>
-    </tr>
-  </tbody>
-  
-  
-</table></div>
-</div>
-</div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="3-2-univariate-descriptives.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="3-4-trajectories.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="2-1-load-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="3-exploratory-data-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script>/*! jQuery v2.2.3 | (c) jQuery Foundation | jquery.org/license */
