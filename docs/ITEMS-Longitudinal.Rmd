@@ -119,7 +119,7 @@ dat_long <- dat_wide %>%
     child_age = ag
   ) %>%
   print(.)
-  
+
 ```
 
 # Exploratory Data Analysis 
@@ -300,7 +300,12 @@ dat_attrit_l %>%
   ggplot2::ylim(0, 100) +
   ggplot2::xlab("Number of Data Collection Waves Completed") +
   ggplot2::ylab("Percent of Children \n per Attrition Category") +
-  ggplot2::ggtitle("Attrition Patterns of Anti-Social Behavior Scores (n = 405)")
+  ggplot2::ggtitle(
+    expression(
+      paste("Attrition Patterns of Anti-Social Behavior Scores ",
+            "(", n["Wave 1"], " = 405)")
+    )
+  )
 
 ```
 
@@ -500,7 +505,10 @@ gt_moments <- moment_tab %>%
 # print plot
 gt_moments
 
-# save plot to file
+```
+
+```{r include=FALSE}
+# save table to file
 gt_moments %>%
   gt::gtsave(
     data = .,
@@ -583,7 +591,11 @@ gt_cor_tab <- cor_tab_upper %>%
 # print plot
 gt_cor_tab
 
-# save plot to file
+```
+
+```{r include=FALSE}
+
+# save table to file
 gt_cor_tab %>%
   gt::gtsave(
     data = .,
@@ -880,7 +892,11 @@ gt_global_tab <- anova(null_icc, null_fslp, null_rslp, null_hvar, null_csym) %>%
 # print plot
 gt_global_tab
 
-# save plot to file
+```
+
+```{r include=FALSE}
+
+# save table to file
 gt_global_tab %>%
   gt::gtsave(
     data = .,
@@ -1018,7 +1034,11 @@ gt_results_tab <- cond_reml %>%
 # print plot
 gt_results_tab
 
-# save plot to file
+```
+
+```{r include=FALSE}
+
+# save table to file
 gt_results_tab %>%
   gt::gtsave(
     data = .,
