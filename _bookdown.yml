@@ -1,0 +1,5 @@
+book_filename: "ITEMS-Longitudinal"
+chapter_name: "Part "
+repo: https://github.com/tessaleejohnson/ITEMS-Longitudinal
+output_dir: docs
+new_session: yes

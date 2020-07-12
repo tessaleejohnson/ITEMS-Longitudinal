@@ -4,21 +4,21 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4 Model Fitting | ITEMS: Longitudinal Data Analysis</title>
-  <meta name="description" content="4 Model Fitting | ITEMS: Longitudinal Data Analysis" />
+  <title>Part 4 Model Fitting | ITEMS: Longitudinal Data Analysis</title>
+  <meta name="description" content="ITEMS module for learning longitudinal data analysis in R." />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4 Model Fitting | ITEMS: Longitudinal Data Analysis" />
+  <meta property="og:title" content="Part 4 Model Fitting | ITEMS: Longitudinal Data Analysis" />
   <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://tessaleejohnson.github.io/ITEMS-Longitudinal/" />
   
-  
-  
-  
+  <meta property="og:description" content="ITEMS module for learning longitudinal data analysis in R." />
+  <meta name="github-repo" content="tessaleejohnson/ITEMS-Longitudinal" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4 Model Fitting | ITEMS: Longitudinal Data Analysis" />
+  <meta name="twitter:title" content="Part 4 Model Fitting | ITEMS: Longitudinal Data Analysis" />
   
-  
+  <meta name="twitter:description" content="ITEMS module for learning longitudinal data analysis in R." />
   
 
 <meta name="author" content="Tessa L. Johnson" />
@@ -1857,6 +1857,21 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">p.caption {
+color: #777;
+margin-top: 10px;
+}
+p code {
+white-space: inherit;
+}
+pre {
+word-break: normal;
+word-wrap: normal;
+}
+pre code {
+white-space: inherit;
+}
+</style>
 </head>
 
 <body>
@@ -1869,6 +1884,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
+<li><a href="./">ITEMS-Longitudinal</a></li>
+
+<li class="divider"></li>
 <li class="chapter" data-level="1" data-path="1-nlsy-example.html"><a href="1-nlsy-example.html"><i class="fa fa-check"></i><b>1</b> NLSY Example</a></li>
 <li class="chapter" data-level="2" data-path="2-getting-started.html"><a href="2-getting-started.html"><i class="fa fa-check"></i><b>2</b> Getting Started</a><ul>
 <li class="chapter" data-level="2.1" data-path="2-1-load-data.html"><a href="2-1-load-data.html"><i class="fa fa-check"></i><b>2.1</b> Load Data</a></li>
@@ -1916,6 +1934,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3" data-path="5-3-homoskedasticity-plots.html"><a href="5-3-homoskedasticity-plots.html"><i class="fa fa-check"></i><b>5.3</b> Homoskedasticity Plots</a></li>
 <li class="chapter" data-level="5.4" data-path="5-4-independence-plots.html"><a href="5-4-independence-plots.html"><i class="fa fa-check"></i><b>5.4</b> Independence Plots</a></li>
 </ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
 </ul>
 
       </nav>
@@ -1934,7 +1955,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="model-fitting" class="section level1">
-<h1><span class="header-section-number">4</span> Model Fitting</h1>
+<h1><span class="header-section-number">Part 4</span> Model Fitting</h1>
 <p>In the next section, we demonstrate the model-building process for mixed-effects models, including basic model comparisons. After fitting each of these models, we demonstrate how to summarize the global fit comparisons using the <code>gt</code> table package to help us identify our best “semi-unconditional” (that is, without predictors but including the time effects) model.</p>
 <p>Once we have selected a semi-unconditional model, we add predictors to the model. In this analysis, we are interested in whether the trajectory of anti-social behavior is significantly impacted by a child’s assigned sex after controlling for reading score, mom’s age, home emotional stimulation, and home cognitive stimulation, which have been standardized. Last, we demonstrate how to summarize the model parameter estimates using the <code>gt</code> table package.</p>
 <p>Modeling Tips:</p>
@@ -2887,8 +2908,7 @@ gitbook.start({
 "download": null,
 "toc": {
 "collapse": "subsection"
-},
-"search": false
+}
 });
 });
 </script>

@@ -5,20 +5,20 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3.2 Univariate Descriptives | ITEMS: Longitudinal Data Analysis</title>
-  <meta name="description" content="3.2 Univariate Descriptives | ITEMS: Longitudinal Data Analysis" />
+  <meta name="description" content="ITEMS module for learning longitudinal data analysis in R." />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3.2 Univariate Descriptives | ITEMS: Longitudinal Data Analysis" />
   <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://tessaleejohnson.github.io/ITEMS-Longitudinal/" />
   
-  
-  
-  
+  <meta property="og:description" content="ITEMS module for learning longitudinal data analysis in R." />
+  <meta name="github-repo" content="tessaleejohnson/ITEMS-Longitudinal" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="3.2 Univariate Descriptives | ITEMS: Longitudinal Data Analysis" />
   
-  
+  <meta name="twitter:description" content="ITEMS module for learning longitudinal data analysis in R." />
   
 
 <meta name="author" content="Tessa L. Johnson" />
@@ -1857,6 +1857,21 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">p.caption {
+color: #777;
+margin-top: 10px;
+}
+p code {
+white-space: inherit;
+}
+pre {
+word-break: normal;
+word-wrap: normal;
+}
+pre code {
+white-space: inherit;
+}
+</style>
 </head>
 
 <body>
@@ -1869,6 +1884,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
+<li><a href="./">ITEMS-Longitudinal</a></li>
+
+<li class="divider"></li>
 <li class="chapter" data-level="1" data-path="1-nlsy-example.html"><a href="1-nlsy-example.html"><i class="fa fa-check"></i><b>1</b> NLSY Example</a></li>
 <li class="chapter" data-level="2" data-path="2-getting-started.html"><a href="2-getting-started.html"><i class="fa fa-check"></i><b>2</b> Getting Started</a><ul>
 <li class="chapter" data-level="2.1" data-path="2-1-load-data.html"><a href="2-1-load-data.html"><i class="fa fa-check"></i><b>2.1</b> Load Data</a></li>
@@ -1916,6 +1934,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3" data-path="5-3-homoskedasticity-plots.html"><a href="5-3-homoskedasticity-plots.html"><i class="fa fa-check"></i><b>5.3</b> Homoskedasticity Plots</a></li>
 <li class="chapter" data-level="5.4" data-path="5-4-independence-plots.html"><a href="5-4-independence-plots.html"><i class="fa fa-check"></i><b>5.4</b> Independence Plots</a></li>
 </ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
 </ul>
 
       </nav>
@@ -2010,7 +2031,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#qvhmwychqq .gt_table {
+#uvfeqxphib .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -2033,7 +2054,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#qvhmwychqq .gt_heading {
+#uvfeqxphib .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2045,7 +2066,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#qvhmwychqq .gt_title {
+#uvfeqxphib .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2055,7 +2076,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-#qvhmwychqq .gt_subtitle {
+#uvfeqxphib .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2065,13 +2086,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-#qvhmwychqq .gt_bottom_border {
+#uvfeqxphib .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#qvhmwychqq .gt_col_headings {
+#uvfeqxphib .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2086,7 +2107,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#qvhmwychqq .gt_col_heading {
+#uvfeqxphib .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2106,7 +2127,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#qvhmwychqq .gt_column_spanner_outer {
+#uvfeqxphib .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2118,15 +2139,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-#qvhmwychqq .gt_column_spanner_outer:first-child {
+#uvfeqxphib .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#qvhmwychqq .gt_column_spanner_outer:last-child {
+#uvfeqxphib .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#qvhmwychqq .gt_column_spanner {
+#uvfeqxphib .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2138,7 +2159,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-#qvhmwychqq .gt_group_heading {
+#uvfeqxphib .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2160,7 +2181,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#qvhmwychqq .gt_empty_group_heading {
+#uvfeqxphib .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2175,19 +2196,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#qvhmwychqq .gt_striped {
+#uvfeqxphib .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#qvhmwychqq .gt_from_md > :first-child {
+#uvfeqxphib .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#qvhmwychqq .gt_from_md > :last-child {
+#uvfeqxphib .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#qvhmwychqq .gt_row {
+#uvfeqxphib .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2206,7 +2227,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#qvhmwychqq .gt_stub {
+#uvfeqxphib .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2218,7 +2239,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-left: 12px;
 }
 
-#qvhmwychqq .gt_summary_row {
+#uvfeqxphib .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2228,7 +2249,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#qvhmwychqq .gt_first_summary_row {
+#uvfeqxphib .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2238,7 +2259,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#qvhmwychqq .gt_grand_summary_row {
+#uvfeqxphib .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2248,7 +2269,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#qvhmwychqq .gt_first_grand_summary_row {
+#uvfeqxphib .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2258,7 +2279,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#qvhmwychqq .gt_table_body {
+#uvfeqxphib .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2267,7 +2288,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#qvhmwychqq .gt_footnotes {
+#uvfeqxphib .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2281,13 +2302,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#qvhmwychqq .gt_footnote {
+#uvfeqxphib .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#qvhmwychqq .gt_sourcenotes {
+#uvfeqxphib .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2301,46 +2322,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#qvhmwychqq .gt_sourcenote {
+#uvfeqxphib .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#qvhmwychqq .gt_left {
+#uvfeqxphib .gt_left {
   text-align: left;
 }
 
-#qvhmwychqq .gt_center {
+#uvfeqxphib .gt_center {
   text-align: center;
 }
 
-#qvhmwychqq .gt_right {
+#uvfeqxphib .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#qvhmwychqq .gt_font_normal {
+#uvfeqxphib .gt_font_normal {
   font-weight: normal;
 }
 
-#qvhmwychqq .gt_font_bold {
+#uvfeqxphib .gt_font_bold {
   font-weight: bold;
 }
 
-#qvhmwychqq .gt_font_italic {
+#uvfeqxphib .gt_font_italic {
   font-style: italic;
 }
 
-#qvhmwychqq .gt_super {
+#uvfeqxphib .gt_super {
   font-size: 65%;
 }
 
-#qvhmwychqq .gt_footnote_marks {
+#uvfeqxphib .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="qvhmwychqq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="uvfeqxphib" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   <thead class="gt_header">
     <tr>
       <th colspan="4" class="gt_heading gt_title gt_font_normal" style>Univariate Descriptive Statistics for Anti-Social Behavior Scores</th>
@@ -3370,8 +3391,7 @@ gitbook.start({
 "download": null,
 "toc": {
 "collapse": "subsection"
-},
-"search": false
+}
 });
 });
 </script>

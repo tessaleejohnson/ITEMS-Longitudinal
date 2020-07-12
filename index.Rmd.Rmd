@@ -6,6 +6,9 @@ output:
    bookdown::gitbook:
      self_contained: TRUE
      split_by: "section+number"
+github-repo: tessaleejohnson/ITEMS-Longitudinal
+url: 'http\://tessaleejohnson.github.io/ITEMS-Longitudinal/'
+description: "ITEMS module for learning longitudinal data analysis in R."
 ---
 
 ```{r setup, include = FALSE}
