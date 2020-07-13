@@ -23,7 +23,7 @@ library(magrittr)
 
 ##--OPTIONS--##
 knitr::opts_chunk$set(
-  fig.path = here::here("inst/output/Fig_"),
+  fig.path = here::here("output/Fig_"),
   echo = TRUE
 )
 
@@ -641,7 +641,7 @@ gt_moments
 gt_moments %>%
   gt::gtsave(
     data = .,
-    path = here::here("inst/output"),
+    path = here::here("output/"),
     filename = "Tab_calc-moments.html"
   )
 
@@ -736,7 +736,7 @@ gt_cor_tab
 gt_cor_tab %>%
   gt::gtsave(
     data = .,
-    path = here::here("inst/output"),
+    path = here::here("output/"),
     filename = "Tab_calc-corr.html"
   )
 
@@ -1067,7 +1067,7 @@ gt_global_tab
 gt_global_tab %>%
   gt::gtsave(
     data = .,
-    path = here::here("inst/output"),
+    path = here::here("output/"),
     filename = "Tab_fit-null-global.html"
   )
   
@@ -1217,7 +1217,7 @@ gt_results_tab
 gt_results_tab %>%
   gt::gtsave(
     data = .,
-    path = here::here("inst/output"),
+    path = here::here("output/"),
     filename = "Tab_fit-cond-results.html"
   )
   
