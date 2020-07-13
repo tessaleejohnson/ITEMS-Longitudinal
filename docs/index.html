@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.2 Univariate Descriptives | ITEMS: Longitudinal Data Analysis</title>
+  <title>ITEMS: Longitudinal Data Analysis</title>
   <meta name="description" content="ITEMS module for learning longitudinal data analysis in R." />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.2 Univariate Descriptives | ITEMS: Longitudinal Data Analysis" />
+  <meta property="og:title" content="ITEMS: Longitudinal Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="http://tessaleejohnson.github.io/ITEMS-Longitudinal/" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="tessaleejohnson/ITEMS-Longitudinal" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.2 Univariate Descriptives | ITEMS: Longitudinal Data Analysis" />
+  <meta name="twitter:title" content="ITEMS: Longitudinal Data Analysis" />
   
   <meta name="twitter:description" content="ITEMS module for learning longitudinal data analysis in R." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="3-1-missingness.html"/>
-<link rel="next" href="3-3-bivariate-descriptives.html"/>
+
+<link rel="next" href="2-getting-started.html"/>
 
 
 
@@ -1954,509 +1954,26 @@ white-space: inherit;
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="univariate-descriptives" class="section level2">
-<h2><span class="header-section-number">3.2</span> Univariate Descriptives</h2>
-<p>Following our exploration of missing data, we proceed to calculate univariate descriptive statistics. Given what we learned about the distribution of data across age groups in the missing data section, let’s move forward using the <code>dat_final</code> dataset created in <a href="3-1-missingness.html#updated-dataset">Updated Dataset</a>.</p>
-<div id="univariate-setup" class="section level3">
-<h3><span class="header-section-number">3.2.1</span> Univariate Setup</h3>
-<p>Using the <code>dat_final</code> long dataset, it is fairly straightforward to calculate the means, variances, and number of observations of the anti-social behavior scores within each age. Knowing the means and variances within each age group can help us see whether and how anti-social behavior changes on average over time. In addition, understanding whether the variances are changing over time can help us make modeling decisions later on.</p>
-<p>Recall that our new sample size is 397, following the steps in [Updated Data]. Each child was measured up to four times (and we retained a row even when missing their anti-social behavior information), so summing the <code>n</code>, or number of observations, should yield 397 * 4 = 1588. Note that 249 observations have a child age listed as <code>NA</code>. This number tells us how many anti-social behavior scores were not recorded across all measurement waves and individuals. For more information on how the missing anti-social behavior scores are distributed across individuals, see <a href="3-1-missingness.html#raster-plot">Raster Plot</a>.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="3-2-univariate-descriptives.html#cb20-1"></a><span class="co"># calculate descriptive statistics for each level of child&#39;s age</span></span>
-<span id="cb20-2"><a href="3-2-univariate-descriptives.html#cb20-2"></a>moment_tab &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
-<span id="cb20-3"><a href="3-2-univariate-descriptives.html#cb20-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(., child_age) <span class="op">%&gt;%</span></span>
-<span id="cb20-4"><a href="3-2-univariate-descriptives.html#cb20-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">summarize</span>(</span>
-<span id="cb20-5"><a href="3-2-univariate-descriptives.html#cb20-5"></a>    <span class="dt">n =</span> dplyr<span class="op">::</span><span class="kw">n</span>(),</span>
-<span id="cb20-6"><a href="3-2-univariate-descriptives.html#cb20-6"></a>    <span class="dt">mean =</span> <span class="kw">round</span>(<span class="kw">mean</span>(anti_score, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dv">2</span>),</span>
-<span id="cb20-7"><a href="3-2-univariate-descriptives.html#cb20-7"></a>    <span class="dt">variance =</span> <span class="kw">round</span>(<span class="kw">var</span>(anti_score, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dv">2</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb20-8"><a href="3-2-univariate-descriptives.html#cb20-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(., <span class="dt">child_age =</span> dplyr<span class="op">::</span><span class="kw">case_when</span>(</span>
-<span id="cb20-9"><a href="3-2-univariate-descriptives.html#cb20-9"></a>    <span class="kw">is.na</span>(child_age) <span class="op">~</span><span class="st"> &quot;Missing&quot;</span>,</span>
-<span id="cb20-10"><a href="3-2-univariate-descriptives.html#cb20-10"></a>    <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="kw">as.character</span>(child_age)</span>
-<span id="cb20-11"><a href="3-2-univariate-descriptives.html#cb20-11"></a>  )) <span class="op">%&gt;%</span></span>
-<span id="cb20-12"><a href="3-2-univariate-descriptives.html#cb20-12"></a><span class="st">  </span><span class="kw">print</span>(.)</span></code></pre></div>
-<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<pre><code>## # A tibble: 10 x 4
-##    child_age     n   mean variance
-##    &lt;chr&gt;     &lt;int&gt;  &lt;dbl&gt;    &lt;dbl&gt;
-##  1 6           122   1.57     2.78
-##  2 7           168   1.55     2.42
-##  3 8           138   2.04     3.26
-##  4 9           192   1.89     3.82
-##  5 10          149   2.15     4.59
-##  6 11          169   1.79     3.81
-##  7 12          131   1.84     3.07
-##  8 13          169   2.25     5.19
-##  9 14          101   1.96     4.36
-## 10 Missing     249 NaN       NA</code></pre>
+<div id="header">
+<h1 class="title">ITEMS: Longitudinal Data Analysis</h1>
+<p class="author"><em>Tessa L. Johnson</em></p>
+<p class="date"><em>2020-07-12</em></p>
 </div>
-<div id="univariate-table" class="section level3">
-<h3><span class="header-section-number">3.2.2</span> Univariate Table</h3>
-<p>Now that we’ve calculated our univariate descriptive statistics, we will use the <code>gt</code> package to create a display-quality table of results. The <code>gt</code> package has a similar ethos to <code>ggplot2</code>, where each component of a table can be added on to the previous component. Although the intricacies of both <code>gt</code> and <code>ggplot2</code> are beyond the scope of this module, we thought it was important to demonstrate ways to create reproducible tables and plots for longitudinal data.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="3-2-univariate-descriptives.html#cb23-1"></a>gt_moments &lt;-<span class="st"> </span>moment_tab <span class="op">%&gt;%</span></span>
-<span id="cb23-2"><a href="3-2-univariate-descriptives.html#cb23-2"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">gt</span>(.) <span class="op">%&gt;%</span></span>
-<span id="cb23-3"><a href="3-2-univariate-descriptives.html#cb23-3"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_header</span>(</span>
-<span id="cb23-4"><a href="3-2-univariate-descriptives.html#cb23-4"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb23-5"><a href="3-2-univariate-descriptives.html#cb23-5"></a>    <span class="dt">title =</span> <span class="st">&quot;Univariate Descriptive Statistics for Anti-Social Behavior Scores&quot;</span>,</span>
-<span id="cb23-6"><a href="3-2-univariate-descriptives.html#cb23-6"></a>    <span class="dt">subtitle =</span> <span class="st">&quot;Means, variances, &amp; number of observations within each age.&quot;</span></span>
-<span id="cb23-7"><a href="3-2-univariate-descriptives.html#cb23-7"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb23-8"><a href="3-2-univariate-descriptives.html#cb23-8"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_spanner</span>(</span>
-<span id="cb23-9"><a href="3-2-univariate-descriptives.html#cb23-9"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb23-10"><a href="3-2-univariate-descriptives.html#cb23-10"></a>    <span class="dt">label =</span> <span class="st">&quot;Summary of Anti-Social Scores by Age&quot;</span>, </span>
-<span id="cb23-11"><a href="3-2-univariate-descriptives.html#cb23-11"></a>    <span class="dt">columns =</span> <span class="kw">c</span>(<span class="st">&quot;n&quot;</span>, <span class="st">&quot;mean&quot;</span>, <span class="st">&quot;variance&quot;</span>)</span>
-<span id="cb23-12"><a href="3-2-univariate-descriptives.html#cb23-12"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb23-13"><a href="3-2-univariate-descriptives.html#cb23-13"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_label</span>(</span>
-<span id="cb23-14"><a href="3-2-univariate-descriptives.html#cb23-14"></a>    <span class="dt">child_age =</span> <span class="st">&quot;Child Age&quot;</span>,</span>
-<span id="cb23-15"><a href="3-2-univariate-descriptives.html#cb23-15"></a>    <span class="dt">n =</span> <span class="st">&quot;Num. Obs.&quot;</span>,</span>
-<span id="cb23-16"><a href="3-2-univariate-descriptives.html#cb23-16"></a>    <span class="dt">mean =</span> <span class="st">&quot;Mean&quot;</span>,</span>
-<span id="cb23-17"><a href="3-2-univariate-descriptives.html#cb23-17"></a>    <span class="dt">variance =</span> <span class="st">&quot;Variance&quot;</span></span>
-<span id="cb23-18"><a href="3-2-univariate-descriptives.html#cb23-18"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb23-19"><a href="3-2-univariate-descriptives.html#cb23-19"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_options</span>(., <span class="dt">row.striping.include_table_body =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb23-20"><a href="3-2-univariate-descriptives.html#cb23-20"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_style</span>(</span>
-<span id="cb23-21"><a href="3-2-univariate-descriptives.html#cb23-21"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb23-22"><a href="3-2-univariate-descriptives.html#cb23-22"></a>    <span class="dt">style =</span> gt<span class="op">::</span><span class="kw">cell_borders</span>(</span>
-<span id="cb23-23"><a href="3-2-univariate-descriptives.html#cb23-23"></a>      <span class="dt">sides =</span> <span class="kw">c</span>(<span class="st">&quot;top&quot;</span>, <span class="st">&quot;bottom&quot;</span>),</span>
-<span id="cb23-24"><a href="3-2-univariate-descriptives.html#cb23-24"></a>      <span class="dt">color =</span> <span class="st">&quot;#ffffff&quot;</span>,</span>
-<span id="cb23-25"><a href="3-2-univariate-descriptives.html#cb23-25"></a>      <span class="dt">weight =</span> gt<span class="op">::</span><span class="kw">px</span>(<span class="dv">0</span>),</span>
-<span id="cb23-26"><a href="3-2-univariate-descriptives.html#cb23-26"></a>      <span class="dt">style =</span> <span class="st">&quot;solid&quot;</span></span>
-<span id="cb23-27"><a href="3-2-univariate-descriptives.html#cb23-27"></a>    ),</span>
-<span id="cb23-28"><a href="3-2-univariate-descriptives.html#cb23-28"></a>    <span class="dt">locations =</span> gt<span class="op">::</span><span class="kw">cells_body</span>(</span>
-<span id="cb23-29"><a href="3-2-univariate-descriptives.html#cb23-29"></a>      <span class="dt">columns =</span> dplyr<span class="op">::</span><span class="kw">everything</span>(),</span>
-<span id="cb23-30"><a href="3-2-univariate-descriptives.html#cb23-30"></a>      <span class="dt">rows =</span> dplyr<span class="op">::</span><span class="kw">everything</span>())</span>
-<span id="cb23-31"><a href="3-2-univariate-descriptives.html#cb23-31"></a>    ) <span class="op">%&gt;%</span></span>
-<span id="cb23-32"><a href="3-2-univariate-descriptives.html#cb23-32"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_align</span>(., <span class="dt">align =</span> <span class="st">&quot;center&quot;</span>, <span class="dt">columns =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb23-33"><a href="3-2-univariate-descriptives.html#cb23-33"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">fmt_missing</span>(., <span class="dt">columns =</span> <span class="kw">c</span>(<span class="st">&quot;n&quot;</span>, <span class="st">&quot;mean&quot;</span>, <span class="st">&quot;variance&quot;</span>))</span>
-<span id="cb23-34"><a href="3-2-univariate-descriptives.html#cb23-34"></a></span>
-<span id="cb23-35"><a href="3-2-univariate-descriptives.html#cb23-35"></a><span class="co"># print plot</span></span>
-<span id="cb23-36"><a href="3-2-univariate-descriptives.html#cb23-36"></a>gt_moments</span></code></pre></div>
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
-}
-
-#alfczchymv .gt_table {
-  display: table;
-  border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#alfczchymv .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#alfczchymv .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#alfczchymv .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 4px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#alfczchymv .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#alfczchymv .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#alfczchymv .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#alfczchymv .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#alfczchymv .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#alfczchymv .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#alfczchymv .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#alfczchymv .gt_group_heading {
-  padding: 8px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#alfczchymv .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#alfczchymv .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#alfczchymv .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#alfczchymv .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#alfczchymv .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#alfczchymv .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 12px;
-}
-
-#alfczchymv .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#alfczchymv .gt_first_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-}
-
-#alfczchymv .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#alfczchymv .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#alfczchymv .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#alfczchymv .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#alfczchymv .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding: 4px;
-}
-
-#alfczchymv .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#alfczchymv .gt_sourcenote {
-  font-size: 90%;
-  padding: 4px;
-}
-
-#alfczchymv .gt_left {
-  text-align: left;
-}
-
-#alfczchymv .gt_center {
-  text-align: center;
-}
-
-#alfczchymv .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#alfczchymv .gt_font_normal {
-  font-weight: normal;
-}
-
-#alfczchymv .gt_font_bold {
-  font-weight: bold;
-}
-
-#alfczchymv .gt_font_italic {
-  font-style: italic;
-}
-
-#alfczchymv .gt_super {
-  font-size: 65%;
-}
-
-#alfczchymv .gt_footnote_marks {
-  font-style: italic;
-  font-size: 65%;
-}
-</style>
-<div id="alfczchymv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
-  <thead class="gt_header">
-    <tr>
-      <th colspan="4" class="gt_heading gt_title gt_font_normal" style>Univariate Descriptive Statistics for Anti-Social Behavior Scores</th>
-    </tr>
-    <tr>
-      <th colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Means, variances, &amp; number of observations within each age.</th>
-    </tr>
-  </thead>
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1">Child Age</th>
-      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="3">
-        <span class="gt_column_spanner">Summary of Anti-Social Scores by Age</span>
-      </th>
-    </tr>
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Num. Obs.</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Mean</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Variance</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">6</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">122</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">1.57</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">2.78</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">7</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">168</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">1.55</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">2.42</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">8</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">138</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">2.04</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">3.26</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">9</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">192</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">1.89</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">3.82</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">10</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">149</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">2.15</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">4.59</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">11</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">169</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">1.79</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">3.81</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">12</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">131</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">1.84</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">3.07</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">13</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">169</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">2.25</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">5.19</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">14</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">101</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">1.96</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">4.36</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">Missing</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">249</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-    </tr>
-  </tbody>
-  
-  
-</table></div>
-</div>
+<div id="nlsy-example" class="section level1">
+<h1><span class="header-section-number">Part 1</span> NLSY Example</h1>
+<p>In this example, we will be using data from the National Longitudinal Survey of Youth (NLSY). The current subset of data comes from assessments administered to mother-child pairs starting in 1986. Data were restricted to children ages 6-8 with complete data at the first wave of measurement. Data were retained from only one child per mother.</p>
+<p>More information about the example data can be found here:</p>
+<ul>
+<li><a href="https://jflournoy.github.io/assets/pdf/srcdmeth.pdf">Curran, P. J. (1997). Comparing three modern approaches to longitudinal data analysis: An examination of a single developmental sample. In <em>Symposium conducted at the meeting of the Society for Research on child Development, Washington, DC.</em></a></li>
+</ul>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="3-1-missingness.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="3-3-bivariate-descriptives.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+
+<a href="2-getting-started.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script>/*! jQuery v2.2.3 | (c) jQuery Foundation | jquery.org/license */
