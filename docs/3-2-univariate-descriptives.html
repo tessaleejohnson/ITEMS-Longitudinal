@@ -1792,6 +1792,554 @@ visibility: visible;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+.row { display: flex; }
+.collapse { display: none; }
+.in { display:block }
+.pull-right > .dropdown-menu {
+    right: 0;
+    left: auto;
+}
+.open > .dropdown-menu {
+    display: block;
+}
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
 <style type="text/css">
 code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -1894,45 +2442,53 @@ white-space: inherit;
 </ul></li>
 <li class="chapter" data-level="3" data-path="3-exploratory-data-analysis.html"><a href="3-exploratory-data-analysis.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis</a><ul>
 <li class="chapter" data-level="3.1" data-path="3-1-missingness.html"><a href="3-1-missingness.html"><i class="fa fa-check"></i><b>3.1</b> Missingness</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="3-1-missingness.html"><a href="3-1-missingness.html#missing-data-setup"><i class="fa fa-check"></i><b>3.1.1</b> Missing Data Setup</a></li>
+<li class="chapter" data-level="3.1.1" data-path="3-1-missingness.html"><a href="3-1-missingness.html#missingness-setup"><i class="fa fa-check"></i><b>3.1.1</b> Setup</a></li>
 <li class="chapter" data-level="3.1.2" data-path="3-1-missingness.html"><a href="3-1-missingness.html#lollipop-plot"><i class="fa fa-check"></i><b>3.1.2</b> Lollipop Plot</a></li>
-<li class="chapter" data-level="3.1.3" data-path="3-1-missingness.html"><a href="3-1-missingness.html#bar-plot-by-pattern"><i class="fa fa-check"></i><b>3.1.3</b> Bar Plot by Pattern</a></li>
-<li class="chapter" data-level="3.1.4" data-path="3-1-missingness.html"><a href="3-1-missingness.html#bar-plot-by-wave"><i class="fa fa-check"></i><b>3.1.4</b> Bar Plot by Wave</a></li>
+<li class="chapter" data-level="3.1.3" data-path="3-1-missingness.html"><a href="3-1-missingness.html#bar-pattern"><i class="fa fa-check"></i><b>3.1.3</b> Bar Plot by Pattern</a></li>
+<li class="chapter" data-level="3.1.4" data-path="3-1-missingness.html"><a href="3-1-missingness.html#bar-wave"><i class="fa fa-check"></i><b>3.1.4</b> Bar Plot by Wave</a></li>
 <li class="chapter" data-level="3.1.5" data-path="3-1-missingness.html"><a href="3-1-missingness.html#raster-plot"><i class="fa fa-check"></i><b>3.1.5</b> Raster Plot</a></li>
-<li class="chapter" data-level="3.1.6" data-path="3-1-missingness.html"><a href="3-1-missingness.html#updated-dataset"><i class="fa fa-check"></i><b>3.1.6</b> Updated Dataset</a></li>
+<li class="chapter" data-level="3.1.6" data-path="3-1-missingness.html"><a href="3-1-missingness.html#updated-dataset"><i class="fa fa-check"></i><b>3.1.6</b> Update Dataset</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="3-2-univariate-descriptives.html"><a href="3-2-univariate-descriptives.html"><i class="fa fa-check"></i><b>3.2</b> Univariate Descriptives</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="3-2-univariate-descriptives.html"><a href="3-2-univariate-descriptives.html#univariate-setup"><i class="fa fa-check"></i><b>3.2.1</b> Univariate Setup</a></li>
+<li class="chapter" data-level="3.2.1" data-path="3-2-univariate-descriptives.html"><a href="3-2-univariate-descriptives.html#univariate-setup"><i class="fa fa-check"></i><b>3.2.1</b> Setup</a></li>
 <li class="chapter" data-level="3.2.2" data-path="3-2-univariate-descriptives.html"><a href="3-2-univariate-descriptives.html#univariate-table"><i class="fa fa-check"></i><b>3.2.2</b> Univariate Table</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="3-3-bivariate-descriptives.html"><a href="3-3-bivariate-descriptives.html"><i class="fa fa-check"></i><b>3.3</b> Bivariate Descriptives</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="3-3-bivariate-descriptives.html"><a href="3-3-bivariate-descriptives.html#bivariate-setup"><i class="fa fa-check"></i><b>3.3.1</b> Bivariate Setup</a></li>
+<li class="chapter" data-level="3.3.1" data-path="3-3-bivariate-descriptives.html"><a href="3-3-bivariate-descriptives.html#bivariate-setup"><i class="fa fa-check"></i><b>3.3.1</b> Setup</a></li>
 <li class="chapter" data-level="3.3.2" data-path="3-3-bivariate-descriptives.html"><a href="3-3-bivariate-descriptives.html#bivariate-table"><i class="fa fa-check"></i><b>3.3.2</b> Bivariate Table</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="3-4-trajectories.html"><a href="3-4-trajectories.html"><i class="fa fa-check"></i><b>3.4</b> Trajectories</a><ul>
 <li class="chapter" data-level="3.4.1" data-path="3-4-trajectories.html"><a href="3-4-trajectories.html#aggregated-plot"><i class="fa fa-check"></i><b>3.4.1</b> Aggregated Plot</a></li>
-<li class="chapter" data-level="3.4.2" data-path="3-4-trajectories.html"><a href="3-4-trajectories.html#individual-plot"><i class="fa fa-check"></i><b>3.4.2</b> Individual Plot</a></li>
+<li class="chapter" data-level="3.4.2" data-path="3-4-trajectories.html"><a href="3-4-trajectories.html#individual-plots"><i class="fa fa-check"></i><b>3.4.2</b> Individual Plot</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="4-model-fitting.html"><a href="4-model-fitting.html"><i class="fa fa-check"></i><b>4</b> Model Fitting</a><ul>
-<li class="chapter" data-level="4.1" data-path="4-1-unconditional.html"><a href="4-1-unconditional.html"><i class="fa fa-check"></i><b>4.1</b> Unconditional</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="4-1-unconditional.html"><a href="4-1-unconditional.html#intraclass-correlation"><i class="fa fa-check"></i><b>4.1.1</b> Intraclass Correlation</a></li>
-<li class="chapter" data-level="4.1.2" data-path="4-1-unconditional.html"><a href="4-1-unconditional.html#unconditional-fits"><i class="fa fa-check"></i><b>4.1.2</b> Unconditional Fits</a></li>
-<li class="chapter" data-level="4.1.3" data-path="4-1-unconditional.html"><a href="4-1-unconditional.html#global-comparisons-table"><i class="fa fa-check"></i><b>4.1.3</b> Global Comparisons Table</a></li>
+<li class="chapter" data-level="4.1" data-path="4-1-unconditional-models.html"><a href="4-1-unconditional-models.html"><i class="fa fa-check"></i><b>4.1</b> Unconditional Models</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="4-1-unconditional-models.html"><a href="4-1-unconditional-models.html#icc"><i class="fa fa-check"></i><b>4.1.1</b> Intraclass Correlation</a></li>
+<li class="chapter" data-level="4.1.2" data-path="4-1-unconditional-models.html"><a href="4-1-unconditional-models.html#unconditional-fits"><i class="fa fa-check"></i><b>4.1.2</b> Unconditional Fits</a></li>
+<li class="chapter" data-level="4.1.3" data-path="4-1-unconditional-models.html"><a href="4-1-unconditional-models.html#global-comparisons-table"><i class="fa fa-check"></i><b>4.1.3</b> Global Comparisons Table</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="4-2-conditional.html"><a href="4-2-conditional.html"><i class="fa fa-check"></i><b>4.2</b> Conditional</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="4-2-conditional.html"><a href="4-2-conditional.html#conditional-fits"><i class="fa fa-check"></i><b>4.2.1</b> Conditional Fits</a></li>
-<li class="chapter" data-level="4.2.2" data-path="4-2-conditional.html"><a href="4-2-conditional.html#parameter-estimates-table"><i class="fa fa-check"></i><b>4.2.2</b> Parameter Estimates Table</a></li>
+<li class="chapter" data-level="4.2" data-path="4-2-conditional-models.html"><a href="4-2-conditional-models.html"><i class="fa fa-check"></i><b>4.2</b> Conditional Models</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="4-2-conditional-models.html"><a href="4-2-conditional-models.html#conditional-fits"><i class="fa fa-check"></i><b>4.2.1</b> Conditional Fits</a></li>
+<li class="chapter" data-level="4.2.2" data-path="4-2-conditional-models.html"><a href="4-2-conditional-models.html#parameter-estimates-table"><i class="fa fa-check"></i><b>4.2.2</b> Parameter Estimates Table</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="5-model-diagnostics.html"><a href="5-model-diagnostics.html"><i class="fa fa-check"></i><b>5</b> Model Diagnostics</a><ul>
-<li class="chapter" data-level="5.1" data-path="5-1-diagnostics-setup.html"><a href="5-1-diagnostics-setup.html"><i class="fa fa-check"></i><b>5.1</b> Diagnostics Setup</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="5-1-diagnostics-setup.html"><a href="5-1-diagnostics-setup.html#merge-data"><i class="fa fa-check"></i><b>5.1.1</b> Merge Data</a></li>
-<li class="chapter" data-level="5.1.2" data-path="5-1-diagnostics-setup.html"><a href="5-1-diagnostics-setup.html#base-plots"><i class="fa fa-check"></i><b>5.1.2</b> Base Plots</a></li>
+<li class="chapter" data-level="5.1" data-path="5-1-diag-setup.html"><a href="5-1-diag-setup.html"><i class="fa fa-check"></i><b>5.1</b> Setup</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="5-1-diag-setup.html"><a href="5-1-diag-setup.html#diag-merge"><i class="fa fa-check"></i><b>5.1.1</b> Merge Data</a></li>
+<li class="chapter" data-level="5.1.2" data-path="5-1-diag-setup.html"><a href="5-1-diag-setup.html#diag-base"><i class="fa fa-check"></i><b>5.1.2</b> Base Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="5-2-normality-plots.html"><a href="5-2-normality-plots.html"><i class="fa fa-check"></i><b>5.2</b> Normality Plots</a></li>
-<li class="chapter" data-level="5.3" data-path="5-3-homoskedasticity-plots.html"><a href="5-3-homoskedasticity-plots.html"><i class="fa fa-check"></i><b>5.3</b> Homoskedasticity Plots</a></li>
-<li class="chapter" data-level="5.4" data-path="5-4-independence-plots.html"><a href="5-4-independence-plots.html"><i class="fa fa-check"></i><b>5.4</b> Independence Plots</a></li>
+<li class="chapter" data-level="5.2" data-path="5-2-diag-normal.html"><a href="5-2-diag-normal.html"><i class="fa fa-check"></i><b>5.2</b> Normality Plots</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="5-2-diag-normal.html"><a href="5-2-diag-normal.html#diag-normal-code"><i class="fa fa-check"></i><b>5.2.1</b> Code</a></li>
+<li class="chapter" data-level="5.2.2" data-path="5-2-diag-normal.html"><a href="5-2-diag-normal.html#diag-normal-printed"><i class="fa fa-check"></i><b>5.2.2</b> Printed Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="5-3-diag-homo.html"><a href="5-3-diag-homo.html"><i class="fa fa-check"></i><b>5.3</b> Homoskedasticity Plots</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="5-3-diag-homo.html"><a href="5-3-diag-homo.html#diag-homo-code"><i class="fa fa-check"></i><b>5.3.1</b> Code</a></li>
+<li class="chapter" data-level="5.3.2" data-path="5-3-diag-homo.html"><a href="5-3-diag-homo.html#diag-homo-printed"><i class="fa fa-check"></i><b>5.3.2</b> Printed Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="5-4-diag-indep.html"><a href="5-4-diag-indep.html"><i class="fa fa-check"></i><b>5.4</b> Independence Plots</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="5-4-diag-indep.html"><a href="5-4-diag-indep.html#diag-indep-code"><i class="fa fa-check"></i><b>5.4.1</b> Code</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -1958,21 +2514,21 @@ white-space: inherit;
 <h2><span class="header-section-number">3.2</span> Univariate Descriptives</h2>
 <p>Following our exploration of missing data, we proceed to calculate univariate descriptive statistics. Given what we learned about the distribution of data across age groups in the missing data section, let’s move forward using the <code>dat_final</code> dataset created in <a href="3-1-missingness.html#updated-dataset">Updated Dataset</a>.</p>
 <div id="univariate-setup" class="section level3">
-<h3><span class="header-section-number">3.2.1</span> Univariate Setup</h3>
+<h3><span class="header-section-number">3.2.1</span> Setup</h3>
 <p>Using the <code>dat_final</code> long dataset, it is fairly straightforward to calculate the means, variances, and number of observations of the anti-social behavior scores within each age. Knowing the means and variances within each age group can help us see whether and how anti-social behavior changes on average over time. In addition, understanding whether the variances are changing over time can help us make modeling decisions later on.</p>
-<p>Recall that our new sample size is 397, following the steps in [Updated Data]. Each child was measured up to four times (and we retained a row even when missing their anti-social behavior information), so summing the <code>n</code>, or number of observations, should yield 397 * 4 = 1588. Note that 249 observations have a child age listed as <code>NA</code>. This number tells us how many anti-social behavior scores were not recorded across all measurement waves and individuals. For more information on how the missing anti-social behavior scores are distributed across individuals, see <a href="3-1-missingness.html#raster-plot">Raster Plot</a>.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="3-2-univariate-descriptives.html#cb20-1"></a><span class="co"># calculate descriptive statistics for each level of child&#39;s age</span></span>
-<span id="cb20-2"><a href="3-2-univariate-descriptives.html#cb20-2"></a>moment_tab &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
-<span id="cb20-3"><a href="3-2-univariate-descriptives.html#cb20-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(., child_age) <span class="op">%&gt;%</span></span>
-<span id="cb20-4"><a href="3-2-univariate-descriptives.html#cb20-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">summarize</span>(</span>
-<span id="cb20-5"><a href="3-2-univariate-descriptives.html#cb20-5"></a>    <span class="dt">n =</span> dplyr<span class="op">::</span><span class="kw">n</span>(),</span>
-<span id="cb20-6"><a href="3-2-univariate-descriptives.html#cb20-6"></a>    <span class="dt">mean =</span> <span class="kw">round</span>(<span class="kw">mean</span>(anti_score, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dv">2</span>),</span>
-<span id="cb20-7"><a href="3-2-univariate-descriptives.html#cb20-7"></a>    <span class="dt">variance =</span> <span class="kw">round</span>(<span class="kw">var</span>(anti_score, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dv">2</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb20-8"><a href="3-2-univariate-descriptives.html#cb20-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(., <span class="dt">child_age =</span> dplyr<span class="op">::</span><span class="kw">case_when</span>(</span>
-<span id="cb20-9"><a href="3-2-univariate-descriptives.html#cb20-9"></a>    <span class="kw">is.na</span>(child_age) <span class="op">~</span><span class="st"> &quot;Missing&quot;</span>,</span>
-<span id="cb20-10"><a href="3-2-univariate-descriptives.html#cb20-10"></a>    <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="kw">as.character</span>(child_age)</span>
-<span id="cb20-11"><a href="3-2-univariate-descriptives.html#cb20-11"></a>  )) <span class="op">%&gt;%</span></span>
-<span id="cb20-12"><a href="3-2-univariate-descriptives.html#cb20-12"></a><span class="st">  </span><span class="kw">print</span>(.)</span></code></pre></div>
+<p>Recall that our new sample size is 397, following the steps in <a href="3-1-missingness.html#updated-dataset">Updated Data</a>. Each child was measured up to four times (and we retained a row even when missing their anti-social behavior information), so summing the <code>n</code>, or number of observations, should yield 397 * 4 = 1588. Note that 249 observations have a child age listed as <code>NA</code>. This number tells us how many anti-social behavior scores were not recorded across all measurement waves and individuals. For more information on how the missing anti-social behavior scores are distributed across individuals, see <a href="3-1-missingness.html#raster-plot">Raster Plot</a>.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="3-2-univariate-descriptives.html#cb24-1"></a><span class="co"># calculate descriptive statistics for each level of child&#39;s age</span></span>
+<span id="cb24-2"><a href="3-2-univariate-descriptives.html#cb24-2"></a>moment_tab &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
+<span id="cb24-3"><a href="3-2-univariate-descriptives.html#cb24-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(., child_age) <span class="op">%&gt;%</span></span>
+<span id="cb24-4"><a href="3-2-univariate-descriptives.html#cb24-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">summarize</span>(</span>
+<span id="cb24-5"><a href="3-2-univariate-descriptives.html#cb24-5"></a>    <span class="dt">n =</span> dplyr<span class="op">::</span><span class="kw">n</span>(),</span>
+<span id="cb24-6"><a href="3-2-univariate-descriptives.html#cb24-6"></a>    <span class="dt">mean =</span> <span class="kw">round</span>(<span class="kw">mean</span>(anti_score, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dv">2</span>),</span>
+<span id="cb24-7"><a href="3-2-univariate-descriptives.html#cb24-7"></a>    <span class="dt">variance =</span> <span class="kw">round</span>(<span class="kw">var</span>(anti_score, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dv">2</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb24-8"><a href="3-2-univariate-descriptives.html#cb24-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(., <span class="dt">child_age =</span> dplyr<span class="op">::</span><span class="kw">case_when</span>(</span>
+<span id="cb24-9"><a href="3-2-univariate-descriptives.html#cb24-9"></a>    <span class="kw">is.na</span>(child_age) <span class="op">~</span><span class="st"> &quot;Missing&quot;</span>,</span>
+<span id="cb24-10"><a href="3-2-univariate-descriptives.html#cb24-10"></a>    <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="kw">as.character</span>(child_age)</span>
+<span id="cb24-11"><a href="3-2-univariate-descriptives.html#cb24-11"></a>  )) <span class="op">%&gt;%</span></span>
+<span id="cb24-12"><a href="3-2-univariate-descriptives.html#cb24-12"></a><span class="st">  </span><span class="kw">print</span>(.)</span></code></pre></div>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code>## # A tibble: 10 x 4
 ##    child_age     n   mean variance
@@ -1991,47 +2547,51 @@ white-space: inherit;
 <div id="univariate-table" class="section level3">
 <h3><span class="header-section-number">3.2.2</span> Univariate Table</h3>
 <p>Now that we’ve calculated our univariate descriptive statistics, we will use the <code>gt</code> package to create a display-quality table of results. The <code>gt</code> package has a similar ethos to <code>ggplot2</code>, where each component of a table can be added on to the previous component. Although the intricacies of both <code>gt</code> and <code>ggplot2</code> are beyond the scope of this module, we thought it was important to demonstrate ways to create reproducible tables and plots for longitudinal data.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="3-2-univariate-descriptives.html#cb23-1"></a>gt_moments &lt;-<span class="st"> </span>moment_tab <span class="op">%&gt;%</span></span>
-<span id="cb23-2"><a href="3-2-univariate-descriptives.html#cb23-2"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">gt</span>(.) <span class="op">%&gt;%</span></span>
-<span id="cb23-3"><a href="3-2-univariate-descriptives.html#cb23-3"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_header</span>(</span>
-<span id="cb23-4"><a href="3-2-univariate-descriptives.html#cb23-4"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb23-5"><a href="3-2-univariate-descriptives.html#cb23-5"></a>    <span class="dt">title =</span> <span class="st">&quot;Univariate Descriptive Statistics for Anti-Social Behavior Scores&quot;</span>,</span>
-<span id="cb23-6"><a href="3-2-univariate-descriptives.html#cb23-6"></a>    <span class="dt">subtitle =</span> <span class="st">&quot;Means, variances, &amp; number of observations within each age.&quot;</span></span>
-<span id="cb23-7"><a href="3-2-univariate-descriptives.html#cb23-7"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb23-8"><a href="3-2-univariate-descriptives.html#cb23-8"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_spanner</span>(</span>
-<span id="cb23-9"><a href="3-2-univariate-descriptives.html#cb23-9"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb23-10"><a href="3-2-univariate-descriptives.html#cb23-10"></a>    <span class="dt">label =</span> <span class="st">&quot;Summary of Anti-Social Scores by Age&quot;</span>, </span>
-<span id="cb23-11"><a href="3-2-univariate-descriptives.html#cb23-11"></a>    <span class="dt">columns =</span> <span class="kw">c</span>(<span class="st">&quot;n&quot;</span>, <span class="st">&quot;mean&quot;</span>, <span class="st">&quot;variance&quot;</span>)</span>
-<span id="cb23-12"><a href="3-2-univariate-descriptives.html#cb23-12"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb23-13"><a href="3-2-univariate-descriptives.html#cb23-13"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_label</span>(</span>
-<span id="cb23-14"><a href="3-2-univariate-descriptives.html#cb23-14"></a>    <span class="dt">child_age =</span> <span class="st">&quot;Child Age&quot;</span>,</span>
-<span id="cb23-15"><a href="3-2-univariate-descriptives.html#cb23-15"></a>    <span class="dt">n =</span> <span class="st">&quot;Num. Obs.&quot;</span>,</span>
-<span id="cb23-16"><a href="3-2-univariate-descriptives.html#cb23-16"></a>    <span class="dt">mean =</span> <span class="st">&quot;Mean&quot;</span>,</span>
-<span id="cb23-17"><a href="3-2-univariate-descriptives.html#cb23-17"></a>    <span class="dt">variance =</span> <span class="st">&quot;Variance&quot;</span></span>
-<span id="cb23-18"><a href="3-2-univariate-descriptives.html#cb23-18"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb23-19"><a href="3-2-univariate-descriptives.html#cb23-19"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_options</span>(., <span class="dt">row.striping.include_table_body =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb23-20"><a href="3-2-univariate-descriptives.html#cb23-20"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_style</span>(</span>
-<span id="cb23-21"><a href="3-2-univariate-descriptives.html#cb23-21"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb23-22"><a href="3-2-univariate-descriptives.html#cb23-22"></a>    <span class="dt">style =</span> gt<span class="op">::</span><span class="kw">cell_borders</span>(</span>
-<span id="cb23-23"><a href="3-2-univariate-descriptives.html#cb23-23"></a>      <span class="dt">sides =</span> <span class="kw">c</span>(<span class="st">&quot;top&quot;</span>, <span class="st">&quot;bottom&quot;</span>),</span>
-<span id="cb23-24"><a href="3-2-univariate-descriptives.html#cb23-24"></a>      <span class="dt">color =</span> <span class="st">&quot;#ffffff&quot;</span>,</span>
-<span id="cb23-25"><a href="3-2-univariate-descriptives.html#cb23-25"></a>      <span class="dt">weight =</span> gt<span class="op">::</span><span class="kw">px</span>(<span class="dv">0</span>),</span>
-<span id="cb23-26"><a href="3-2-univariate-descriptives.html#cb23-26"></a>      <span class="dt">style =</span> <span class="st">&quot;solid&quot;</span></span>
-<span id="cb23-27"><a href="3-2-univariate-descriptives.html#cb23-27"></a>    ),</span>
-<span id="cb23-28"><a href="3-2-univariate-descriptives.html#cb23-28"></a>    <span class="dt">locations =</span> gt<span class="op">::</span><span class="kw">cells_body</span>(</span>
-<span id="cb23-29"><a href="3-2-univariate-descriptives.html#cb23-29"></a>      <span class="dt">columns =</span> dplyr<span class="op">::</span><span class="kw">everything</span>(),</span>
-<span id="cb23-30"><a href="3-2-univariate-descriptives.html#cb23-30"></a>      <span class="dt">rows =</span> dplyr<span class="op">::</span><span class="kw">everything</span>())</span>
-<span id="cb23-31"><a href="3-2-univariate-descriptives.html#cb23-31"></a>    ) <span class="op">%&gt;%</span></span>
-<span id="cb23-32"><a href="3-2-univariate-descriptives.html#cb23-32"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_align</span>(., <span class="dt">align =</span> <span class="st">&quot;center&quot;</span>, <span class="dt">columns =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb23-33"><a href="3-2-univariate-descriptives.html#cb23-33"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">fmt_missing</span>(., <span class="dt">columns =</span> <span class="kw">c</span>(<span class="st">&quot;n&quot;</span>, <span class="st">&quot;mean&quot;</span>, <span class="st">&quot;variance&quot;</span>))</span>
-<span id="cb23-34"><a href="3-2-univariate-descriptives.html#cb23-34"></a></span>
-<span id="cb23-35"><a href="3-2-univariate-descriptives.html#cb23-35"></a><span class="co"># print plot</span></span>
-<span id="cb23-36"><a href="3-2-univariate-descriptives.html#cb23-36"></a>gt_moments</span></code></pre></div>
+<div id="univariate-code" class="section level4">
+<h4><span class="header-section-number">3.2.2.1</span> Code</h4>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="3-2-univariate-descriptives.html#cb27-1"></a>gt_moments &lt;-<span class="st"> </span>moment_tab <span class="op">%&gt;%</span></span>
+<span id="cb27-2"><a href="3-2-univariate-descriptives.html#cb27-2"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">gt</span>(.) <span class="op">%&gt;%</span></span>
+<span id="cb27-3"><a href="3-2-univariate-descriptives.html#cb27-3"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_header</span>(</span>
+<span id="cb27-4"><a href="3-2-univariate-descriptives.html#cb27-4"></a>    <span class="dt">data =</span> .,</span>
+<span id="cb27-5"><a href="3-2-univariate-descriptives.html#cb27-5"></a>    <span class="dt">title =</span> <span class="st">&quot;Univariate Descriptive Statistics for Anti-Social Behavior Scores&quot;</span>,</span>
+<span id="cb27-6"><a href="3-2-univariate-descriptives.html#cb27-6"></a>    <span class="dt">subtitle =</span> <span class="st">&quot;Means, variances, &amp; number of observations within each age.&quot;</span></span>
+<span id="cb27-7"><a href="3-2-univariate-descriptives.html#cb27-7"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb27-8"><a href="3-2-univariate-descriptives.html#cb27-8"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_spanner</span>(</span>
+<span id="cb27-9"><a href="3-2-univariate-descriptives.html#cb27-9"></a>    <span class="dt">data =</span> .,</span>
+<span id="cb27-10"><a href="3-2-univariate-descriptives.html#cb27-10"></a>    <span class="dt">label =</span> <span class="st">&quot;Summary of Anti-Social Scores by Age&quot;</span>, </span>
+<span id="cb27-11"><a href="3-2-univariate-descriptives.html#cb27-11"></a>    <span class="dt">columns =</span> <span class="kw">c</span>(<span class="st">&quot;n&quot;</span>, <span class="st">&quot;mean&quot;</span>, <span class="st">&quot;variance&quot;</span>)</span>
+<span id="cb27-12"><a href="3-2-univariate-descriptives.html#cb27-12"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb27-13"><a href="3-2-univariate-descriptives.html#cb27-13"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_label</span>(</span>
+<span id="cb27-14"><a href="3-2-univariate-descriptives.html#cb27-14"></a>    <span class="dt">child_age =</span> <span class="st">&quot;Child Age&quot;</span>,</span>
+<span id="cb27-15"><a href="3-2-univariate-descriptives.html#cb27-15"></a>    <span class="dt">n =</span> <span class="st">&quot;Num. Obs.&quot;</span>,</span>
+<span id="cb27-16"><a href="3-2-univariate-descriptives.html#cb27-16"></a>    <span class="dt">mean =</span> <span class="st">&quot;Mean&quot;</span>,</span>
+<span id="cb27-17"><a href="3-2-univariate-descriptives.html#cb27-17"></a>    <span class="dt">variance =</span> <span class="st">&quot;Variance&quot;</span></span>
+<span id="cb27-18"><a href="3-2-univariate-descriptives.html#cb27-18"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb27-19"><a href="3-2-univariate-descriptives.html#cb27-19"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_options</span>(., <span class="dt">row.striping.include_table_body =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb27-20"><a href="3-2-univariate-descriptives.html#cb27-20"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_style</span>(</span>
+<span id="cb27-21"><a href="3-2-univariate-descriptives.html#cb27-21"></a>    <span class="dt">data =</span> .,</span>
+<span id="cb27-22"><a href="3-2-univariate-descriptives.html#cb27-22"></a>    <span class="dt">style =</span> gt<span class="op">::</span><span class="kw">cell_borders</span>(</span>
+<span id="cb27-23"><a href="3-2-univariate-descriptives.html#cb27-23"></a>      <span class="dt">sides =</span> <span class="kw">c</span>(<span class="st">&quot;top&quot;</span>, <span class="st">&quot;bottom&quot;</span>),</span>
+<span id="cb27-24"><a href="3-2-univariate-descriptives.html#cb27-24"></a>      <span class="dt">color =</span> <span class="st">&quot;#ffffff&quot;</span>,</span>
+<span id="cb27-25"><a href="3-2-univariate-descriptives.html#cb27-25"></a>      <span class="dt">weight =</span> gt<span class="op">::</span><span class="kw">px</span>(<span class="dv">0</span>),</span>
+<span id="cb27-26"><a href="3-2-univariate-descriptives.html#cb27-26"></a>      <span class="dt">style =</span> <span class="st">&quot;solid&quot;</span></span>
+<span id="cb27-27"><a href="3-2-univariate-descriptives.html#cb27-27"></a>    ),</span>
+<span id="cb27-28"><a href="3-2-univariate-descriptives.html#cb27-28"></a>    <span class="dt">locations =</span> gt<span class="op">::</span><span class="kw">cells_body</span>(</span>
+<span id="cb27-29"><a href="3-2-univariate-descriptives.html#cb27-29"></a>      <span class="dt">columns =</span> dplyr<span class="op">::</span><span class="kw">everything</span>(),</span>
+<span id="cb27-30"><a href="3-2-univariate-descriptives.html#cb27-30"></a>      <span class="dt">rows =</span> dplyr<span class="op">::</span><span class="kw">everything</span>())</span>
+<span id="cb27-31"><a href="3-2-univariate-descriptives.html#cb27-31"></a>    ) <span class="op">%&gt;%</span></span>
+<span id="cb27-32"><a href="3-2-univariate-descriptives.html#cb27-32"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_align</span>(., <span class="dt">align =</span> <span class="st">&quot;center&quot;</span>, <span class="dt">columns =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb27-33"><a href="3-2-univariate-descriptives.html#cb27-33"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">fmt_missing</span>(., <span class="dt">columns =</span> <span class="kw">c</span>(<span class="st">&quot;n&quot;</span>, <span class="st">&quot;mean&quot;</span>, <span class="st">&quot;variance&quot;</span>))</span></code></pre></div>
+</div>
+<div id="univariate-printed" class="section level4">
+<h4><span class="header-section-number">3.2.2.2</span> Printed Table</h4>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="3-2-univariate-descriptives.html#cb28-1"></a><span class="co"># print univariate stats table</span></span>
+<span id="cb28-2"><a href="3-2-univariate-descriptives.html#cb28-2"></a>gt_moments</span></code></pre></div>
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#alfczchymv .gt_table {
+#rewlpwcxqq .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -2054,7 +2614,7 @@ white-space: inherit;
   border-left-color: #D3D3D3;
 }
 
-#alfczchymv .gt_heading {
+#rewlpwcxqq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2066,7 +2626,7 @@ white-space: inherit;
   border-right-color: #D3D3D3;
 }
 
-#alfczchymv .gt_title {
+#rewlpwcxqq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2076,7 +2636,7 @@ white-space: inherit;
   border-bottom-width: 0;
 }
 
-#alfczchymv .gt_subtitle {
+#rewlpwcxqq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2086,13 +2646,13 @@ white-space: inherit;
   border-top-width: 0;
 }
 
-#alfczchymv .gt_bottom_border {
+#rewlpwcxqq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#alfczchymv .gt_col_headings {
+#rewlpwcxqq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2107,7 +2667,7 @@ white-space: inherit;
   border-right-color: #D3D3D3;
 }
 
-#alfczchymv .gt_col_heading {
+#rewlpwcxqq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2127,7 +2687,7 @@ white-space: inherit;
   overflow-x: hidden;
 }
 
-#alfczchymv .gt_column_spanner_outer {
+#rewlpwcxqq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2139,15 +2699,15 @@ white-space: inherit;
   padding-right: 4px;
 }
 
-#alfczchymv .gt_column_spanner_outer:first-child {
+#rewlpwcxqq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#alfczchymv .gt_column_spanner_outer:last-child {
+#rewlpwcxqq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#alfczchymv .gt_column_spanner {
+#rewlpwcxqq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2159,7 +2719,7 @@ white-space: inherit;
   width: 100%;
 }
 
-#alfczchymv .gt_group_heading {
+#rewlpwcxqq .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2181,7 +2741,7 @@ white-space: inherit;
   vertical-align: middle;
 }
 
-#alfczchymv .gt_empty_group_heading {
+#rewlpwcxqq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2196,19 +2756,19 @@ white-space: inherit;
   vertical-align: middle;
 }
 
-#alfczchymv .gt_striped {
+#rewlpwcxqq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#alfczchymv .gt_from_md > :first-child {
+#rewlpwcxqq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#alfczchymv .gt_from_md > :last-child {
+#rewlpwcxqq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#alfczchymv .gt_row {
+#rewlpwcxqq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2227,7 +2787,7 @@ white-space: inherit;
   overflow-x: hidden;
 }
 
-#alfczchymv .gt_stub {
+#rewlpwcxqq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2239,7 +2799,7 @@ white-space: inherit;
   padding-left: 12px;
 }
 
-#alfczchymv .gt_summary_row {
+#rewlpwcxqq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2249,7 +2809,7 @@ white-space: inherit;
   padding-right: 5px;
 }
 
-#alfczchymv .gt_first_summary_row {
+#rewlpwcxqq .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2259,7 +2819,7 @@ white-space: inherit;
   border-top-color: #D3D3D3;
 }
 
-#alfczchymv .gt_grand_summary_row {
+#rewlpwcxqq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2269,7 +2829,7 @@ white-space: inherit;
   padding-right: 5px;
 }
 
-#alfczchymv .gt_first_grand_summary_row {
+#rewlpwcxqq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2279,7 +2839,7 @@ white-space: inherit;
   border-top-color: #D3D3D3;
 }
 
-#alfczchymv .gt_table_body {
+#rewlpwcxqq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2288,7 +2848,7 @@ white-space: inherit;
   border-bottom-color: #D3D3D3;
 }
 
-#alfczchymv .gt_footnotes {
+#rewlpwcxqq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2302,13 +2862,13 @@ white-space: inherit;
   border-right-color: #D3D3D3;
 }
 
-#alfczchymv .gt_footnote {
+#rewlpwcxqq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#alfczchymv .gt_sourcenotes {
+#rewlpwcxqq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2322,46 +2882,46 @@ white-space: inherit;
   border-right-color: #D3D3D3;
 }
 
-#alfczchymv .gt_sourcenote {
+#rewlpwcxqq .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#alfczchymv .gt_left {
+#rewlpwcxqq .gt_left {
   text-align: left;
 }
 
-#alfczchymv .gt_center {
+#rewlpwcxqq .gt_center {
   text-align: center;
 }
 
-#alfczchymv .gt_right {
+#rewlpwcxqq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#alfczchymv .gt_font_normal {
+#rewlpwcxqq .gt_font_normal {
   font-weight: normal;
 }
 
-#alfczchymv .gt_font_bold {
+#rewlpwcxqq .gt_font_bold {
   font-weight: bold;
 }
 
-#alfczchymv .gt_font_italic {
+#rewlpwcxqq .gt_font_italic {
   font-style: italic;
 }
 
-#alfczchymv .gt_super {
+#rewlpwcxqq .gt_super {
   font-size: 65%;
 }
 
-#alfczchymv .gt_footnote_marks {
+#rewlpwcxqq .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="alfczchymv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="rewlpwcxqq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   <thead class="gt_header">
     <tr>
       <th colspan="4" class="gt_heading gt_title gt_font_normal" style>Univariate Descriptive Statistics for Anti-Social Behavior Scores</th>
@@ -2448,6 +3008,7 @@ white-space: inherit;
   
   
 </table></div>
+</div>
 </div>
 </div>
             </section>
@@ -3357,6 +3918,516 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 });
+</script>
+<script>
+/* ========================================================================
+ * Bootstrap: transition.js v3.3.7
+ * http://getbootstrap.com/javascript/#transitions
+ * ========================================================================
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
++function ($) {
+  'use strict';
+
+  // CSS TRANSITION SUPPORT (Shoutout: http://www.modernizr.com/)
+  // ============================================================
+
+  function transitionEnd() {
+    var el = document.createElement('bootstrap')
+
+    var transEndEventNames = {
+      WebkitTransition : 'webkitTransitionEnd',
+      MozTransition    : 'transitionend',
+      OTransition      : 'oTransitionEnd otransitionend',
+      transition       : 'transitionend'
+    }
+
+    for (var name in transEndEventNames) {
+      if (el.style[name] !== undefined) {
+        return { end: transEndEventNames[name] }
+      }
+    }
+
+    return false // explicit for ie8 (  ._.)
+  }
+
+  // http://blog.alexmaccaw.com/css-transitions
+  $.fn.emulateTransitionEnd = function (duration) {
+    var called = false
+    var $el = this
+    $(this).one('bsTransitionEnd', function () { called = true })
+    var callback = function () { if (!called) $($el).trigger($.support.transition.end) }
+    setTimeout(callback, duration)
+    return this
+  }
+
+  $(function () {
+    $.support.transition = transitionEnd()
+
+    if (!$.support.transition) return
+
+    $.event.special.bsTransitionEnd = {
+      bindType: $.support.transition.end,
+      delegateType: $.support.transition.end,
+      handle: function (e) {
+        if ($(e.target).is(this)) return e.handleObj.handler.apply(this, arguments)
+      }
+    }
+  })
+
+}(jQuery);
+</script>
+<script>
+/* ========================================================================
+ * Bootstrap: collapse.js v3.3.7
+ * http://getbootstrap.com/javascript/#collapse
+ * ========================================================================
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+/* jshint latedef: false */
+
++function ($) {
+  'use strict';
+
+  // COLLAPSE PUBLIC CLASS DEFINITION
+  // ================================
+
+  var Collapse = function (element, options) {
+    this.$element      = $(element)
+    this.options       = $.extend({}, Collapse.DEFAULTS, options)
+    this.$trigger      = $('[data-toggle="collapse"][href="#' + element.id + '"],' +
+                           '[data-toggle="collapse"][data-target="#' + element.id + '"]')
+    this.transitioning = null
+
+    if (this.options.parent) {
+      this.$parent = this.getParent()
+    } else {
+      this.addAriaAndCollapsedClass(this.$element, this.$trigger)
+    }
+
+    if (this.options.toggle) this.toggle()
+  }
+
+  Collapse.VERSION  = '3.3.7'
+
+  Collapse.TRANSITION_DURATION = 350
+
+  Collapse.DEFAULTS = {
+    toggle: true
+  }
+
+  Collapse.prototype.dimension = function () {
+    var hasWidth = this.$element.hasClass('width')
+    return hasWidth ? 'width' : 'height'
+  }
+
+  Collapse.prototype.show = function () {
+    if (this.transitioning || this.$element.hasClass('in')) return
+
+    var activesData
+    var actives = this.$parent && this.$parent.children('.panel').children('.in, .collapsing')
+
+    if (actives && actives.length) {
+      activesData = actives.data('bs.collapse')
+      if (activesData && activesData.transitioning) return
+    }
+
+    var startEvent = $.Event('show.bs.collapse')
+    this.$element.trigger(startEvent)
+    if (startEvent.isDefaultPrevented()) return
+
+    if (actives && actives.length) {
+      Plugin.call(actives, 'hide')
+      activesData || actives.data('bs.collapse', null)
+    }
+
+    var dimension = this.dimension()
+
+    this.$element
+      .removeClass('collapse')
+      .addClass('collapsing')[dimension](0)
+      .attr('aria-expanded', true)
+
+    this.$trigger
+      .removeClass('collapsed')
+      .attr('aria-expanded', true)
+
+    this.transitioning = 1
+
+    var complete = function () {
+      this.$element
+        .removeClass('collapsing')
+        .addClass('collapse in')[dimension]('')
+      this.transitioning = 0
+      this.$element
+        .trigger('shown.bs.collapse')
+    }
+
+    if (!$.support.transition) return complete.call(this)
+
+    var scrollSize = $.camelCase(['scroll', dimension].join('-'))
+
+    this.$element
+      .one('bsTransitionEnd', $.proxy(complete, this))
+      .emulateTransitionEnd(Collapse.TRANSITION_DURATION)[dimension](this.$element[0][scrollSize])
+  }
+
+  Collapse.prototype.hide = function () {
+    if (this.transitioning || !this.$element.hasClass('in')) return
+
+    var startEvent = $.Event('hide.bs.collapse')
+    this.$element.trigger(startEvent)
+    if (startEvent.isDefaultPrevented()) return
+
+    var dimension = this.dimension()
+
+    this.$element[dimension](this.$element[dimension]())[0].offsetHeight
+
+    this.$element
+      .addClass('collapsing')
+      .removeClass('collapse in')
+      .attr('aria-expanded', false)
+
+    this.$trigger
+      .addClass('collapsed')
+      .attr('aria-expanded', false)
+
+    this.transitioning = 1
+
+    var complete = function () {
+      this.transitioning = 0
+      this.$element
+        .removeClass('collapsing')
+        .addClass('collapse')
+        .trigger('hidden.bs.collapse')
+    }
+
+    if (!$.support.transition) return complete.call(this)
+
+    this.$element
+      [dimension](0)
+      .one('bsTransitionEnd', $.proxy(complete, this))
+      .emulateTransitionEnd(Collapse.TRANSITION_DURATION)
+  }
+
+  Collapse.prototype.toggle = function () {
+    this[this.$element.hasClass('in') ? 'hide' : 'show']()
+  }
+
+  Collapse.prototype.getParent = function () {
+    return $(this.options.parent)
+      .find('[data-toggle="collapse"][data-parent="' + this.options.parent + '"]')
+      .each($.proxy(function (i, element) {
+        var $element = $(element)
+        this.addAriaAndCollapsedClass(getTargetFromTrigger($element), $element)
+      }, this))
+      .end()
+  }
+
+  Collapse.prototype.addAriaAndCollapsedClass = function ($element, $trigger) {
+    var isOpen = $element.hasClass('in')
+
+    $element.attr('aria-expanded', isOpen)
+    $trigger
+      .toggleClass('collapsed', !isOpen)
+      .attr('aria-expanded', isOpen)
+  }
+
+  function getTargetFromTrigger($trigger) {
+    var href
+    var target = $trigger.attr('data-target')
+      || (href = $trigger.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') // strip for ie7
+
+    return $(target)
+  }
+
+
+  // COLLAPSE PLUGIN DEFINITION
+  // ==========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data('bs.collapse')
+      var options = $.extend({}, Collapse.DEFAULTS, $this.data(), typeof option == 'object' && option)
+
+      if (!data && options.toggle && /show|hide/.test(option)) options.toggle = false
+      if (!data) $this.data('bs.collapse', (data = new Collapse(this, options)))
+      if (typeof option == 'string') data[option]()
+    })
+  }
+
+  var old = $.fn.collapse
+
+  $.fn.collapse             = Plugin
+  $.fn.collapse.Constructor = Collapse
+
+
+  // COLLAPSE NO CONFLICT
+  // ====================
+
+  $.fn.collapse.noConflict = function () {
+    $.fn.collapse = old
+    return this
+  }
+
+
+  // COLLAPSE DATA-API
+  // =================
+
+  $(document).on('click.bs.collapse.data-api', '[data-toggle="collapse"]', function (e) {
+    var $this   = $(this)
+
+    if (!$this.attr('data-target')) e.preventDefault()
+
+    var $target = getTargetFromTrigger($this)
+    var data    = $target.data('bs.collapse')
+    var option  = data ? 'toggle' : $this.data()
+
+    Plugin.call($target, option)
+  })
+
+}(jQuery);
+</script>
+<script>
+window.initializeCodeFolding = function(show) {
+
+  // handlers for show-all and hide all
+  $("#rmd-show-all-code").click(function() {
+    $('div.r-code-collapse').each(function() {
+      $(this).collapse('show');
+    });
+  });
+  $("#rmd-hide-all-code").click(function() {
+    $('div.r-code-collapse').each(function() {
+      $(this).collapse('hide');
+    });
+  });
+
+  // index for unique code element ids
+  var currentIndex = 1;
+
+  // select all R code blocks
+  var rCodeBlocks = $('pre.sourceCode, pre.r, pre.python, pre.bash, pre.sql, pre.cpp, pre.stan');
+  rCodeBlocks.each(function() {
+
+    // create a collapsable div to wrap the code in
+    var div = $('<div class="collapse r-code-collapse"></div>');
+    if (show)
+      div.addClass('in');
+    var id = 'rcode-643E0F36' + currentIndex++;
+    div.attr('id', id);
+    $(this).before(div);
+    $(this).detach().appendTo(div);
+
+    // add a show code button right above
+    var showCodeText = $('<span>' + (show ? 'Hide' : 'Code') + '</span>');
+    var showCodeButton = $('<button type="button" class="btn btn-default btn-xs code-folding-btn pull-right"></button>');
+    showCodeButton.append(showCodeText);
+    showCodeButton
+        .attr('data-toggle', 'collapse')
+        .attr('data-target', '#' + id)
+        .attr('aria-expanded', show)
+        .attr('aria-controls', id);
+
+    var buttonRow = $('<div class="row"></div>');
+    var buttonCol = $('<div class="col-md-12"></div>');
+
+    buttonCol.append(showCodeButton);
+    buttonRow.append(buttonCol);
+
+    div.before(buttonRow);
+
+    // update state of button on show/hide
+    div.on('hidden.bs.collapse', function () {
+      showCodeText.text('Code');
+    });
+    div.on('show.bs.collapse', function () {
+      showCodeText.text('Hide');
+    });
+  });
+
+}
+</script>
+<script>
+/* ========================================================================
+ * Bootstrap: dropdown.js v3.3.7
+ * http://getbootstrap.com/javascript/#dropdowns
+ * ========================================================================
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
++function ($) {
+  'use strict';
+
+  // DROPDOWN CLASS DEFINITION
+  // =========================
+
+  var backdrop = '.dropdown-backdrop'
+  var toggle   = '[data-toggle="dropdown"]'
+  var Dropdown = function (element) {
+    $(element).on('click.bs.dropdown', this.toggle)
+  }
+
+  Dropdown.VERSION = '3.3.7'
+
+  function getParent($this) {
+    var selector = $this.attr('data-target')
+
+    if (!selector) {
+      selector = $this.attr('href')
+      selector = selector && /#[A-Za-z]/.test(selector) && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
+    }
+
+    var $parent = selector && $(selector)
+
+    return $parent && $parent.length ? $parent : $this.parent()
+  }
+
+  function clearMenus(e) {
+    if (e && e.which === 3) return
+    $(backdrop).remove()
+    $(toggle).each(function () {
+      var $this         = $(this)
+      var $parent       = getParent($this)
+      var relatedTarget = { relatedTarget: this }
+
+      if (!$parent.hasClass('open')) return
+
+      if (e && e.type == 'click' && /input|textarea/i.test(e.target.tagName) && $.contains($parent[0], e.target)) return
+
+      $parent.trigger(e = $.Event('hide.bs.dropdown', relatedTarget))
+
+      if (e.isDefaultPrevented()) return
+
+      $this.attr('aria-expanded', 'false')
+      $parent.removeClass('open').trigger($.Event('hidden.bs.dropdown', relatedTarget))
+    })
+  }
+
+  Dropdown.prototype.toggle = function (e) {
+    var $this = $(this)
+
+    if ($this.is('.disabled, :disabled')) return
+
+    var $parent  = getParent($this)
+    var isActive = $parent.hasClass('open')
+
+    clearMenus()
+
+    if (!isActive) {
+      if ('ontouchstart' in document.documentElement && !$parent.closest('.navbar-nav').length) {
+        // if mobile we use a backdrop because click events don't delegate
+        $(document.createElement('div'))
+          .addClass('dropdown-backdrop')
+          .insertAfter($(this))
+          .on('click', clearMenus)
+      }
+
+      var relatedTarget = { relatedTarget: this }
+      $parent.trigger(e = $.Event('show.bs.dropdown', relatedTarget))
+
+      if (e.isDefaultPrevented()) return
+
+      $this
+        .trigger('focus')
+        .attr('aria-expanded', 'true')
+
+      $parent
+        .toggleClass('open')
+        .trigger($.Event('shown.bs.dropdown', relatedTarget))
+    }
+
+    return false
+  }
+
+  Dropdown.prototype.keydown = function (e) {
+    if (!/(38|40|27|32)/.test(e.which) || /input|textarea/i.test(e.target.tagName)) return
+
+    var $this = $(this)
+
+    e.preventDefault()
+    e.stopPropagation()
+
+    if ($this.is('.disabled, :disabled')) return
+
+    var $parent  = getParent($this)
+    var isActive = $parent.hasClass('open')
+
+    if (!isActive && e.which != 27 || isActive && e.which == 27) {
+      if (e.which == 27) $parent.find(toggle).trigger('focus')
+      return $this.trigger('click')
+    }
+
+    var desc = ' li:not(.disabled):visible a'
+    var $items = $parent.find('.dropdown-menu' + desc)
+
+    if (!$items.length) return
+
+    var index = $items.index(e.target)
+
+    if (e.which == 38 && index > 0)                 index--         // up
+    if (e.which == 40 && index < $items.length - 1) index++         // down
+    if (!~index)                                    index = 0
+
+    $items.eq(index).trigger('focus')
+  }
+
+
+  // DROPDOWN PLUGIN DEFINITION
+  // ==========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this = $(this)
+      var data  = $this.data('bs.dropdown')
+
+      if (!data) $this.data('bs.dropdown', (data = new Dropdown(this)))
+      if (typeof option == 'string') data[option].call($this)
+    })
+  }
+
+  var old = $.fn.dropdown
+
+  $.fn.dropdown             = Plugin
+  $.fn.dropdown.Constructor = Dropdown
+
+
+  // DROPDOWN NO CONFLICT
+  // ====================
+
+  $.fn.dropdown.noConflict = function () {
+    $.fn.dropdown = old
+    return this
+  }
+
+
+  // APPLY TO STANDARD DROPDOWN ELEMENTS
+  // ===================================
+
+  $(document)
+    .on('click.bs.dropdown.data-api', clearMenus)
+    .on('click.bs.dropdown.data-api', '.dropdown form', function (e) { e.stopPropagation() })
+    .on('click.bs.dropdown.data-api', toggle, Dropdown.prototype.toggle)
+    .on('keydown.bs.dropdown.data-api', toggle, Dropdown.prototype.keydown)
+    .on('keydown.bs.dropdown.data-api', '.dropdown-menu', Dropdown.prototype.keydown)
+
+}(jQuery);
+</script>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+<script>
+document.write('<div class="btn-group pull-right" style="position: absolute; top: 20%; right: 2%; z-index: 200"><button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-_extension-text-contrast=""><span>Code</span> <span class="caret"></span></button><ul class="dropdown-menu" style="min-width: 50px;"><li><a id="rmd-show-all-code" href="#">Show All Code</a></li><li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li></ul></div>')
 </script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {

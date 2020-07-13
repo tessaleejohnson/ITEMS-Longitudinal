@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.2 Conditional | ITEMS: Longitudinal Data Analysis</title>
+  <title>5.1 Setup | ITEMS: Longitudinal Data Analysis</title>
   <meta name="description" content="ITEMS module for learning longitudinal data analysis in R." />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.2 Conditional | ITEMS: Longitudinal Data Analysis" />
+  <meta property="og:title" content="5.1 Setup | ITEMS: Longitudinal Data Analysis" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="http://tessaleejohnson.github.io/ITEMS-Longitudinal/" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="tessaleejohnson/ITEMS-Longitudinal" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.2 Conditional | ITEMS: Longitudinal Data Analysis" />
+  <meta name="twitter:title" content="5.1 Setup | ITEMS: Longitudinal Data Analysis" />
   
   <meta name="twitter:description" content="ITEMS module for learning longitudinal data analysis in R." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="4-1-unconditional.html"/>
-<link rel="next" href="5-model-diagnostics.html"/>
+<link rel="prev" href="5-model-diagnostics.html"/>
+<link rel="next" href="5-2-diag-normal.html"/>
 
 
 
@@ -1792,6 +1792,554 @@ visibility: visible;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+.row { display: flex; }
+.collapse { display: none; }
+.in { display:block }
+.pull-right > .dropdown-menu {
+    right: 0;
+    left: auto;
+}
+.open > .dropdown-menu {
+    display: block;
+}
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
 <style type="text/css">
 code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -1894,45 +2442,53 @@ white-space: inherit;
 </ul></li>
 <li class="chapter" data-level="3" data-path="3-exploratory-data-analysis.html"><a href="3-exploratory-data-analysis.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis</a><ul>
 <li class="chapter" data-level="3.1" data-path="3-1-missingness.html"><a href="3-1-missingness.html"><i class="fa fa-check"></i><b>3.1</b> Missingness</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="3-1-missingness.html"><a href="3-1-missingness.html#missing-data-setup"><i class="fa fa-check"></i><b>3.1.1</b> Missing Data Setup</a></li>
+<li class="chapter" data-level="3.1.1" data-path="3-1-missingness.html"><a href="3-1-missingness.html#missingness-setup"><i class="fa fa-check"></i><b>3.1.1</b> Setup</a></li>
 <li class="chapter" data-level="3.1.2" data-path="3-1-missingness.html"><a href="3-1-missingness.html#lollipop-plot"><i class="fa fa-check"></i><b>3.1.2</b> Lollipop Plot</a></li>
-<li class="chapter" data-level="3.1.3" data-path="3-1-missingness.html"><a href="3-1-missingness.html#bar-plot-by-pattern"><i class="fa fa-check"></i><b>3.1.3</b> Bar Plot by Pattern</a></li>
-<li class="chapter" data-level="3.1.4" data-path="3-1-missingness.html"><a href="3-1-missingness.html#bar-plot-by-wave"><i class="fa fa-check"></i><b>3.1.4</b> Bar Plot by Wave</a></li>
+<li class="chapter" data-level="3.1.3" data-path="3-1-missingness.html"><a href="3-1-missingness.html#bar-pattern"><i class="fa fa-check"></i><b>3.1.3</b> Bar Plot by Pattern</a></li>
+<li class="chapter" data-level="3.1.4" data-path="3-1-missingness.html"><a href="3-1-missingness.html#bar-wave"><i class="fa fa-check"></i><b>3.1.4</b> Bar Plot by Wave</a></li>
 <li class="chapter" data-level="3.1.5" data-path="3-1-missingness.html"><a href="3-1-missingness.html#raster-plot"><i class="fa fa-check"></i><b>3.1.5</b> Raster Plot</a></li>
-<li class="chapter" data-level="3.1.6" data-path="3-1-missingness.html"><a href="3-1-missingness.html#updated-dataset"><i class="fa fa-check"></i><b>3.1.6</b> Updated Dataset</a></li>
+<li class="chapter" data-level="3.1.6" data-path="3-1-missingness.html"><a href="3-1-missingness.html#updated-dataset"><i class="fa fa-check"></i><b>3.1.6</b> Update Dataset</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="3-2-univariate-descriptives.html"><a href="3-2-univariate-descriptives.html"><i class="fa fa-check"></i><b>3.2</b> Univariate Descriptives</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="3-2-univariate-descriptives.html"><a href="3-2-univariate-descriptives.html#univariate-setup"><i class="fa fa-check"></i><b>3.2.1</b> Univariate Setup</a></li>
+<li class="chapter" data-level="3.2.1" data-path="3-2-univariate-descriptives.html"><a href="3-2-univariate-descriptives.html#univariate-setup"><i class="fa fa-check"></i><b>3.2.1</b> Setup</a></li>
 <li class="chapter" data-level="3.2.2" data-path="3-2-univariate-descriptives.html"><a href="3-2-univariate-descriptives.html#univariate-table"><i class="fa fa-check"></i><b>3.2.2</b> Univariate Table</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="3-3-bivariate-descriptives.html"><a href="3-3-bivariate-descriptives.html"><i class="fa fa-check"></i><b>3.3</b> Bivariate Descriptives</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="3-3-bivariate-descriptives.html"><a href="3-3-bivariate-descriptives.html#bivariate-setup"><i class="fa fa-check"></i><b>3.3.1</b> Bivariate Setup</a></li>
+<li class="chapter" data-level="3.3.1" data-path="3-3-bivariate-descriptives.html"><a href="3-3-bivariate-descriptives.html#bivariate-setup"><i class="fa fa-check"></i><b>3.3.1</b> Setup</a></li>
 <li class="chapter" data-level="3.3.2" data-path="3-3-bivariate-descriptives.html"><a href="3-3-bivariate-descriptives.html#bivariate-table"><i class="fa fa-check"></i><b>3.3.2</b> Bivariate Table</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="3-4-trajectories.html"><a href="3-4-trajectories.html"><i class="fa fa-check"></i><b>3.4</b> Trajectories</a><ul>
 <li class="chapter" data-level="3.4.1" data-path="3-4-trajectories.html"><a href="3-4-trajectories.html#aggregated-plot"><i class="fa fa-check"></i><b>3.4.1</b> Aggregated Plot</a></li>
-<li class="chapter" data-level="3.4.2" data-path="3-4-trajectories.html"><a href="3-4-trajectories.html#individual-plot"><i class="fa fa-check"></i><b>3.4.2</b> Individual Plot</a></li>
+<li class="chapter" data-level="3.4.2" data-path="3-4-trajectories.html"><a href="3-4-trajectories.html#individual-plots"><i class="fa fa-check"></i><b>3.4.2</b> Individual Plot</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="4-model-fitting.html"><a href="4-model-fitting.html"><i class="fa fa-check"></i><b>4</b> Model Fitting</a><ul>
-<li class="chapter" data-level="4.1" data-path="4-1-unconditional.html"><a href="4-1-unconditional.html"><i class="fa fa-check"></i><b>4.1</b> Unconditional</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="4-1-unconditional.html"><a href="4-1-unconditional.html#intraclass-correlation"><i class="fa fa-check"></i><b>4.1.1</b> Intraclass Correlation</a></li>
-<li class="chapter" data-level="4.1.2" data-path="4-1-unconditional.html"><a href="4-1-unconditional.html#unconditional-fits"><i class="fa fa-check"></i><b>4.1.2</b> Unconditional Fits</a></li>
-<li class="chapter" data-level="4.1.3" data-path="4-1-unconditional.html"><a href="4-1-unconditional.html#global-comparisons-table"><i class="fa fa-check"></i><b>4.1.3</b> Global Comparisons Table</a></li>
+<li class="chapter" data-level="4.1" data-path="4-1-unconditional-models.html"><a href="4-1-unconditional-models.html"><i class="fa fa-check"></i><b>4.1</b> Unconditional Models</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="4-1-unconditional-models.html"><a href="4-1-unconditional-models.html#icc"><i class="fa fa-check"></i><b>4.1.1</b> Intraclass Correlation</a></li>
+<li class="chapter" data-level="4.1.2" data-path="4-1-unconditional-models.html"><a href="4-1-unconditional-models.html#unconditional-fits"><i class="fa fa-check"></i><b>4.1.2</b> Unconditional Fits</a></li>
+<li class="chapter" data-level="4.1.3" data-path="4-1-unconditional-models.html"><a href="4-1-unconditional-models.html#global-comparisons-table"><i class="fa fa-check"></i><b>4.1.3</b> Global Comparisons Table</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="4-2-conditional.html"><a href="4-2-conditional.html"><i class="fa fa-check"></i><b>4.2</b> Conditional</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="4-2-conditional.html"><a href="4-2-conditional.html#conditional-fits"><i class="fa fa-check"></i><b>4.2.1</b> Conditional Fits</a></li>
-<li class="chapter" data-level="4.2.2" data-path="4-2-conditional.html"><a href="4-2-conditional.html#parameter-estimates-table"><i class="fa fa-check"></i><b>4.2.2</b> Parameter Estimates Table</a></li>
+<li class="chapter" data-level="4.2" data-path="4-2-conditional-models.html"><a href="4-2-conditional-models.html"><i class="fa fa-check"></i><b>4.2</b> Conditional Models</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="4-2-conditional-models.html"><a href="4-2-conditional-models.html#conditional-fits"><i class="fa fa-check"></i><b>4.2.1</b> Conditional Fits</a></li>
+<li class="chapter" data-level="4.2.2" data-path="4-2-conditional-models.html"><a href="4-2-conditional-models.html#parameter-estimates-table"><i class="fa fa-check"></i><b>4.2.2</b> Parameter Estimates Table</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="5-model-diagnostics.html"><a href="5-model-diagnostics.html"><i class="fa fa-check"></i><b>5</b> Model Diagnostics</a><ul>
-<li class="chapter" data-level="5.1" data-path="5-1-diagnostics-setup.html"><a href="5-1-diagnostics-setup.html"><i class="fa fa-check"></i><b>5.1</b> Diagnostics Setup</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="5-1-diagnostics-setup.html"><a href="5-1-diagnostics-setup.html#merge-data"><i class="fa fa-check"></i><b>5.1.1</b> Merge Data</a></li>
-<li class="chapter" data-level="5.1.2" data-path="5-1-diagnostics-setup.html"><a href="5-1-diagnostics-setup.html#base-plots"><i class="fa fa-check"></i><b>5.1.2</b> Base Plots</a></li>
+<li class="chapter" data-level="5.1" data-path="5-1-diag-setup.html"><a href="5-1-diag-setup.html"><i class="fa fa-check"></i><b>5.1</b> Setup</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="5-1-diag-setup.html"><a href="5-1-diag-setup.html#diag-merge"><i class="fa fa-check"></i><b>5.1.1</b> Merge Data</a></li>
+<li class="chapter" data-level="5.1.2" data-path="5-1-diag-setup.html"><a href="5-1-diag-setup.html#diag-base"><i class="fa fa-check"></i><b>5.1.2</b> Base Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="5-2-normality-plots.html"><a href="5-2-normality-plots.html"><i class="fa fa-check"></i><b>5.2</b> Normality Plots</a></li>
-<li class="chapter" data-level="5.3" data-path="5-3-homoskedasticity-plots.html"><a href="5-3-homoskedasticity-plots.html"><i class="fa fa-check"></i><b>5.3</b> Homoskedasticity Plots</a></li>
-<li class="chapter" data-level="5.4" data-path="5-4-independence-plots.html"><a href="5-4-independence-plots.html"><i class="fa fa-check"></i><b>5.4</b> Independence Plots</a></li>
+<li class="chapter" data-level="5.2" data-path="5-2-diag-normal.html"><a href="5-2-diag-normal.html"><i class="fa fa-check"></i><b>5.2</b> Normality Plots</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="5-2-diag-normal.html"><a href="5-2-diag-normal.html#diag-normal-code"><i class="fa fa-check"></i><b>5.2.1</b> Code</a></li>
+<li class="chapter" data-level="5.2.2" data-path="5-2-diag-normal.html"><a href="5-2-diag-normal.html#diag-normal-printed"><i class="fa fa-check"></i><b>5.2.2</b> Printed Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="5-3-diag-homo.html"><a href="5-3-diag-homo.html"><i class="fa fa-check"></i><b>5.3</b> Homoskedasticity Plots</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="5-3-diag-homo.html"><a href="5-3-diag-homo.html#diag-homo-code"><i class="fa fa-check"></i><b>5.3.1</b> Code</a></li>
+<li class="chapter" data-level="5.3.2" data-path="5-3-diag-homo.html"><a href="5-3-diag-homo.html#diag-homo-printed"><i class="fa fa-check"></i><b>5.3.2</b> Printed Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="5-4-diag-indep.html"><a href="5-4-diag-indep.html"><i class="fa fa-check"></i><b>5.4</b> Independence Plots</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="5-4-diag-indep.html"><a href="5-4-diag-indep.html#diag-indep-code"><i class="fa fa-check"></i><b>5.4.1</b> Code</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -1954,630 +2510,58 @@ white-space: inherit;
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="conditional" class="section level2">
-<h2><span class="header-section-number">4.2</span> Conditional</h2>
-<p>In this section of code, we add our predictor of interest, <code>assigned_sex</code>, and a slate of standardized covariates to the baseline “best” model identified in the <a href="4-1-unconditional.html#global-comparisons-table">step above</a>: <code>null_rslp</code>. If we wanted to conduct further model comparisons for the covariates (e.g., testing the addition of random slopes for the predictors), we could proceed as we did in the section above. Once we have selected our final model, <code>cond_reml</code>, we switch the estimation to restricted maximum likelihood (<code>method = &quot;REML&quot;</code>).</p>
-<div id="conditional-fits" class="section level3">
-<h3><span class="header-section-number">4.2.1</span> Conditional Fits</h3>
-<p>Let’s add predictors to the linear mixed-effects model with random slope for <code>child_age</code>. The effects of <code>read_score</code>, <code>mom_age</code>, <code>home_emo</code>, and <code>home_cog</code> have been standardized for the purposes of interpretation.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="4-2-conditional.html#cb43-1"></a><span class="co"># conditional model</span></span>
-<span id="cb43-2"><a href="4-2-conditional.html#cb43-2"></a>cond_full &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
-<span id="cb43-3"><a href="4-2-conditional.html#cb43-3"></a><span class="st">  </span>nlme<span class="op">::</span><span class="kw">lme</span>(</span>
-<span id="cb43-4"><a href="4-2-conditional.html#cb43-4"></a>    anti_score <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age <span class="op">+</span><span class="st"> </span>assigned_sex <span class="op">+</span></span>
-<span id="cb43-5"><a href="4-2-conditional.html#cb43-5"></a><span class="st">      </span><span class="kw">scale</span>(read_score) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb43-6"><a href="4-2-conditional.html#cb43-6"></a><span class="st">      </span><span class="kw">scale</span>(mom_age) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb43-7"><a href="4-2-conditional.html#cb43-7"></a><span class="st">      </span><span class="kw">scale</span>(home_emo) <span class="op">+</span></span>
-<span id="cb43-8"><a href="4-2-conditional.html#cb43-8"></a><span class="st">      </span><span class="kw">scale</span>(home_cog),</span>
-<span id="cb43-9"><a href="4-2-conditional.html#cb43-9"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb43-10"><a href="4-2-conditional.html#cb43-10"></a>    <span class="dt">na.action =</span> na.exclude,</span>
-<span id="cb43-11"><a href="4-2-conditional.html#cb43-11"></a>    <span class="dt">method =</span> <span class="st">&quot;ML&quot;</span>,</span>
-<span id="cb43-12"><a href="4-2-conditional.html#cb43-12"></a>    <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age <span class="op">|</span><span class="st"> </span>person_id,</span>
-<span id="cb43-13"><a href="4-2-conditional.html#cb43-13"></a>    <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">maxIter =</span> <span class="dv">100</span>, <span class="dt">returnObject =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb43-14"><a href="4-2-conditional.html#cb43-14"></a>  )</span>
-<span id="cb43-15"><a href="4-2-conditional.html#cb43-15"></a></span>
-<span id="cb43-16"><a href="4-2-conditional.html#cb43-16"></a><span class="co"># final model fit with REML</span></span>
-<span id="cb43-17"><a href="4-2-conditional.html#cb43-17"></a>cond_reml &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
-<span id="cb43-18"><a href="4-2-conditional.html#cb43-18"></a><span class="st">  </span>nlme<span class="op">::</span><span class="kw">lme</span>(</span>
-<span id="cb43-19"><a href="4-2-conditional.html#cb43-19"></a>    anti_score <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age <span class="op">+</span><span class="st"> </span>assigned_sex <span class="op">+</span></span>
-<span id="cb43-20"><a href="4-2-conditional.html#cb43-20"></a><span class="st">      </span><span class="kw">scale</span>(read_score) <span class="op">+</span></span>
-<span id="cb43-21"><a href="4-2-conditional.html#cb43-21"></a><span class="st">      </span><span class="kw">scale</span>(mom_age) <span class="op">+</span></span>
-<span id="cb43-22"><a href="4-2-conditional.html#cb43-22"></a><span class="st">      </span><span class="kw">scale</span>(home_emo) <span class="op">+</span></span>
-<span id="cb43-23"><a href="4-2-conditional.html#cb43-23"></a><span class="st">      </span><span class="kw">scale</span>(home_cog),</span>
-<span id="cb43-24"><a href="4-2-conditional.html#cb43-24"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb43-25"><a href="4-2-conditional.html#cb43-25"></a>    <span class="dt">na.action =</span> na.exclude,</span>
-<span id="cb43-26"><a href="4-2-conditional.html#cb43-26"></a>    <span class="dt">method =</span> <span class="st">&quot;REML&quot;</span>,</span>
-<span id="cb43-27"><a href="4-2-conditional.html#cb43-27"></a>    <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age <span class="op">|</span><span class="st"> </span>person_id,</span>
-<span id="cb43-28"><a href="4-2-conditional.html#cb43-28"></a>    <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">maxIter =</span> <span class="dv">100</span>, <span class="dt">returnObject =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb43-29"><a href="4-2-conditional.html#cb43-29"></a>  )</span>
-<span id="cb43-30"><a href="4-2-conditional.html#cb43-30"></a></span>
-<span id="cb43-31"><a href="4-2-conditional.html#cb43-31"></a><span class="co"># example of raw output</span></span>
-<span id="cb43-32"><a href="4-2-conditional.html#cb43-32"></a>cond_reml <span class="op">%&gt;%</span></span>
-<span id="cb43-33"><a href="4-2-conditional.html#cb43-33"></a><span class="st">  </span><span class="kw">summary</span>(.)</span></code></pre></div>
-<pre><code>## Linear mixed-effects model fit by REML
-##  Data: . 
-##        AIC      BIC    logLik
-##   4877.071 4933.642 -2427.535
-## 
-## Random effects:
-##  Formula: ~1 + child_age | person_id
-##  Structure: General positive-definite, Log-Cholesky parametrization
-##             StdDev    Corr  
-## (Intercept) 0.6102073 (Intr)
-## child_age   0.1278017 -0.329
-## Residual    1.3217583       
-## 
-## Fixed effects: anti_score ~ 1 + child_age + assigned_sex + scale(read_score) +      scale(mom_age) + scale(home_emo) + scale(home_cog) 
-##                        Value Std.Error  DF   t-value p-value
-## (Intercept)        0.3045651 0.3178177 873  0.958301  0.3382
-## child_age          0.1186889 0.0324837 873  3.653794  0.0003
-## assigned_sexmale   0.8790356 0.1386554 392  6.339712  0.0000
-## scale(read_score) -0.1453568 0.0863945 873 -1.682477  0.0928
-## scale(mom_age)    -0.1049835 0.0719887 392 -1.458332  0.1455
-## scale(home_emo)   -0.3439285 0.0731898 392 -4.699129  0.0000
-## scale(home_cog)   -0.1250640 0.0725356 392 -1.724174  0.0855
-##  Correlation: 
-##                   (Intr) chld_g assgn_ scl(r_) scl(m_) scl(hm_m)
-## child_age         -0.950                                        
-## assigned_sexmale  -0.177 -0.044                                 
-## scale(read_score)  0.825 -0.836  0.053                          
-## scale(mom_age)    -0.033  0.069 -0.158 -0.090                   
-## scale(home_emo)   -0.032  0.039 -0.036 -0.039  -0.148           
-## scale(home_cog)   -0.069  0.055  0.077 -0.071  -0.185  -0.270   
-## 
-## Standardized Within-Group Residuals:
-##        Min         Q1        Med         Q3        Max 
-## -3.0993649 -0.5663559 -0.1545480  0.4730016  3.9019146 
-## 
-## Number of Observations: 1272
-## Number of Groups: 397</code></pre>
+<div id="diag-setup" class="section level2">
+<h2><span class="header-section-number">5.1</span> Setup</h2>
+<div id="diag-merge" class="section level3">
+<h3><span class="header-section-number">5.1.1</span> Merge Data</h3>
+<p>Using the <code>nlme::ranef</code>, <code>fitted</code>, and <code>residuals</code> functions, we can merge our original dataset (<code>dat_final</code>) with the output from our final estimated model, <code>cond_reml</code>. Note that we choose to use standardized residuals by requesting <code>type = &quot;pearson&quot;</code> from the <code>residuals</code> function. Recall that because the <code>dat_final</code> dataset contains missing observations for both the outcome (anti-social behavior) and predictors, we used the <code>na.exclude</code> option when fitting our models in <a href="4-2-conditional-models.html#conditional-models">Conditional Models</a>. If we hadn’t done this, then we would get errors when trying to re-merge the residuals back with the original data.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="5-1-diag-setup.html#cb58-1"></a><span class="co">##--Data Prep--##</span></span>
+<span id="cb58-2"><a href="5-1-diag-setup.html#cb58-2"></a>mod &lt;-<span class="st"> </span>cond_reml</span>
+<span id="cb58-3"><a href="5-1-diag-setup.html#cb58-3"></a></span>
+<span id="cb58-4"><a href="5-1-diag-setup.html#cb58-4"></a>model_eval &lt;-<span class="st"> </span>mod <span class="op">%&gt;%</span></span>
+<span id="cb58-5"><a href="5-1-diag-setup.html#cb58-5"></a><span class="st">  </span>nlme<span class="op">::</span><span class="kw">ranef</span>(., <span class="dt">condVar =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb58-6"><a href="5-1-diag-setup.html#cb58-6"></a><span class="st">  </span>tibble<span class="op">::</span><span class="kw">as_tibble</span>(.) <span class="op">%&gt;%</span></span>
+<span id="cb58-7"><a href="5-1-diag-setup.html#cb58-7"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(</span>
+<span id="cb58-8"><a href="5-1-diag-setup.html#cb58-8"></a>    <span class="dt">person_id =</span> dat_final <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">distinct</span>(., person_id) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>(.),</span>
+<span id="cb58-9"><a href="5-1-diag-setup.html#cb58-9"></a>    <span class="dt">.before =</span> <span class="st">&quot;(Intercept)&quot;</span></span>
+<span id="cb58-10"><a href="5-1-diag-setup.html#cb58-10"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb58-11"><a href="5-1-diag-setup.html#cb58-11"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(., <span class="dt">resid_int =</span> <span class="st">`</span><span class="dt">(Intercept)</span><span class="st">`</span>, <span class="dt">resid_age =</span> child_age) <span class="op">%&gt;%</span></span>
+<span id="cb58-12"><a href="5-1-diag-setup.html#cb58-12"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">right_join</span>(., dat_final, <span class="dt">by =</span> <span class="st">&quot;person_id&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb58-13"><a href="5-1-diag-setup.html#cb58-13"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(</span>
+<span id="cb58-14"><a href="5-1-diag-setup.html#cb58-14"></a>    <span class="dt">resid_id =</span> <span class="kw">residuals</span>(mod, <span class="dt">type =</span> <span class="st">&quot;pearson&quot;</span>),</span>
+<span id="cb58-15"><a href="5-1-diag-setup.html#cb58-15"></a>    <span class="dt">fitted_id =</span> <span class="kw">fitted</span>(mod)</span>
+<span id="cb58-16"><a href="5-1-diag-setup.html#cb58-16"></a>  )</span></code></pre></div>
 </div>
-<div id="parameter-estimates-table" class="section level3">
-<h3><span class="header-section-number">4.2.2</span> Parameter Estimates Table</h3>
-<p>Now, we create a table of parameter estimates for the final model (<code>cond_reml</code>), grouped by fixed and random effects (note that we have opted to remove p-values from our table and instead included lower and upper bounds of the 95% confidence interval):</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="4-2-conditional.html#cb45-1"></a><span class="co"># table results</span></span>
-<span id="cb45-2"><a href="4-2-conditional.html#cb45-2"></a>gt_results_tab &lt;-<span class="st"> </span>cond_reml <span class="op">%&gt;%</span></span>
-<span id="cb45-3"><a href="4-2-conditional.html#cb45-3"></a><span class="st">  </span>broom.mixed<span class="op">::</span><span class="kw">tidy</span>(., <span class="dt">conf.int =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb45-4"><a href="4-2-conditional.html#cb45-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(</span>
-<span id="cb45-5"><a href="4-2-conditional.html#cb45-5"></a>    <span class="op">-</span>tidyselect<span class="op">::</span><span class="kw">any_of</span>(<span class="kw">c</span>(<span class="st">&quot;effect&quot;</span>, <span class="st">&quot;group&quot;</span>, <span class="st">&quot;df&quot;</span>, <span class="st">&quot;statistic&quot;</span>, <span class="st">&quot;p.value&quot;</span>))</span>
-<span id="cb45-6"><a href="4-2-conditional.html#cb45-6"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb45-7"><a href="4-2-conditional.html#cb45-7"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(., dplyr<span class="op">::</span><span class="kw">across</span>(<span class="kw">where</span>(is.numeric), <span class="op">~</span><span class="kw">round</span>(., <span class="dv">2</span>))) <span class="op">%&gt;%</span></span>
-<span id="cb45-8"><a href="4-2-conditional.html#cb45-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(</span>
-<span id="cb45-9"><a href="4-2-conditional.html#cb45-9"></a>    <span class="dt">Parameter =</span> term,</span>
-<span id="cb45-10"><a href="4-2-conditional.html#cb45-10"></a>    <span class="dt">Estimate =</span> estimate,</span>
-<span id="cb45-11"><a href="4-2-conditional.html#cb45-11"></a>    <span class="dt">SE =</span> std.error,</span>
-<span id="cb45-12"><a href="4-2-conditional.html#cb45-12"></a>    <span class="dt">CI_low =</span> conf.low,</span>
-<span id="cb45-13"><a href="4-2-conditional.html#cb45-13"></a>    <span class="dt">CI_high =</span> conf.high) <span class="op">%&gt;%</span></span>
-<span id="cb45-14"><a href="4-2-conditional.html#cb45-14"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(</span>
-<span id="cb45-15"><a href="4-2-conditional.html#cb45-15"></a>    <span class="dt">Parameter =</span> dplyr<span class="op">::</span><span class="kw">case_when</span>(</span>
-<span id="cb45-16"><a href="4-2-conditional.html#cb45-16"></a>      Parameter <span class="op">==</span><span class="st"> &quot;child_age&quot;</span> <span class="op">~</span><span class="st"> &quot;Child Age&quot;</span>,</span>
-<span id="cb45-17"><a href="4-2-conditional.html#cb45-17"></a>      Parameter <span class="op">==</span><span class="st"> &quot;assigned_sexmale&quot;</span> <span class="op">~</span><span class="st"> &quot;Male&quot;</span>,</span>
-<span id="cb45-18"><a href="4-2-conditional.html#cb45-18"></a>      Parameter <span class="op">==</span><span class="st"> &quot;scale(read_score)&quot;</span> <span class="op">~</span><span class="st"> &quot;Reading Score (std.)&quot;</span>,</span>
-<span id="cb45-19"><a href="4-2-conditional.html#cb45-19"></a>      Parameter <span class="op">==</span><span class="st"> &quot;scale(mom_age)&quot;</span> <span class="op">~</span><span class="st"> &quot;Mother&#39;s Age (std.)&quot;</span>,</span>
-<span id="cb45-20"><a href="4-2-conditional.html#cb45-20"></a>      Parameter <span class="op">==</span><span class="st"> &quot;scale(home_emo)&quot;</span> <span class="op">~</span><span class="st"> &quot;Home Emotional Stimulation (std.)&quot;</span>,</span>
-<span id="cb45-21"><a href="4-2-conditional.html#cb45-21"></a>      Parameter <span class="op">==</span><span class="st"> &quot;scale(home_cog)&quot;</span> <span class="op">~</span><span class="st"> &quot;Home Cognitive Stimulation (std.)&quot;</span>,</span>
-<span id="cb45-22"><a href="4-2-conditional.html#cb45-22"></a>      Parameter <span class="op">==</span><span class="st"> &quot;sd_(Intercept)&quot;</span> <span class="op">~</span><span class="st"> &quot;Std. Dev. (Intercept)&quot;</span>,</span>
-<span id="cb45-23"><a href="4-2-conditional.html#cb45-23"></a>      Parameter <span class="op">==</span><span class="st"> &quot;cor_child_age.(Intercept)&quot;</span> <span class="op">~</span><span class="st"> &quot;Corr. (Intercept. with Child Age)&quot;</span>,</span>
-<span id="cb45-24"><a href="4-2-conditional.html#cb45-24"></a>      Parameter <span class="op">==</span><span class="st"> &quot;sd_child_age&quot;</span> <span class="op">~</span><span class="st"> &quot;Std. Dev. (Child Age)&quot;</span>,</span>
-<span id="cb45-25"><a href="4-2-conditional.html#cb45-25"></a>      Parameter <span class="op">==</span><span class="st"> &quot;sd_Observation&quot;</span> <span class="op">~</span><span class="st"> &quot;Std. Dev. (Residual)&quot;</span>,</span>
-<span id="cb45-26"><a href="4-2-conditional.html#cb45-26"></a>      <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span>Parameter</span>
-<span id="cb45-27"><a href="4-2-conditional.html#cb45-27"></a>    )</span>
-<span id="cb45-28"><a href="4-2-conditional.html#cb45-28"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb45-29"><a href="4-2-conditional.html#cb45-29"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">gt</span>(.) <span class="op">%&gt;%</span></span>
-<span id="cb45-30"><a href="4-2-conditional.html#cb45-30"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_header</span>(</span>
-<span id="cb45-31"><a href="4-2-conditional.html#cb45-31"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb45-32"><a href="4-2-conditional.html#cb45-32"></a>    <span class="dt">title =</span> <span class="st">&quot;Model Results&quot;</span>,</span>
-<span id="cb45-33"><a href="4-2-conditional.html#cb45-33"></a>    <span class="dt">subtitle =</span> <span class="st">&quot;Conditional model with homogenous variances and independent error covariance.&quot;</span></span>
-<span id="cb45-34"><a href="4-2-conditional.html#cb45-34"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb45-35"><a href="4-2-conditional.html#cb45-35"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_spanner</span>(</span>
-<span id="cb45-36"><a href="4-2-conditional.html#cb45-36"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb45-37"><a href="4-2-conditional.html#cb45-37"></a>    <span class="dt">label =</span> <span class="st">&quot;Model Estimates&quot;</span>, </span>
-<span id="cb45-38"><a href="4-2-conditional.html#cb45-38"></a>    <span class="dt">columns =</span> <span class="kw">c</span>(<span class="st">&quot;Estimate&quot;</span>, <span class="st">&quot;SE&quot;</span>, <span class="st">&quot;CI_low&quot;</span>, <span class="st">&quot;CI_high&quot;</span>)</span>
-<span id="cb45-39"><a href="4-2-conditional.html#cb45-39"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb45-40"><a href="4-2-conditional.html#cb45-40"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_options</span>(., <span class="dt">row.striping.include_table_body =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb45-41"><a href="4-2-conditional.html#cb45-41"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_style</span>(</span>
-<span id="cb45-42"><a href="4-2-conditional.html#cb45-42"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb45-43"><a href="4-2-conditional.html#cb45-43"></a>    <span class="dt">style =</span> gt<span class="op">::</span><span class="kw">cell_borders</span>(</span>
-<span id="cb45-44"><a href="4-2-conditional.html#cb45-44"></a>      <span class="dt">sides =</span> <span class="kw">c</span>(<span class="st">&quot;top&quot;</span>, <span class="st">&quot;bottom&quot;</span>),</span>
-<span id="cb45-45"><a href="4-2-conditional.html#cb45-45"></a>      <span class="dt">color =</span> <span class="st">&quot;#ffffff&quot;</span>,</span>
-<span id="cb45-46"><a href="4-2-conditional.html#cb45-46"></a>      <span class="dt">weight =</span> gt<span class="op">::</span><span class="kw">px</span>(<span class="dv">0</span>),</span>
-<span id="cb45-47"><a href="4-2-conditional.html#cb45-47"></a>      <span class="dt">style =</span> <span class="st">&quot;solid&quot;</span></span>
-<span id="cb45-48"><a href="4-2-conditional.html#cb45-48"></a>    ),</span>
-<span id="cb45-49"><a href="4-2-conditional.html#cb45-49"></a>    <span class="dt">locations =</span> gt<span class="op">::</span><span class="kw">cells_body</span>(</span>
-<span id="cb45-50"><a href="4-2-conditional.html#cb45-50"></a>      <span class="dt">columns =</span> dplyr<span class="op">::</span><span class="kw">everything</span>(),</span>
-<span id="cb45-51"><a href="4-2-conditional.html#cb45-51"></a>      <span class="dt">rows =</span> dplyr<span class="op">::</span><span class="kw">everything</span>()</span>
-<span id="cb45-52"><a href="4-2-conditional.html#cb45-52"></a>    )</span>
-<span id="cb45-53"><a href="4-2-conditional.html#cb45-53"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb45-54"><a href="4-2-conditional.html#cb45-54"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_label</span>(., <span class="dt">CI_low =</span> <span class="st">&quot;CI (2.5%)&quot;</span>, <span class="dt">CI_high =</span> <span class="st">&quot;CI (97.5%)&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb45-55"><a href="4-2-conditional.html#cb45-55"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_align</span>(</span>
-<span id="cb45-56"><a href="4-2-conditional.html#cb45-56"></a>    <span class="dt">data =</span> ., </span>
-<span id="cb45-57"><a href="4-2-conditional.html#cb45-57"></a>    <span class="dt">align =</span> <span class="st">&quot;center&quot;</span>, </span>
-<span id="cb45-58"><a href="4-2-conditional.html#cb45-58"></a>    <span class="dt">columns =</span> <span class="kw">c</span>(<span class="st">&quot;Estimate&quot;</span>, <span class="st">&quot;SE&quot;</span>, <span class="st">&quot;CI_low&quot;</span>, <span class="st">&quot;CI_high&quot;</span>)</span>
-<span id="cb45-59"><a href="4-2-conditional.html#cb45-59"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb45-60"><a href="4-2-conditional.html#cb45-60"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_align</span>(., <span class="dt">align =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">columns =</span> <span class="st">&quot;Parameter&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb45-61"><a href="4-2-conditional.html#cb45-61"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_row_group</span>(., <span class="dt">group =</span> <span class="st">&quot;Random Effects&quot;</span>, <span class="dt">rows =</span> <span class="dv">8</span><span class="op">:</span><span class="dv">11</span>) <span class="op">%&gt;%</span></span>
-<span id="cb45-62"><a href="4-2-conditional.html#cb45-62"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_row_group</span>(., <span class="dt">group =</span> <span class="st">&quot;Fixed Effects&quot;</span>, <span class="dt">rows =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>) <span class="op">%&gt;%</span></span>
-<span id="cb45-63"><a href="4-2-conditional.html#cb45-63"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">fmt_missing</span>(., <span class="dt">columns =</span> <span class="dv">2</span><span class="op">:</span><span class="dv">5</span>) <span class="op">%&gt;%</span></span>
-<span id="cb45-64"><a href="4-2-conditional.html#cb45-64"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_footnote</span>(<span class="dt">data =</span> .,</span>
-<span id="cb45-65"><a href="4-2-conditional.html#cb45-65"></a>    <span class="dt">footnote =</span> <span class="kw">paste</span>(</span>
-<span id="cb45-66"><a href="4-2-conditional.html#cb45-66"></a>      <span class="st">&quot;(std.) = Covariate has been standardized;&quot;</span>,</span>
-<span id="cb45-67"><a href="4-2-conditional.html#cb45-67"></a>      <span class="st">&quot;Std. Dev. = Estimated standard deviation of the random effect;&quot;</span>,</span>
-<span id="cb45-68"><a href="4-2-conditional.html#cb45-68"></a>      <span class="st">&quot;Corr. = Estimated correlation between level-2 random effects.&quot;</span></span>
-<span id="cb45-69"><a href="4-2-conditional.html#cb45-69"></a>    ),</span>
-<span id="cb45-70"><a href="4-2-conditional.html#cb45-70"></a>    <span class="dt">locations =</span> gt<span class="op">::</span><span class="kw">cells_column_labels</span>(<span class="dt">columns =</span> dplyr<span class="op">::</span><span class="kw">vars</span>(Parameter))</span>
-<span id="cb45-71"><a href="4-2-conditional.html#cb45-71"></a>  )</span>
-<span id="cb45-72"><a href="4-2-conditional.html#cb45-72"></a></span>
-<span id="cb45-73"><a href="4-2-conditional.html#cb45-73"></a><span class="co"># print plot</span></span>
-<span id="cb45-74"><a href="4-2-conditional.html#cb45-74"></a>gt_results_tab</span></code></pre></div>
-<pre><code>## Warning in min(rows_matched): no non-missing arguments to min; returning Inf</code></pre>
-<pre><code>## Warning in max(rows_matched): no non-missing arguments to max; returning -Inf</code></pre>
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
-}
-
-#opfazzmjrx .gt_table {
-  display: table;
-  border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#opfazzmjrx .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#opfazzmjrx .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#opfazzmjrx .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 4px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#opfazzmjrx .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#opfazzmjrx .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#opfazzmjrx .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#opfazzmjrx .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#opfazzmjrx .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#opfazzmjrx .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#opfazzmjrx .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#opfazzmjrx .gt_group_heading {
-  padding: 8px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#opfazzmjrx .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#opfazzmjrx .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#opfazzmjrx .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#opfazzmjrx .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#opfazzmjrx .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#opfazzmjrx .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 12px;
-}
-
-#opfazzmjrx .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#opfazzmjrx .gt_first_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-}
-
-#opfazzmjrx .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#opfazzmjrx .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#opfazzmjrx .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#opfazzmjrx .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#opfazzmjrx .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding: 4px;
-}
-
-#opfazzmjrx .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#opfazzmjrx .gt_sourcenote {
-  font-size: 90%;
-  padding: 4px;
-}
-
-#opfazzmjrx .gt_left {
-  text-align: left;
-}
-
-#opfazzmjrx .gt_center {
-  text-align: center;
-}
-
-#opfazzmjrx .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#opfazzmjrx .gt_font_normal {
-  font-weight: normal;
-}
-
-#opfazzmjrx .gt_font_bold {
-  font-weight: bold;
-}
-
-#opfazzmjrx .gt_font_italic {
-  font-style: italic;
-}
-
-#opfazzmjrx .gt_super {
-  font-size: 65%;
-}
-
-#opfazzmjrx .gt_footnote_marks {
-  font-style: italic;
-  font-size: 65%;
-}
-</style>
-<div id="opfazzmjrx" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
-  <thead class="gt_header">
-    <tr>
-      <th colspan="5" class="gt_heading gt_title gt_font_normal" style>Model Results</th>
-    </tr>
-    <tr>
-      <th colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Conditional model with homogenous variances and independent error covariance.</th>
-    </tr>
-  </thead>
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_center gt_columns_bottom_border" rowspan="2" colspan="1">Parameter<sup class="gt_footnote_marks">1</sup></th>
-      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="4">
-        <span class="gt_column_spanner">Model Estimates</span>
-      </th>
-    </tr>
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">Estimate</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">SE</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">CI (2.5%)</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">CI (97.5%)</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr class="gt_group_heading_row">
-      <td colspan="5" class="gt_group_heading">Fixed Effects</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">(Intercept)</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.30</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.32</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">-0.32</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.93</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">Child Age</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.12</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.03</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.05</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.18</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">Male</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.88</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.14</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.61</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">1.15</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">Reading Score (std.)</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">-0.15</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.09</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">-0.31</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.02</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">Mother's Age (std.)</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">-0.10</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.07</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">-0.25</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.04</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">Home Emotional Stimulation (std.)</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">-0.34</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.07</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">-0.49</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">-0.20</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">Home Cognitive Stimulation (std.)</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">-0.13</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.07</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">-0.27</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.02</td>
-    </tr>
-    <tr class="gt_group_heading_row">
-      <td colspan="5" class="gt_group_heading">Random Effects</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">Std. Dev. (Intercept)</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.61</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.00</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">108.24</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">Corr. (Intercept. with Child Age)</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">-0.33</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">-1.00</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.99</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">Std. Dev. (Child Age)</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.13</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.04</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">0.44</td>
-    </tr>
-    <tr>
-      <td class="gt_row gt_left" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">Std. Dev. (Residual)</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">1.32</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-      <td class="gt_row gt_center" style="border-top-width: 0px; border-top-style: solid; border-top-color: #ffffff; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: #ffffff;">&mdash;</td>
-    </tr>
-  </tbody>
-  
-  <tfoot>
-    <tr class="gt_footnotes">
-      <td colspan="5">
-        <p class="gt_footnote">
-          <sup class="gt_footnote_marks">
-            <em>1</em>
-          </sup>
-           
-          (std.) = Covariate has been standardized; Std. Dev. = Estimated standard deviation of the random effect; Corr. = Estimated correlation between level-2 random effects.
-          <br />
-        </p>
-      </td>
-    </tr>
-  </tfoot>
-</table></div>
+<div id="diag-base" class="section level3">
+<h3><span class="header-section-number">5.1.2</span> Base Plots</h3>
+<p>To reduce repetition in plotting in the sections below, we create two baseplots for level-1 residual diagnostics and for level-2 random effects diagnostics. These base setups request that the printed plots will all have panels split and colored by child’s assigned sex.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="5-1-diag-setup.html#cb59-1"></a><span class="co">## plot setup</span></span>
+<span id="cb59-2"><a href="5-1-diag-setup.html#cb59-2"></a>g_l1 &lt;-<span class="st"> </span>model_eval <span class="op">%&gt;%</span></span>
+<span id="cb59-3"><a href="5-1-diag-setup.html#cb59-3"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(.) <span class="op">+</span></span>
+<span id="cb59-4"><a href="5-1-diag-setup.html#cb59-4"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">aes</span>(<span class="dt">colour =</span> assigned_sex, <span class="dt">fill =</span> assigned_sex) <span class="op">+</span></span>
+<span id="cb59-5"><a href="5-1-diag-setup.html#cb59-5"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">scale_color_viridis_d</span>(<span class="dt">name =</span> <span class="st">&quot;Sex&quot;</span>, <span class="dt">option =</span> <span class="st">&quot;C&quot;</span>, <span class="dt">end =</span> <span class="fl">0.75</span>) <span class="op">+</span></span>
+<span id="cb59-6"><a href="5-1-diag-setup.html#cb59-6"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">name =</span> <span class="st">&quot;Sex&quot;</span>, <span class="dt">option =</span> <span class="st">&quot;C&quot;</span>, <span class="dt">end =</span> <span class="fl">0.75</span>) <span class="op">+</span></span>
+<span id="cb59-7"><a href="5-1-diag-setup.html#cb59-7"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="op">+</span></span>
+<span id="cb59-8"><a href="5-1-diag-setup.html#cb59-8"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">facet_wrap</span>(<span class="op">~</span>assigned_sex)</span>
+<span id="cb59-9"><a href="5-1-diag-setup.html#cb59-9"></a>  </span>
+<span id="cb59-10"><a href="5-1-diag-setup.html#cb59-10"></a></span>
+<span id="cb59-11"><a href="5-1-diag-setup.html#cb59-11"></a>g_l2 &lt;-<span class="st"> </span>model_eval <span class="op">%&gt;%</span></span>
+<span id="cb59-12"><a href="5-1-diag-setup.html#cb59-12"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">distinct</span>(., person_id, <span class="dt">.keep_all =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb59-13"><a href="5-1-diag-setup.html#cb59-13"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(.) <span class="op">+</span></span>
+<span id="cb59-14"><a href="5-1-diag-setup.html#cb59-14"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">aes</span>(<span class="dt">colour =</span> assigned_sex, <span class="dt">fill =</span> assigned_sex) <span class="op">+</span></span>
+<span id="cb59-15"><a href="5-1-diag-setup.html#cb59-15"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">scale_color_viridis_d</span>(<span class="dt">name =</span> <span class="st">&quot;Sex&quot;</span>, <span class="dt">option =</span> <span class="st">&quot;C&quot;</span>, <span class="dt">end =</span> <span class="fl">0.75</span>) <span class="op">+</span></span>
+<span id="cb59-16"><a href="5-1-diag-setup.html#cb59-16"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">name =</span> <span class="st">&quot;Sex&quot;</span>, <span class="dt">option =</span> <span class="st">&quot;C&quot;</span>, <span class="dt">end =</span> <span class="fl">0.75</span>) <span class="op">+</span></span>
+<span id="cb59-17"><a href="5-1-diag-setup.html#cb59-17"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="op">+</span></span>
+<span id="cb59-18"><a href="5-1-diag-setup.html#cb59-18"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">facet_wrap</span>(<span class="op">~</span>assigned_sex)</span></code></pre></div>
 </div>
 </div>
-<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="4-1-unconditional.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="5-model-diagnostics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="5-model-diagnostics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="5-2-diag-normal.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script>/*! jQuery v2.2.3 | (c) jQuery Foundation | jquery.org/license */
@@ -3478,6 +3462,516 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 });
+</script>
+<script>
+/* ========================================================================
+ * Bootstrap: transition.js v3.3.7
+ * http://getbootstrap.com/javascript/#transitions
+ * ========================================================================
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
++function ($) {
+  'use strict';
+
+  // CSS TRANSITION SUPPORT (Shoutout: http://www.modernizr.com/)
+  // ============================================================
+
+  function transitionEnd() {
+    var el = document.createElement('bootstrap')
+
+    var transEndEventNames = {
+      WebkitTransition : 'webkitTransitionEnd',
+      MozTransition    : 'transitionend',
+      OTransition      : 'oTransitionEnd otransitionend',
+      transition       : 'transitionend'
+    }
+
+    for (var name in transEndEventNames) {
+      if (el.style[name] !== undefined) {
+        return { end: transEndEventNames[name] }
+      }
+    }
+
+    return false // explicit for ie8 (  ._.)
+  }
+
+  // http://blog.alexmaccaw.com/css-transitions
+  $.fn.emulateTransitionEnd = function (duration) {
+    var called = false
+    var $el = this
+    $(this).one('bsTransitionEnd', function () { called = true })
+    var callback = function () { if (!called) $($el).trigger($.support.transition.end) }
+    setTimeout(callback, duration)
+    return this
+  }
+
+  $(function () {
+    $.support.transition = transitionEnd()
+
+    if (!$.support.transition) return
+
+    $.event.special.bsTransitionEnd = {
+      bindType: $.support.transition.end,
+      delegateType: $.support.transition.end,
+      handle: function (e) {
+        if ($(e.target).is(this)) return e.handleObj.handler.apply(this, arguments)
+      }
+    }
+  })
+
+}(jQuery);
+</script>
+<script>
+/* ========================================================================
+ * Bootstrap: collapse.js v3.3.7
+ * http://getbootstrap.com/javascript/#collapse
+ * ========================================================================
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+/* jshint latedef: false */
+
++function ($) {
+  'use strict';
+
+  // COLLAPSE PUBLIC CLASS DEFINITION
+  // ================================
+
+  var Collapse = function (element, options) {
+    this.$element      = $(element)
+    this.options       = $.extend({}, Collapse.DEFAULTS, options)
+    this.$trigger      = $('[data-toggle="collapse"][href="#' + element.id + '"],' +
+                           '[data-toggle="collapse"][data-target="#' + element.id + '"]')
+    this.transitioning = null
+
+    if (this.options.parent) {
+      this.$parent = this.getParent()
+    } else {
+      this.addAriaAndCollapsedClass(this.$element, this.$trigger)
+    }
+
+    if (this.options.toggle) this.toggle()
+  }
+
+  Collapse.VERSION  = '3.3.7'
+
+  Collapse.TRANSITION_DURATION = 350
+
+  Collapse.DEFAULTS = {
+    toggle: true
+  }
+
+  Collapse.prototype.dimension = function () {
+    var hasWidth = this.$element.hasClass('width')
+    return hasWidth ? 'width' : 'height'
+  }
+
+  Collapse.prototype.show = function () {
+    if (this.transitioning || this.$element.hasClass('in')) return
+
+    var activesData
+    var actives = this.$parent && this.$parent.children('.panel').children('.in, .collapsing')
+
+    if (actives && actives.length) {
+      activesData = actives.data('bs.collapse')
+      if (activesData && activesData.transitioning) return
+    }
+
+    var startEvent = $.Event('show.bs.collapse')
+    this.$element.trigger(startEvent)
+    if (startEvent.isDefaultPrevented()) return
+
+    if (actives && actives.length) {
+      Plugin.call(actives, 'hide')
+      activesData || actives.data('bs.collapse', null)
+    }
+
+    var dimension = this.dimension()
+
+    this.$element
+      .removeClass('collapse')
+      .addClass('collapsing')[dimension](0)
+      .attr('aria-expanded', true)
+
+    this.$trigger
+      .removeClass('collapsed')
+      .attr('aria-expanded', true)
+
+    this.transitioning = 1
+
+    var complete = function () {
+      this.$element
+        .removeClass('collapsing')
+        .addClass('collapse in')[dimension]('')
+      this.transitioning = 0
+      this.$element
+        .trigger('shown.bs.collapse')
+    }
+
+    if (!$.support.transition) return complete.call(this)
+
+    var scrollSize = $.camelCase(['scroll', dimension].join('-'))
+
+    this.$element
+      .one('bsTransitionEnd', $.proxy(complete, this))
+      .emulateTransitionEnd(Collapse.TRANSITION_DURATION)[dimension](this.$element[0][scrollSize])
+  }
+
+  Collapse.prototype.hide = function () {
+    if (this.transitioning || !this.$element.hasClass('in')) return
+
+    var startEvent = $.Event('hide.bs.collapse')
+    this.$element.trigger(startEvent)
+    if (startEvent.isDefaultPrevented()) return
+
+    var dimension = this.dimension()
+
+    this.$element[dimension](this.$element[dimension]())[0].offsetHeight
+
+    this.$element
+      .addClass('collapsing')
+      .removeClass('collapse in')
+      .attr('aria-expanded', false)
+
+    this.$trigger
+      .addClass('collapsed')
+      .attr('aria-expanded', false)
+
+    this.transitioning = 1
+
+    var complete = function () {
+      this.transitioning = 0
+      this.$element
+        .removeClass('collapsing')
+        .addClass('collapse')
+        .trigger('hidden.bs.collapse')
+    }
+
+    if (!$.support.transition) return complete.call(this)
+
+    this.$element
+      [dimension](0)
+      .one('bsTransitionEnd', $.proxy(complete, this))
+      .emulateTransitionEnd(Collapse.TRANSITION_DURATION)
+  }
+
+  Collapse.prototype.toggle = function () {
+    this[this.$element.hasClass('in') ? 'hide' : 'show']()
+  }
+
+  Collapse.prototype.getParent = function () {
+    return $(this.options.parent)
+      .find('[data-toggle="collapse"][data-parent="' + this.options.parent + '"]')
+      .each($.proxy(function (i, element) {
+        var $element = $(element)
+        this.addAriaAndCollapsedClass(getTargetFromTrigger($element), $element)
+      }, this))
+      .end()
+  }
+
+  Collapse.prototype.addAriaAndCollapsedClass = function ($element, $trigger) {
+    var isOpen = $element.hasClass('in')
+
+    $element.attr('aria-expanded', isOpen)
+    $trigger
+      .toggleClass('collapsed', !isOpen)
+      .attr('aria-expanded', isOpen)
+  }
+
+  function getTargetFromTrigger($trigger) {
+    var href
+    var target = $trigger.attr('data-target')
+      || (href = $trigger.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') // strip for ie7
+
+    return $(target)
+  }
+
+
+  // COLLAPSE PLUGIN DEFINITION
+  // ==========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data('bs.collapse')
+      var options = $.extend({}, Collapse.DEFAULTS, $this.data(), typeof option == 'object' && option)
+
+      if (!data && options.toggle && /show|hide/.test(option)) options.toggle = false
+      if (!data) $this.data('bs.collapse', (data = new Collapse(this, options)))
+      if (typeof option == 'string') data[option]()
+    })
+  }
+
+  var old = $.fn.collapse
+
+  $.fn.collapse             = Plugin
+  $.fn.collapse.Constructor = Collapse
+
+
+  // COLLAPSE NO CONFLICT
+  // ====================
+
+  $.fn.collapse.noConflict = function () {
+    $.fn.collapse = old
+    return this
+  }
+
+
+  // COLLAPSE DATA-API
+  // =================
+
+  $(document).on('click.bs.collapse.data-api', '[data-toggle="collapse"]', function (e) {
+    var $this   = $(this)
+
+    if (!$this.attr('data-target')) e.preventDefault()
+
+    var $target = getTargetFromTrigger($this)
+    var data    = $target.data('bs.collapse')
+    var option  = data ? 'toggle' : $this.data()
+
+    Plugin.call($target, option)
+  })
+
+}(jQuery);
+</script>
+<script>
+window.initializeCodeFolding = function(show) {
+
+  // handlers for show-all and hide all
+  $("#rmd-show-all-code").click(function() {
+    $('div.r-code-collapse').each(function() {
+      $(this).collapse('show');
+    });
+  });
+  $("#rmd-hide-all-code").click(function() {
+    $('div.r-code-collapse').each(function() {
+      $(this).collapse('hide');
+    });
+  });
+
+  // index for unique code element ids
+  var currentIndex = 1;
+
+  // select all R code blocks
+  var rCodeBlocks = $('pre.sourceCode, pre.r, pre.python, pre.bash, pre.sql, pre.cpp, pre.stan');
+  rCodeBlocks.each(function() {
+
+    // create a collapsable div to wrap the code in
+    var div = $('<div class="collapse r-code-collapse"></div>');
+    if (show)
+      div.addClass('in');
+    var id = 'rcode-643E0F36' + currentIndex++;
+    div.attr('id', id);
+    $(this).before(div);
+    $(this).detach().appendTo(div);
+
+    // add a show code button right above
+    var showCodeText = $('<span>' + (show ? 'Hide' : 'Code') + '</span>');
+    var showCodeButton = $('<button type="button" class="btn btn-default btn-xs code-folding-btn pull-right"></button>');
+    showCodeButton.append(showCodeText);
+    showCodeButton
+        .attr('data-toggle', 'collapse')
+        .attr('data-target', '#' + id)
+        .attr('aria-expanded', show)
+        .attr('aria-controls', id);
+
+    var buttonRow = $('<div class="row"></div>');
+    var buttonCol = $('<div class="col-md-12"></div>');
+
+    buttonCol.append(showCodeButton);
+    buttonRow.append(buttonCol);
+
+    div.before(buttonRow);
+
+    // update state of button on show/hide
+    div.on('hidden.bs.collapse', function () {
+      showCodeText.text('Code');
+    });
+    div.on('show.bs.collapse', function () {
+      showCodeText.text('Hide');
+    });
+  });
+
+}
+</script>
+<script>
+/* ========================================================================
+ * Bootstrap: dropdown.js v3.3.7
+ * http://getbootstrap.com/javascript/#dropdowns
+ * ========================================================================
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
++function ($) {
+  'use strict';
+
+  // DROPDOWN CLASS DEFINITION
+  // =========================
+
+  var backdrop = '.dropdown-backdrop'
+  var toggle   = '[data-toggle="dropdown"]'
+  var Dropdown = function (element) {
+    $(element).on('click.bs.dropdown', this.toggle)
+  }
+
+  Dropdown.VERSION = '3.3.7'
+
+  function getParent($this) {
+    var selector = $this.attr('data-target')
+
+    if (!selector) {
+      selector = $this.attr('href')
+      selector = selector && /#[A-Za-z]/.test(selector) && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
+    }
+
+    var $parent = selector && $(selector)
+
+    return $parent && $parent.length ? $parent : $this.parent()
+  }
+
+  function clearMenus(e) {
+    if (e && e.which === 3) return
+    $(backdrop).remove()
+    $(toggle).each(function () {
+      var $this         = $(this)
+      var $parent       = getParent($this)
+      var relatedTarget = { relatedTarget: this }
+
+      if (!$parent.hasClass('open')) return
+
+      if (e && e.type == 'click' && /input|textarea/i.test(e.target.tagName) && $.contains($parent[0], e.target)) return
+
+      $parent.trigger(e = $.Event('hide.bs.dropdown', relatedTarget))
+
+      if (e.isDefaultPrevented()) return
+
+      $this.attr('aria-expanded', 'false')
+      $parent.removeClass('open').trigger($.Event('hidden.bs.dropdown', relatedTarget))
+    })
+  }
+
+  Dropdown.prototype.toggle = function (e) {
+    var $this = $(this)
+
+    if ($this.is('.disabled, :disabled')) return
+
+    var $parent  = getParent($this)
+    var isActive = $parent.hasClass('open')
+
+    clearMenus()
+
+    if (!isActive) {
+      if ('ontouchstart' in document.documentElement && !$parent.closest('.navbar-nav').length) {
+        // if mobile we use a backdrop because click events don't delegate
+        $(document.createElement('div'))
+          .addClass('dropdown-backdrop')
+          .insertAfter($(this))
+          .on('click', clearMenus)
+      }
+
+      var relatedTarget = { relatedTarget: this }
+      $parent.trigger(e = $.Event('show.bs.dropdown', relatedTarget))
+
+      if (e.isDefaultPrevented()) return
+
+      $this
+        .trigger('focus')
+        .attr('aria-expanded', 'true')
+
+      $parent
+        .toggleClass('open')
+        .trigger($.Event('shown.bs.dropdown', relatedTarget))
+    }
+
+    return false
+  }
+
+  Dropdown.prototype.keydown = function (e) {
+    if (!/(38|40|27|32)/.test(e.which) || /input|textarea/i.test(e.target.tagName)) return
+
+    var $this = $(this)
+
+    e.preventDefault()
+    e.stopPropagation()
+
+    if ($this.is('.disabled, :disabled')) return
+
+    var $parent  = getParent($this)
+    var isActive = $parent.hasClass('open')
+
+    if (!isActive && e.which != 27 || isActive && e.which == 27) {
+      if (e.which == 27) $parent.find(toggle).trigger('focus')
+      return $this.trigger('click')
+    }
+
+    var desc = ' li:not(.disabled):visible a'
+    var $items = $parent.find('.dropdown-menu' + desc)
+
+    if (!$items.length) return
+
+    var index = $items.index(e.target)
+
+    if (e.which == 38 && index > 0)                 index--         // up
+    if (e.which == 40 && index < $items.length - 1) index++         // down
+    if (!~index)                                    index = 0
+
+    $items.eq(index).trigger('focus')
+  }
+
+
+  // DROPDOWN PLUGIN DEFINITION
+  // ==========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this = $(this)
+      var data  = $this.data('bs.dropdown')
+
+      if (!data) $this.data('bs.dropdown', (data = new Dropdown(this)))
+      if (typeof option == 'string') data[option].call($this)
+    })
+  }
+
+  var old = $.fn.dropdown
+
+  $.fn.dropdown             = Plugin
+  $.fn.dropdown.Constructor = Dropdown
+
+
+  // DROPDOWN NO CONFLICT
+  // ====================
+
+  $.fn.dropdown.noConflict = function () {
+    $.fn.dropdown = old
+    return this
+  }
+
+
+  // APPLY TO STANDARD DROPDOWN ELEMENTS
+  // ===================================
+
+  $(document)
+    .on('click.bs.dropdown.data-api', clearMenus)
+    .on('click.bs.dropdown.data-api', '.dropdown form', function (e) { e.stopPropagation() })
+    .on('click.bs.dropdown.data-api', toggle, Dropdown.prototype.toggle)
+    .on('keydown.bs.dropdown.data-api', toggle, Dropdown.prototype.keydown)
+    .on('keydown.bs.dropdown.data-api', '.dropdown-menu', Dropdown.prototype.keydown)
+
+}(jQuery);
+</script>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+<script>
+document.write('<div class="btn-group pull-right" style="position: absolute; top: 20%; right: 2%; z-index: 200"><button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-_extension-text-contrast=""><span>Code</span> <span class="caret"></span></button><ul class="dropdown-menu" style="min-width: 50px;"><li><a id="rmd-show-all-code" href="#">Show All Code</a></li><li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li></ul></div>')
 </script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {

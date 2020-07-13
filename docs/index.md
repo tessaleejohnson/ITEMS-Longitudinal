@@ -6,6 +6,8 @@ output:
    bookdown::gitbook:
      self_contained: TRUE
      split_by: "section+number"
+     includes:
+       in_header: "header.html"
 github-repo: tessaleejohnson/ITEMS-Longitudinal
 url: 'http\://tessaleejohnson.github.io/ITEMS-Longitudinal/'
 description: "ITEMS module for learning longitudinal data analysis in R."
@@ -13,7 +15,9 @@ description: "ITEMS module for learning longitudinal data analysis in R."
 
 
 
-# NLSY Example
+
+
+# NLSY Example {#nlsy-example}
 
 In this example, we will be using data from the National Longitudinal Survey of Youth (NLSY). The current subset of data comes from assessments administered to mother-child pairs starting in 1986. Data were restricted to children ages 6-8 with complete data at the first wave of measurement. Data were retained from only one child per mother.
 
@@ -21,20 +25,20 @@ More information about the example data can be found here:
 
 *  [Curran, P. J. (1997). Comparing three modern approaches to longitudinal data analysis: An examination of a single developmental sample. In _Symposium conducted at the meeting of the Society for Research on child Development, Washington, DC._](https://jflournoy.github.io/assets/pdf/srcdmeth.pdf)
 
-# Getting Started
+# Getting Started {#getting-started}
 
 In this worked example, we will follow the guidelines presented in the [ITEMS](https://ncme.elevate.commpartners.com/) Longitudinal Data Analysis module. The basic structure of this guided example is as follows:
 
-*  [Loading and manipulating data][Getting Started]
-*  [Performing exploratory data analysis][Exploratory Data Analysis]
-*  [Conducting mixed-effects modeling using `nlme::lme`][Model Fitting]
-*  [Graphically evaluating modeling assumptions][Model Diagnostics]
+*  [Loading and manipulating data](#getting-started)
+*  [Performing exploratory data analysis](#exploratory-data-analysis)
+*  [Conducting mixed-effects modeling using `nlme::lme`](#model-fitting)
+*  [Graphically evaluating modeling assumptions](#model-diagnostics)
 
 Throughout these sections, we present example code for producing display-quality tables and plots for different components of the longitudinal data analysis. While there are several examples in this guide, there are even more ways to examine and present longitudinal data. The documentation for [`ggplot2`](https://ggplot2.tidyverse.org/) and [`gt`](https://gt.rstudio.com/) are great places to go for questions about producing plots and tables, respectively, and the documentation for the [`nlme`](https://cran.r-project.org/web/packages/nlme/nlme.pdf) package is the main resource for questions mixed effects model code. In addition, interested readers will find many helpful examples in Pinhero & Bates (2000):
 
 *  Pinheiro, J., & Bates, D. (2006). _Mixed-effects models in S and S-PLUS._ Springer Science & Business Media.
 
-## Load Data 
+## Load Data {#load-data}
 
 To load the data, we use the `readr::read_csv` function. The `na = "-99"` statement tells `readr` how to recode missing data.
 
@@ -97,7 +101,7 @@ dat_wide <- path_dat %>%
 ## #   ag_2 <dbl>, ag_3 <dbl>, ag_4 <dbl>
 ```
 
-## Wide to Long 
+## Wide to Long {#wide-to-long}
 
 Because we have 3 repeated measures variables ("ag", "an" and "r"), we use the "names_pattern" argument of `tidyr::pivot_longer`. "names_pattern" uses a regular expression "(.+)_(.+)" in combo with the "names_to" argument c(".value", "wave") to save all of the data from each repeated measures variable under the names "an", "r", and "ag". The new "wave" variable contains information about when each measurement was taken, drawing its values from the number at the end of the original column name. For example, all of the data from the original column "an_2" will be stored in the new "an" variable with a "wave" code of "2". Because there are 4 waves of measurement, there will now be 4 rows for each person with complete data (n.b., children with missing data will have fewer rows), which you can double check by looking at the "id" column.
   
@@ -145,17 +149,17 @@ dat_long <- dat_wide %>%
 ## # ... with 1,610 more rows, and 1 more variable: child_age <dbl>
 ```
 
-# Exploratory Data Analysis 
+# Exploratory Data Analysis {#exploratory-data-analysis}
 
 We choose age here rather than wave because children were all different ages at the first wave of measurement and waves were not completed at the exact same time for each child (meaning that some children were measured every 2 years, while others were measured at wave 1, then 3 years later for wave 2, then 2 years later for wave 3, etc.). Anti-social behavior trajectory may have a developmental component that would get masked if we looked across waves rather than age.
 
 During this section, we showcase both the `dplyr::group_by` and `dplyr::summarize` functions, which help us calculate descriptive statistics for each level of `child_age`. Then, we demonstrate the `gt` package, used for producing display-quality tables of results.
 
-## Missingness 
+## Missingness{#missingness}
 
-Like many longitudinal datasets, the data used in this example contain missingness. When using mixed-effects models, it is important to understand where and how missing observations appear. As we learned in [Getting Started], the current data were restricted to children with complete data at the first wave only, though children could appear in the dataset if they were missing data on the second, third, or fourth wave of data collection. To better understand missing data on the outcome, anti-social behavior, we provide examples of four different visualization plots.
+Like many longitudinal datasets, the data used in this example contain missingness. When using mixed-effects models, it is important to understand where and how missing observations appear. As we learned in [Getting Started](#getting-started), the current data were restricted to children with complete data at the first wave only, though children could appear in the dataset if they were missing data on the second, third, or fourth wave of data collection. To better understand missing data on the outcome, anti-social behavior, we provide examples of four different visualization plots.
 
-### Missing Data Setup
+### Setup {#missingness-setup}
 
 Because we plan to analyze our data by *age* and not *wave*, let's first get a sense of how many anti-social scores are missing at each age level. We know that children were measured up to four times each, but children ranged from ages 6 - 15 in the dataset. Even though we don't have an anti-social behavior score for each child at each age (6, 7, 8, 9, 10...), we know that *theoretically* each child could have contributed an anti-social behavior score at each age.
 
@@ -210,11 +214,13 @@ dat_miss <- dat_long %>%
 ## # ... with 4,040 more rows
 ```
 
-### Lollipop Plot 
+### Lollipop Plot {#lollipop-plot}
 
 If children were measured 4 times over 10 possible ages, we could reasonably expect to be missing anti-social behavior scores at a rate of 60\% in each age group, assuming that missingness were distributed uniformly and that children were all measured at evenly spaced intervals. Let's explore this assumption using what is known as a "lollipop plot". We include a horizontal dashed line to indicate the 60\% threshold.
 
 We can also use this plot to highlight places where missingness is much higher (or lower) than what we expect using colors and labels. In plotting, we find that at age 15, about 98\% of possible anti-social behavior scores are missing, suggesting that most children didn't reach age 15 by the end of the study.
+
+#### Code {#lollipop-code}
 
 
 ```r
@@ -236,7 +242,7 @@ dat_lollipop <- dat_miss %>%
 
 ```r
 # plot
-dat_lollipop %>%
+lolli_plot <- dat_lollipop %>%
   ggplot2::ggplot(
     ggplot2::aes(x = child_age, y = pct_miss)
   ) +
@@ -290,9 +296,17 @@ dat_lollipop %>%
   ggplot2::ggtitle("Percent of Children Missing Anti-Social Scores by Age")
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_miss-lolli-1.png" width="672" />
+#### Printed Plot {#lollipop-printed}
 
-### Bar Plot by Pattern
+
+```r
+# print lollipop plot
+lolli_plot
+```
+
+<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_miss-lolli-plot-1.png" width="672" />
+
+### Bar Plot by Pattern {#bar-pattern}
 
 Another helpful way to examine missingness in longitudinal data is to look at the *patterns* of missingness. We can think about this like within-person attrition. In other words, for each person, we calculate the percent of measurement waves they participated in out of the possible 4. There are four possible options in our situation (we ignore order to keep the example simple):
 
@@ -300,6 +314,8 @@ Another helpful way to examine missingness in longitudinal data is to look at th
 1.  anti-social data are present for 3 of the four waves (we ignore order, but you could differentiate between individuals who have data for Waves 1, 2, and 3 and individuals who have data for Waves 1, 3, and 4),
 1.  anti-social data are present for 2 of the four waves (again, we ignore order), and
 1.  anti-social data are present for 1 wave only (in our case, due to the way our sample was defined, we know that people with only 1 wave of data contributed to the first wave).
+
+#### Code {#bar-pattern-code}
 
 
 ```r
@@ -321,7 +337,7 @@ dat_attrit_l <- dat_miss %>%
 ```
 
 ```r
-dat_attrit_l %>%
+bar_plot_l <- dat_attrit_l %>%
   ggplot2::ggplot(.) +
   ggplot2::aes(
     x = forcats::fct_reorder(as.factor(total_waves), dplyr::desc(total_waves)),
@@ -365,11 +381,21 @@ dat_attrit_l %>%
   )
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_miss-attrit-l-1.png" width="672" />
+#### Printed Plot {#bar-pattern-printed}
 
-### Bar Plot by Wave
+
+```r
+# print bar by pattern plot
+bar_plot_l
+```
+
+<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_miss-attrit-l-plot-1.png" width="672" />
+
+### Bar Plot by Wave {#bar-wave}
 
 In this next bar plot example, we display across-person attrition. Here, we are merely interested in what percent of our sample (n = 405) contributed anti-social data at each wave.
+
+#### Code {#bar-wave-code}
 
 
 ```r
@@ -387,7 +413,7 @@ dat_attrit_c <- dat_miss %>%
 ```
 
 ```r
-dat_attrit_c %>%
+bar_plot_c <- dat_attrit_c %>%
   ggplot2::ggplot(.) +
   ggplot2::aes(
     x = as.factor(wave),
@@ -433,15 +459,25 @@ dat_attrit_c %>%
   )
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_miss-attrit-c-1.png" width="672" />
-
-### Raster Plot
-
-This last missingness plot example is called a "raster plot". Whereas the previous plots provided an aggregated glimpse of missing data in our dataset, the raster plot displays the missingness for each individual in our data. Using color to indicate the measurement wave and carefully ordering the data in the plot, we can make sense of a large amount of data all at once.
+#### Printed Plot {#bar-wave-printed}
 
 
 ```r
-dat_miss %>%
+# print bar by wave plot
+bar_plot_c
+```
+
+<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_miss-attrit-c-plot-1.png" width="672" />
+
+### Raster Plot {#raster-plot}
+
+This last missingness plot example is called a "raster plot". Whereas the previous plots provided an aggregated glimpse of missing data in our dataset, the raster plot displays the missingness for each individual in our data. Using color to indicate the measurement wave and carefully ordering the data in the plot, we can make sense of a large amount of data all at once.
+
+#### Code {#raster-code}
+
+
+```r
+raster_plot <- dat_miss %>%
   ggplot2::ggplot(.) +
   ggplot2::aes(
     x = child_age,
@@ -474,9 +510,17 @@ dat_miss %>%
   ggplot2::coord_flip()
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_miss-raster-1.png" width="672" />
+#### Printed Plot {#raster-printed}
 
-### Updated Dataset
+
+```r
+# print raster plot
+raster_plot
+```
+
+<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_miss-raster-plot-1.png" width="672" />
+
+### Update Dataset {#updated-dataset}
 
 In the step above, we learned that very few children were measured at age 15 (in fact, only 8 children were measured at age 15). For the purposes of this guided example, we will remove those 8 children from the analytic dataset to avoid estimation and convergence issues in modeling later on.
 
@@ -504,15 +548,15 @@ dat_final %>%
 ## [1] 397
 ```
 
-## Univariate Descriptives
+## Univariate Descriptives {#univariate-descriptives}
 
-Following our exploration of missing data, we proceed to calculate univariate descriptive statistics. Given what we learned about the distribution of data across age groups in the missing data section, let's move forward using the `dat_final` dataset created in [Updated Dataset].
+Following our exploration of missing data, we proceed to calculate univariate descriptive statistics. Given what we learned about the distribution of data across age groups in the missing data section, let's move forward using the `dat_final` dataset created in [Updated Dataset](#updated-dataset).
 
-### Univariate Setup
+### Setup {#univariate-setup}
 
 Using the `dat_final` long dataset, it is fairly straightforward to calculate the means, variances, and number of observations of the anti-social behavior scores within each age. Knowing the means and variances within each age group can help us see whether and how anti-social behavior changes on average over time. In addition, understanding whether the variances are changing over time can help us make modeling decisions later on.
 
-Recall that our new sample size is 397, following the steps in [Updated Data]. Each child was measured up to four times (and we retained a row even when missing their anti-social behavior information), so summing the `n`, or number of observations, should yield 397 * 4 = 1588. Note that 249 observations have a child age listed as `NA`. This number tells us how many anti-social behavior scores were not recorded across all measurement waves and individuals. For more information on how the missing anti-social behavior scores are distributed across individuals, see [Raster Plot].
+Recall that our new sample size is 397, following the steps in [Updated Data](#updated-dataset). Each child was measured up to four times (and we retained a row even when missing their anti-social behavior information), so summing the `n`, or number of observations, should yield 397 * 4 = 1588. Note that 249 observations have a child age listed as `NA`. This number tells us how many anti-social behavior scores were not recorded across all measurement waves and individuals. For more information on how the missing anti-social behavior scores are distributed across individuals, see [Raster Plot](#raster-plot).
 
 
 ```r
@@ -550,9 +594,11 @@ moment_tab <- dat_final %>%
 ## 10 Missing     249 NaN       NA
 ```
 
-### Univariate Table
+### Univariate Table {#univariate-table}
 
 Now that we've calculated our univariate descriptive statistics, we will use the `gt` package to create a display-quality table of results. The `gt` package has a similar ethos to `ggplot2`, where each component of a table can be added on to the previous component. Although the intricacies of both `gt` and `ggplot2` are beyond the scope of this module, we thought it was important to demonstrate ways to create reproducible tables and plots for longitudinal data.
+
+#### Code {#univariate-code}
 
 
 ```r
@@ -589,8 +635,13 @@ gt_moments <- moment_tab %>%
     ) %>%
   gt::cols_align(., align = "center", columns = TRUE) %>%
   gt::fmt_missing(., columns = c("n", "mean", "variance"))
+```
 
-# print plot
+#### Printed Table {#univariate-printed}
+
+
+```r
+# print univariate stats table
 gt_moments
 ```
 
@@ -598,7 +649,7 @@ gt_moments
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#alfczchymv .gt_table {
+#rewlpwcxqq .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -621,7 +672,7 @@ gt_moments
   border-left-color: #D3D3D3;
 }
 
-#alfczchymv .gt_heading {
+#rewlpwcxqq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -633,7 +684,7 @@ gt_moments
   border-right-color: #D3D3D3;
 }
 
-#alfczchymv .gt_title {
+#rewlpwcxqq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -643,7 +694,7 @@ gt_moments
   border-bottom-width: 0;
 }
 
-#alfczchymv .gt_subtitle {
+#rewlpwcxqq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -653,13 +704,13 @@ gt_moments
   border-top-width: 0;
 }
 
-#alfczchymv .gt_bottom_border {
+#rewlpwcxqq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#alfczchymv .gt_col_headings {
+#rewlpwcxqq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -674,7 +725,7 @@ gt_moments
   border-right-color: #D3D3D3;
 }
 
-#alfczchymv .gt_col_heading {
+#rewlpwcxqq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -694,7 +745,7 @@ gt_moments
   overflow-x: hidden;
 }
 
-#alfczchymv .gt_column_spanner_outer {
+#rewlpwcxqq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -706,15 +757,15 @@ gt_moments
   padding-right: 4px;
 }
 
-#alfczchymv .gt_column_spanner_outer:first-child {
+#rewlpwcxqq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#alfczchymv .gt_column_spanner_outer:last-child {
+#rewlpwcxqq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#alfczchymv .gt_column_spanner {
+#rewlpwcxqq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -726,7 +777,7 @@ gt_moments
   width: 100%;
 }
 
-#alfczchymv .gt_group_heading {
+#rewlpwcxqq .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -748,7 +799,7 @@ gt_moments
   vertical-align: middle;
 }
 
-#alfczchymv .gt_empty_group_heading {
+#rewlpwcxqq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -763,19 +814,19 @@ gt_moments
   vertical-align: middle;
 }
 
-#alfczchymv .gt_striped {
+#rewlpwcxqq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#alfczchymv .gt_from_md > :first-child {
+#rewlpwcxqq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#alfczchymv .gt_from_md > :last-child {
+#rewlpwcxqq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#alfczchymv .gt_row {
+#rewlpwcxqq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -794,7 +845,7 @@ gt_moments
   overflow-x: hidden;
 }
 
-#alfczchymv .gt_stub {
+#rewlpwcxqq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -806,7 +857,7 @@ gt_moments
   padding-left: 12px;
 }
 
-#alfczchymv .gt_summary_row {
+#rewlpwcxqq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -816,7 +867,7 @@ gt_moments
   padding-right: 5px;
 }
 
-#alfczchymv .gt_first_summary_row {
+#rewlpwcxqq .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -826,7 +877,7 @@ gt_moments
   border-top-color: #D3D3D3;
 }
 
-#alfczchymv .gt_grand_summary_row {
+#rewlpwcxqq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -836,7 +887,7 @@ gt_moments
   padding-right: 5px;
 }
 
-#alfczchymv .gt_first_grand_summary_row {
+#rewlpwcxqq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -846,7 +897,7 @@ gt_moments
   border-top-color: #D3D3D3;
 }
 
-#alfczchymv .gt_table_body {
+#rewlpwcxqq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -855,7 +906,7 @@ gt_moments
   border-bottom-color: #D3D3D3;
 }
 
-#alfczchymv .gt_footnotes {
+#rewlpwcxqq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -869,13 +920,13 @@ gt_moments
   border-right-color: #D3D3D3;
 }
 
-#alfczchymv .gt_footnote {
+#rewlpwcxqq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#alfczchymv .gt_sourcenotes {
+#rewlpwcxqq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -889,46 +940,46 @@ gt_moments
   border-right-color: #D3D3D3;
 }
 
-#alfczchymv .gt_sourcenote {
+#rewlpwcxqq .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#alfczchymv .gt_left {
+#rewlpwcxqq .gt_left {
   text-align: left;
 }
 
-#alfczchymv .gt_center {
+#rewlpwcxqq .gt_center {
   text-align: center;
 }
 
-#alfczchymv .gt_right {
+#rewlpwcxqq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#alfczchymv .gt_font_normal {
+#rewlpwcxqq .gt_font_normal {
   font-weight: normal;
 }
 
-#alfczchymv .gt_font_bold {
+#rewlpwcxqq .gt_font_bold {
   font-weight: bold;
 }
 
-#alfczchymv .gt_font_italic {
+#rewlpwcxqq .gt_font_italic {
   font-style: italic;
 }
 
-#alfczchymv .gt_super {
+#rewlpwcxqq .gt_super {
   font-size: 65%;
 }
 
-#alfczchymv .gt_footnote_marks {
+#rewlpwcxqq .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="alfczchymv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="rewlpwcxqq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   <thead class="gt_header">
     <tr>
       <th colspan="4" class="gt_heading gt_title gt_font_normal" style>Univariate Descriptive Statistics for Anti-Social Behavior Scores</th>
@@ -1018,15 +1069,15 @@ gt_moments
 
 
 
-## Bivariate Descriptives
+## Bivariate Descriptives {#bivariate-descriptives}
 
 One limitation of long-format data is in calculating bivariate descriptive statistics like correlations and covariances. Tidyverse makes converting from long to wide and back fairly simple. To demonstrate, we take our long-format data and convert back to wide in order to calculate the correlation of anti-social behavior scores measured at different ages. These statistics can help us identify possible error covariance structures for our data, important for modeling later on.
 
 Missing data note: Because children were measured generally every 2-3 years, each child will have "missing" data for their anti-social behavior score at ages when they weren't measured (in addition to non-response and other missing data mechanisms). Due to this structure, we treated missing data in the correlation matrix using pairwise complete observations. Missing data treatments like imputation are out of the scope of this module, but suffice it to say that there is a wealth of literature on missing data in longitudinal studies to help guide you.
 
-### Bivariate Setup
+### Setup {#bivariate-setup}
 
-Using the `pivot_wider` function like we did in [Univariate Setup], we can create a wide-format dataset with a column for each unique child age (e.g., 6, 7, 8, 9, ...). Then, calculating the correlation matrix proceeds in a straightforward manner. As with calculating the variances by age in [Univariate Setup], calculating the anti-social score correlations by age can help inform us about various modeling choices later.
+Using the `pivot_wider` function like we did in [Univariate Setup](#univariate-setup), we can create a wide-format dataset with a column for each unique child age (e.g., 6, 7, 8, 9, ...). Then, calculating the correlation matrix proceeds in a straightforward manner. As with calculating the variances by age in [Univariate Setup](#univariate-setup), calculating the anti-social score correlations by age can help inform us about various modeling choices later.
 
 
 ```r
@@ -1065,9 +1116,11 @@ cor_tab <- dat_final %>%
 ## 9 "14.00"   "  NA" "0.59" "0.44" "0.00" "0.55" "   NA" " 0.47" 0.84  "1.00"
 ```
 
-### Bivariate Table
+### Bivariate Table {#bivariate-table}
 
-With a few small tweaks to the raw correlation matrix produced above, we can now use the `gt` package as [before][Univariate Table] to produce a display-quality correlation table. Note that the "---" symbol blocks off the upper triangle of the correlation matrix to reduce visual redundancy, and "NA" symbols within the lower triangle indicate correlations that could not be calculated due to missing data (for example, the correlation for anti-social behavior at age 6 and age 14 is missing because no children were measured at both age 6 and 14).
+With a few small tweaks to the raw correlation matrix produced above, we can now use the `gt` package as [before](#univariate-table) to produce a display-quality correlation table. Note that the "---" symbol blocks off the upper triangle of the correlation matrix to reduce visual redundancy, and "NA" symbols within the lower triangle indicate correlations that could not be calculated due to missing data (for example, the correlation for anti-social behavior at age 6 and age 14 is missing because no children were measured at both age 6 and 14).
+
+#### Code {#bivariate-code}
 
 
 ```r
@@ -1107,8 +1160,13 @@ gt_cor_tab <- cor_tab_upper %>%
     )
   ) %>%
   gt::cols_align(., align = "center", columns = TRUE)
+```
 
-# print plot
+#### Printed Table {#bivariate-printed}
+
+
+```r
+# print correlation table
 gt_cor_tab
 ```
 
@@ -1116,7 +1174,7 @@ gt_cor_tab
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#lxvnvoacrq .gt_table {
+#vqbdykmszt .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1139,7 +1197,7 @@ gt_cor_tab
   border-left-color: #D3D3D3;
 }
 
-#lxvnvoacrq .gt_heading {
+#vqbdykmszt .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1151,7 +1209,7 @@ gt_cor_tab
   border-right-color: #D3D3D3;
 }
 
-#lxvnvoacrq .gt_title {
+#vqbdykmszt .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1161,7 +1219,7 @@ gt_cor_tab
   border-bottom-width: 0;
 }
 
-#lxvnvoacrq .gt_subtitle {
+#vqbdykmszt .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1171,13 +1229,13 @@ gt_cor_tab
   border-top-width: 0;
 }
 
-#lxvnvoacrq .gt_bottom_border {
+#vqbdykmszt .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lxvnvoacrq .gt_col_headings {
+#vqbdykmszt .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1192,7 +1250,7 @@ gt_cor_tab
   border-right-color: #D3D3D3;
 }
 
-#lxvnvoacrq .gt_col_heading {
+#vqbdykmszt .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1212,7 +1270,7 @@ gt_cor_tab
   overflow-x: hidden;
 }
 
-#lxvnvoacrq .gt_column_spanner_outer {
+#vqbdykmszt .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1224,15 +1282,15 @@ gt_cor_tab
   padding-right: 4px;
 }
 
-#lxvnvoacrq .gt_column_spanner_outer:first-child {
+#vqbdykmszt .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lxvnvoacrq .gt_column_spanner_outer:last-child {
+#vqbdykmszt .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lxvnvoacrq .gt_column_spanner {
+#vqbdykmszt .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1244,7 +1302,7 @@ gt_cor_tab
   width: 100%;
 }
 
-#lxvnvoacrq .gt_group_heading {
+#vqbdykmszt .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1266,7 +1324,7 @@ gt_cor_tab
   vertical-align: middle;
 }
 
-#lxvnvoacrq .gt_empty_group_heading {
+#vqbdykmszt .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1281,19 +1339,19 @@ gt_cor_tab
   vertical-align: middle;
 }
 
-#lxvnvoacrq .gt_striped {
+#vqbdykmszt .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lxvnvoacrq .gt_from_md > :first-child {
+#vqbdykmszt .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lxvnvoacrq .gt_from_md > :last-child {
+#vqbdykmszt .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lxvnvoacrq .gt_row {
+#vqbdykmszt .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1312,7 +1370,7 @@ gt_cor_tab
   overflow-x: hidden;
 }
 
-#lxvnvoacrq .gt_stub {
+#vqbdykmszt .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1324,7 +1382,7 @@ gt_cor_tab
   padding-left: 12px;
 }
 
-#lxvnvoacrq .gt_summary_row {
+#vqbdykmszt .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1334,7 +1392,7 @@ gt_cor_tab
   padding-right: 5px;
 }
 
-#lxvnvoacrq .gt_first_summary_row {
+#vqbdykmszt .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1344,7 +1402,7 @@ gt_cor_tab
   border-top-color: #D3D3D3;
 }
 
-#lxvnvoacrq .gt_grand_summary_row {
+#vqbdykmszt .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1354,7 +1412,7 @@ gt_cor_tab
   padding-right: 5px;
 }
 
-#lxvnvoacrq .gt_first_grand_summary_row {
+#vqbdykmszt .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1364,7 +1422,7 @@ gt_cor_tab
   border-top-color: #D3D3D3;
 }
 
-#lxvnvoacrq .gt_table_body {
+#vqbdykmszt .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1373,7 +1431,7 @@ gt_cor_tab
   border-bottom-color: #D3D3D3;
 }
 
-#lxvnvoacrq .gt_footnotes {
+#vqbdykmszt .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1387,13 +1445,13 @@ gt_cor_tab
   border-right-color: #D3D3D3;
 }
 
-#lxvnvoacrq .gt_footnote {
+#vqbdykmszt .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#lxvnvoacrq .gt_sourcenotes {
+#vqbdykmszt .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1407,46 +1465,46 @@ gt_cor_tab
   border-right-color: #D3D3D3;
 }
 
-#lxvnvoacrq .gt_sourcenote {
+#vqbdykmszt .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#lxvnvoacrq .gt_left {
+#vqbdykmszt .gt_left {
   text-align: left;
 }
 
-#lxvnvoacrq .gt_center {
+#vqbdykmszt .gt_center {
   text-align: center;
 }
 
-#lxvnvoacrq .gt_right {
+#vqbdykmszt .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lxvnvoacrq .gt_font_normal {
+#vqbdykmszt .gt_font_normal {
   font-weight: normal;
 }
 
-#lxvnvoacrq .gt_font_bold {
+#vqbdykmszt .gt_font_bold {
   font-weight: bold;
 }
 
-#lxvnvoacrq .gt_font_italic {
+#vqbdykmszt .gt_font_italic {
   font-style: italic;
 }
 
-#lxvnvoacrq .gt_super {
+#vqbdykmszt .gt_super {
   font-size: 65%;
 }
 
-#lxvnvoacrq .gt_footnote_marks {
+#vqbdykmszt .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="lxvnvoacrq" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="vqbdykmszt" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   <thead class="gt_header">
     <tr>
       <th colspan="10" class="gt_heading gt_title gt_font_normal" style>Correlation of Anti-Social Scores Across Age</th>
@@ -1590,17 +1648,19 @@ gt_cor_tab
 
 
 
-## Trajectories
+## Trajectories {#trajectories}
 
 In this section, we demonstrate two different ways to visualize longitudinal trajectories, or the changes in anti-social behavior score over time. Trajectory plots are very useful in conducting exploratory data analyses because they help us understand the functional form of the outcome. In other words, we can generally spot linearity and non-linearity in a plot. It is also important to plot both the aggregated and disaggregated change over time because the trajectory of the whole sample may not be the same as the trajectory for each individual.
 
-### Aggregated Plot
+### Aggregated Plot {#aggregated-plot}
 
 First, we plot the aggregated means overlaid on individual plotted points of anti-social behavior by child's age. The plot is broken up into two frames based on child's assigned sex, and a linear curve is fitted to each trajectory.
 
+#### Code {#aggregated-code}
+
 
 ```r
-dat_final %>%
+agg_plot <- dat_final %>%
   dplyr::group_by(., child_age, assigned_sex) %>%
   dplyr::mutate(., mean = mean(anti_score, na.rm = TRUE)) %>%
   dplyr::ungroup(.) %>%
@@ -1636,6 +1696,14 @@ dat_final %>%
   ggplot2::facet_wrap(dplyr::vars(assigned_sex))
 ```
 
+#### Printed Plot {#aggregated-printed}
+
+
+```r
+# print aggregated trajectory plot
+agg_plot
+```
+
 ```
 ## Warning: Removed 249 rows containing non-finite values (stat_smooth).
 ```
@@ -1650,11 +1718,13 @@ dat_final %>%
 ## Warning: Removed 249 row(s) containing missing values (geom_path).
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_plot-means-1.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_plot-means-out-1.png" width="672" />
 
-### Individual Plot
+### Individual Plot {#individual-plots}
 
 Second, we plot the anti-social behavior trajectories of a random sample of 12 children. The plots are color-coded based on the child's assigned sex.
+
+#### Code {#individual-code}
 
 
 ```r
@@ -1668,7 +1738,7 @@ sample_id <- dat_final %>%
   unlist(.)
 
 # filter dat_final by sampled ids and save plot
-dat_final %>%
+spag_plot <- dat_final %>%
   dplyr::filter(., person_id %in% sample_id) %>%
   ggplot2::ggplot(.) +
   ggplot2::aes(
@@ -1697,6 +1767,14 @@ dat_final %>%
   ggplot2::facet_wrap(dplyr::vars(person_id))
 ```
 
+#### Printed Plot {#individual-printed}
+
+
+```r
+# print individual trajectory plot
+spag_plot
+```
+
 ```
 ## `geom_smooth()` using formula 'y ~ x'
 ```
@@ -1718,9 +1796,9 @@ dat_final %>%
 ## the group aesthetic?
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_spaghet-indv-1.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_spaghet-indiv-plot-1.png" width="672" />
 
-# Model Fitting 
+# Model Fitting {#model-fitting}
 
 In the next section, we demonstrate the model-building process for mixed-effects models, including basic model comparisons. After fitting each of these models, we demonstrate how to summarize the global fit comparisons using the `gt` table package to help us identify our best "semi-unconditional" (that is, without predictors but including the time effects) model.
 
@@ -1734,7 +1812,7 @@ Modeling Tips:
 *  The first argument of nlme::lme gives the structure of the fixed effects, the "random = " argument gives the structure of the random effects.
 *  The "weights = " argument specifies the structure of the level-1 error variances; the "correlation = " argument specifies the structure of the level-1 error covariances.
 
-## Unconditional 
+## Unconditional Models {#unconditional-models}
 
 In this set of code, we use the `nlme::lme` function to find the "best" random effects and variance/covariance structure for modeling our anti-social behavior scores over time.
 
@@ -1742,7 +1820,7 @@ While there is a growing interest in the R community in writing functions to dra
 
 (Note: `broom.mixed` also has a function for extracting tidy global model fit statistics -- `broom.mixed::glance` -- but it is just as easy to tidy up the results from the `anova` function.)
 
-### Intraclass Correlation
+### Intraclass Correlation {#icc}
 
 Before we start modeling, a common approach in mixed effects models is to calculate the ICC, or intra-class correlation coefficient. This coefficient falls between 0 and 1 and tells us the proportion of variance in the intercept that exists at level 2 relative to the total variance in the model.
 
@@ -1776,7 +1854,7 @@ null_icc %>%
 ## [1] 0.4784052
 ```
 
-### Unconditional Fits
+### Unconditional Fits {#unconditional-fits}
 
 To select our "best" semi-unconditional model, we proceed as follows:
 
@@ -1786,9 +1864,9 @@ To select our "best" semi-unconditional model, we proceed as follows:
 1.  Retaining the fixed and random effects for time, we then explore heterogeneous error variance structure (`null_hvar`).
 1.  Keeping the fixed and random effects for time but removing the heterogeneous error variances, we explore compound symmetric error covariance structure (`null_csym`).
 
-Our model building strategy was largely guided by the information we gained from exploratory data analysis. First, we assumed a linear trajectory for the outcome over time in `null_fslp` based on the plots created in [Trajectories]. Noting the wide variability in slopes and intercepts in the [spaghetti plots][Individual Plot] helped us choose to add a random effect for our time variable to the model in `null_rslp`.
+Our model building strategy was largely guided by the information we gained from exploratory data analysis. First, we assumed a linear trajectory for the outcome over time in `null_fslp` based on the plots created in [Trajectories](#trajectories). Noting the wide variability in slopes and intercepts in the [spaghetti plots](#individual-plot) helped us choose to add a random effect for our time variable to the model in `null_rslp`.
 
-In addition, by calculating the variances and correlations across ages in [Univariate Descriptives] and [Bivariate Descriptives], respectively, we were able to make better decisions about how to model the error variance/covariance structure. Knowing that the variances increased slightly though remained fairly similar across age groups, we decided to try out a heterogeneous error variance structure in `null_hvar` using the `weights = nlme::varIdent()` argument. In addition, the pattern of correlations across ages suggested that a compound symmetric error structure might improve our model fit, which we added to the `null_csym` model using the `correlation = nlme::corCompSymm` argument.
+In addition, by calculating the variances and correlations across ages in [Univariate Descriptives](#univariate-descriptives) and [Bivariate Descriptives](#bivariate-descriptives), respectively, we were able to make better decisions about how to model the error variance/covariance structure. Knowing that the variances increased slightly though remained fairly similar across age groups, we decided to try out a heterogeneous error variance structure in `null_hvar` using the `weights = nlme::varIdent()` argument. In addition, the pattern of correlations across ages suggested that a compound symmetric error structure might improve our model fit, which we added to the `null_csym` model using the `correlation = nlme::corCompSymm` argument.
 
 
 ```r
@@ -1880,9 +1958,11 @@ null_csym %>%
 ## Number of Groups: 397
 ```
 
-### Global Comparisons Table
+### Global Comparisons Table {#global-comparisons-table}
 
-Using the `anova` function and `gt` package, we can built a display-quality table of global model fit statistics. As recommended in the ITEMS modules, we use the information criteria to compare non-nested models and models with different random effects structures. The "best" model, and the one we will move forward with when adding covariates in the next section, is the one with the lowest AIC and BIC (in this case, the `null_rslp` model with a random effect for time, homogenous error variances, and independent error covariance structure). All models are estimated with maximum likelihood during the model-building phase. 
+Using the `anova` function and `gt` package, we can built a display-quality table of global model fit statistics. As recommended in the ITEMS modules, we use the information criteria to compare non-nested models and models with different random effects structures. The "best" model, and the one we will move forward with when adding covariates in the next section, is the one with the lowest AIC and BIC (in this case, the `null_rslp` model with a random effect for time, homogenous error variances, and independent error covariance structure). All models are estimated with maximum likelihood during the model-building phase.
+
+#### Code {#global-code}
 
 
 ```r
@@ -1947,7 +2027,12 @@ gt_global_tab <- anova(null_icc, null_fslp, null_rslp, null_hvar, null_csym) %>%
     footnote = "df = Model degrees of freedom.",
     locations = gt::cells_column_labels(columns = dplyr::vars(df))
   )
+```
 
+#### Printed Table {#global-printed}
+
+
+```r
 # print plot
 gt_global_tab
 ```
@@ -2373,11 +2458,11 @@ gt_global_tab
 
 
 
-## Conditional 
+## Conditional Models {#conditional-models}
 
-In this section of code, we add our predictor of interest, `assigned_sex`, and a slate of standardized covariates to the baseline "best" model identified in the [step above][Global Comparisons Table]: `null_rslp`. If we wanted to conduct further model comparisons for the covariates (e.g., testing the addition of random slopes for the predictors), we could proceed as we did in the section above. Once we have selected our final model, `cond_reml`, we switch the estimation to restricted maximum likelihood (`method = "REML"`).
+In this section of code, we add our predictor of interest, `assigned_sex`, and a slate of standardized covariates to the baseline "best" model identified in the [step above](#global-comparisons-table): `null_rslp`. If we wanted to conduct further model comparisons for the covariates (e.g., testing the addition of random slopes for the predictors), we could proceed as we did in the section above. Once we have selected our final model, `cond_reml`, we switch the estimation to restricted maximum likelihood (`method = "REML"`).
 
-### Conditional Fits
+### Conditional Fits {#conditional-fits}
 
 Let's add predictors to the linear mixed-effects model with random slope for `child_age`. The effects of `read_score`, `mom_age`, `home_emo`, and `home_cog` have been standardized for the purposes of interpretation.
 
@@ -2458,9 +2543,11 @@ cond_reml %>%
 ## Number of Groups: 397
 ```
 
-### Parameter Estimates Table
+### Parameter Estimates Table {#parameter-estimates-table}
 
-Now, we create a table of parameter estimates for the final model (`cond_reml`), grouped by fixed and random effects (note that we have opted to remove p-values from our table and instead included lower and upper bounds of the 95\% confidence interval):
+Now, we create a table of parameter estimates for the final model (`cond_reml`), grouped by fixed and random effects (note that we have opted to remove p-values from our table and instead included lower and upper bounds of the 95\% confidence interval).
+
+#### Code {#parameter-code}
 
 
 ```r
@@ -2535,7 +2622,12 @@ gt_results_tab <- cond_reml %>%
     ),
     locations = gt::cells_column_labels(columns = dplyr::vars(Parameter))
   )
+```
 
+#### Printed Table {#parameter-printed}
+
+
+```r
 # print plot
 gt_results_tab
 ```
@@ -3009,7 +3101,7 @@ gt_results_tab
 
 
 
-# Model Diagnostics 
+# Model Diagnostics {#model-diagnostics}
 
 In this section, we demonstrate a few graphical model diagnostic techniques using the level-1 residuals and fitted values as well as the level-2 random effects from our final conditional model, `cond_reml`.
 
@@ -3027,11 +3119,11 @@ For more on assumption checking in mixed-effects models, see
 
 (Note: Pinhero and Bates are also the authors of the `nlme` package!)
 
-## Diagnostics Setup
+## Setup {#diag-setup}
 
-### Merge Data
+### Merge Data {#diag-merge}
 
-Using the `nlme::ranef`, `fitted`, and `residuals` functions, we can merge our original dataset (`dat_final`) with the output from our final estimated model, `cond_reml`. Note that we choose to use standardized residuals by requesting `type = "pearson"` from the `residuals` function. Recall that because the `dat_final` dataset contains missing observations for both the outcome (anti-social behavior) and predictors, we used the `na.exclude` option when fitting our models in [Conditional Fits]. If we hadn't done this, then we would get errors when trying to re-merge the residuals back with the original data.
+Using the `nlme::ranef`, `fitted`, and `residuals` functions, we can merge our original dataset (`dat_final`) with the output from our final estimated model, `cond_reml`. Note that we choose to use standardized residuals by requesting `type = "pearson"` from the `residuals` function. Recall that because the `dat_final` dataset contains missing observations for both the outcome (anti-social behavior) and predictors, we used the `na.exclude` option when fitting our models in [Conditional Models](#conditional-models). If we hadn't done this, then we would get errors when trying to re-merge the residuals back with the original data.
 
 
 ```r
@@ -3053,7 +3145,7 @@ model_eval <- mod %>%
   )
 ```
 
-### Base Plots
+### Base Plots {#diag-base}
 
 To reduce repetition in plotting in the sections below, we create two baseplots for level-1 residual diagnostics and for level-2 random effects diagnostics. These base setups request that the printed plots will all have panels split and colored by child's assigned sex.
 
@@ -3079,21 +3171,74 @@ g_l2 <- model_eval %>%
   ggplot2::facet_wrap(~assigned_sex)
 ```
 
-## Normality Plots
+## Normality Plots {#diag-normal}
 
 In this code, we demonstrate how to plot histograms and qq-plots of our residuals and random effects to assess the normality assumption. In our histograms, we should see symmetric residuals centered around 0. The qq-plot helps us see where deviations from normality occur when the dots fail to align with the solid diagonal line.
+
+### Code {#diag-normal-code}
 
 
 ```r
 ## Normality of Residuals
 
 # level-1 residual histogram
-g_l1 +
+hist_l1 <- g_l1 +
   ggplot2::aes(x = resid_id) +
   ggplot2::geom_histogram() +
   ggplot2::xlab("Standardized Residual Value") +
   ggplot2::ylab("Frequency") +
   ggplot2::ggtitle("Histogram of Standardized Level-1 Residuals")
+
+# level-1 qq plot
+qq_l1 <- g_l1 +
+  ggplot2::aes(sample = resid_id, colour = assigned_sex) +
+  ggplot2::geom_qq() +
+  ggplot2::geom_qq_line() +
+  ggplot2::xlab("Theoretical Quantiles") +
+  ggplot2::ylab("Sample Quantiles") +
+  ggplot2::ggtitle("QQ-Plot of Standardized Level-1 Residuals")
+
+# level-2 random effect histogram (intercept)
+hist_l2_int <- g_l2 +
+  ggplot2::aes(x = resid_int) +
+  ggplot2::geom_histogram() +
+  ggplot2::xlab("Random Effect") +
+  ggplot2::ylab("Frequency") +
+  ggplot2::ggtitle("Histogram of Level-2 Random Effects (Intercept)")
+
+# level-2 qq plot (intercept)
+qq_l2_int <- g_l2 +
+  ggplot2::aes(sample = resid_int) +
+  ggplot2::geom_qq() +
+  ggplot2::geom_qq_line() +
+  ggplot2::xlab("Theoretical Quantiles") +
+  ggplot2::ylab("Sample Quantiles") +
+  ggplot2::ggtitle("QQ-Plot of Level-2 Random Effects (Intercept)")
+
+# level-2 random effect histogram (random time slope)
+hist_l2_age <- g_l2 +
+  ggplot2::aes(x = resid_age) +
+  ggplot2::geom_histogram() +
+  ggplot2::xlab("Random Effect") +
+  ggplot2::ylab("Frequency") +
+  ggplot2::ggtitle("Histogram of Level-2 Random Effects (Time)")
+
+# level-2 qq plot (random time slope)
+qq_l2_age <- g_l2 +
+  ggplot2::aes(sample = resid_age) +
+  ggplot2::geom_qq() +
+  ggplot2::geom_qq_line() +
+  ggplot2::xlab("Theoretical Quantiles") +
+  ggplot2::ylab("Sample Quantiles") +
+  ggplot2::ggtitle("QQ-Plot of Level-2 Random Effects (Time)")
+```
+
+### Printed Plots {#diag-normal-printed}
+
+
+```r
+# level-1 residual histogram
+hist_l1
 ```
 
 ```
@@ -3104,17 +3249,11 @@ g_l1 +
 ## Warning: Removed 316 rows containing non-finite values (stat_bin).
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_check-normal-1.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_check-normal-plot-1.png" width="672" />
 
 ```r
 # level-1 qq plot
-g_l1 +
-  ggplot2::aes(sample = resid_id, colour = assigned_sex) +
-  ggplot2::geom_qq() +
-  ggplot2::geom_qq_line() +
-  ggplot2::xlab("Theoretical Quantiles") +
-  ggplot2::ylab("Sample Quantiles") +
-  ggplot2::ggtitle("QQ-Plot of Standardized Level-1 Residuals")
+qq_l1
 ```
 
 ```
@@ -3125,93 +3264,65 @@ g_l1 +
 ## Warning: Removed 316 rows containing non-finite values (stat_qq_line).
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_check-normal-2.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_check-normal-plot-2.png" width="672" />
 
 ```r
 # level-2 random effect histogram (intercept)
-g_l2 +
-  ggplot2::aes(x = resid_int) +
-  ggplot2::geom_histogram() +
-  ggplot2::xlab("Random Effect") +
-  ggplot2::ylab("Frequency") +
-  ggplot2::ggtitle("Histogram of Level-2 Random Effects (Intercept)")
+hist_l2_int
 ```
 
 ```
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_check-normal-3.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_check-normal-plot-3.png" width="672" />
 
 ```r
 # level-2 qq plot (intercept)
-g_l2 +
-  ggplot2::aes(sample = resid_int) +
-  ggplot2::geom_qq() +
-  ggplot2::geom_qq_line() +
-  ggplot2::xlab("Theoretical Quantiles") +
-  ggplot2::ylab("Sample Quantiles") +
-  ggplot2::ggtitle("QQ-Plot of Level-2 Random Effects (Intercept)")
+qq_l2_int
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_check-normal-4.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_check-normal-plot-4.png" width="672" />
 
 ```r
 # level-2 random effect histogram (random time slope)
-g_l2 +
-  ggplot2::aes(x = resid_age) +
-  ggplot2::geom_histogram() +
-  ggplot2::xlab("Random Effect") +
-  ggplot2::ylab("Frequency") +
-  ggplot2::ggtitle("Histogram of Level-2 Random Effects (Time)")
+hist_l2_age
 ```
 
 ```
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_check-normal-5.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_check-normal-plot-5.png" width="672" />
 
 ```r
 # level-2 qq plot (random time slope)
-g_l2 +
-  ggplot2::aes(sample = resid_age) +
-  ggplot2::geom_qq() +
-  ggplot2::geom_qq_line() +
-  ggplot2::xlab("Theoretical Quantiles") +
-  ggplot2::ylab("Sample Quantiles") +
-  ggplot2::ggtitle("QQ-Plot of Level-2 Random Effects (Time)")
+qq_l2_age
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_check-normal-6.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_check-normal-plot-6.png" width="672" />
 
-## Homoskedasticity Plots
+## Homoskedasticity Plots {#diag-homo}
 
 The assumption of homoskedasticity for multilevel models states that the level-1 residuals should be centered around 0 for each group (in our case, child), and that the variance of each child's scores is the same across children. We can assess this both by plotting the residuals against fitted values, looking for points to be randomly distributed across the plot. Using grouped boxplots, we can also check to see whether each person's box has the same size (because our sample size is large, the "boxes" will appear more like lines).
+
+### Code {#diag-homo-code}
 
 
 ```r
 ## Homogeneity of Variance Assumption (Level 1)
 
 # level-1 residual x fitted scatterplot
-g_l1 +
+scatter_l1 <- g_l1 +
   ggplot2::aes(x = fitted_id, y = resid_id) +
   ggplot2::geom_point() +
   ggplot2::geom_hline(yintercept = 0) +
   ggplot2::xlab("Fitted Value") +
   ggplot2::ylab("Standardized Residual") +
   ggplot2::ggtitle("Scatterplot of Fitted Values and Standardized Level-1 Residuals")
-```
 
-```
-## Warning: Removed 316 rows containing missing values (geom_point).
-```
-
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_check-homog-1.png" width="672" />
-
-```r
 # level-1 group boxplot
-g_l1 +
+box_l1 <- g_l1 +
   ggplot2::aes(
     x = as.factor(person_id), 
     y = resid_id, 
@@ -3227,56 +3338,61 @@ g_l1 +
   ggplot2::ggtitle("Grouped Boxplot of Standardized Level-1 Residuals")
 ```
 
+### Printed Plots {#diag-homo-printed}
+
+
+```r
+# level-1 residual x fitted scatterplot
+scatter_l1
+```
+
+```
+## Warning: Removed 316 rows containing missing values (geom_point).
+```
+
+<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_check-homog-plot-1.png" width="672" />
+
+```r
+# level-1 group boxplot
+box_l1
+```
+
 ```
 ## Warning: Removed 316 rows containing non-finite values (stat_boxplot).
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_check-homog-2.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_check-homog-plot-2.png" width="672" />
 
-## Independence Plots
+## Independence Plots {#diag-indep}
 
 Last, we check the assumption of independence across level-1 and level-2 residuals/random effects. This assumption states that the level-1 residuals should not be related to the level-2 random effects. We assess this using scatter plots.
 
-We also plot the level-2 random effects against one another. As shown in our [model results][Assessing Covariate Effects], the correlation between the level-2 intercept random effect and level-2 time random effect is not statistically different from 0, which we can assess visually using this scatter plot.
+We also plot the level-2 random effects against one another. As shown in our [model results](#parameter-estimates-table), the correlation between the level-2 intercept random effect and level-2 time random effect is not statistically different from 0, which we can assess visually using this scatter plot.
+
+### Code {#diag-indep-code}
 
 
 ```r
 ## Independence of Residuals Assumption
 
 # level-1 residuals & level-2 random effects (intercept)
-g_l1 +
+scatter_l1_int <- g_l1 +
   ggplot2::aes(x = resid_id, y = resid_int) +
   ggplot2::geom_point() +
   ggplot2::xlab("Standardized Residual") +
   ggplot2::ylab("Random Effect (Intercept)") +
   ggplot2::ggtitle("Scatterplot of Standardized Level-1 Residuals and Level-2 Random Effects")
-```
 
-```
-## Warning: Removed 316 rows containing missing values (geom_point).
-```
-
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_check-indep-1.png" width="672" />
-
-```r
 ## level-1 residuals & level-2 random effects (random time slope)
-g_l1 +
+scatter_l1_age <- g_l1 +
   ggplot2::aes(x = resid_id, y = resid_age) +
   ggplot2::geom_point() +
   ggplot2::xlab("Standardized Residual") +
   ggplot2::ylab("Random Effect (Time)") +
   ggplot2::ggtitle("Scatterplot of Standardized Level-1 Residuals and Level-2 Random Effects")
-```
 
-```
-## Warning: Removed 316 rows containing missing values (geom_point).
-```
-
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_check-indep-2.png" width="672" />
-
-```r
 ## level-2 random effects (intercept & random time slope) - not independent
-g_l2 +
+scatter_int_age <- g_l2 +
   ggplot2::aes(x = resid_age, y = resid_int) +
   ggplot2::geom_point() +
   ggplot2::xlab("Random Effect (Time)") +
@@ -3284,6 +3400,36 @@ g_l2 +
   ggplot2::ggtitle("Scatterplot of Level-2 Random Effects")
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_check-indep-3.png" width="672" />
+#### Printed Plots {#diag-indep-printed}
+
+
+```r
+# level-1 residuals & level-2 random effects (intercept)
+scatter_l1_int
+```
+
+```
+## Warning: Removed 316 rows containing missing values (geom_point).
+```
+
+<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_check-indep-plot-1.png" width="672" />
+
+```r
+## level-1 residuals & level-2 random effects (random time slope)
+scatter_l1_age
+```
+
+```
+## Warning: Removed 316 rows containing missing values (geom_point).
+```
+
+<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_check-indep-plot-2.png" width="672" />
+
+```r
+## level-2 random effects (intercept & random time slope) - not independent
+scatter_int_age
+```
+
+<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/inst/output/Fig_check-indep-plot-3.png" width="672" />
 
 
