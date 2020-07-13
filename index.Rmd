@@ -86,7 +86,7 @@ paste(dropdownjs, collapse = "\n"),
 </style>
 <script>
 $(document).ready(function () {
-  window.initializeCodeFolding("show" === "show");
+  window.initializeCodeFolding("show" === "hide");
 });
 </script>
 ', sep = "\n"),
