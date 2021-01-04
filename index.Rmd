@@ -136,6 +136,13 @@ install.packages("gt")
 install.packages("nlme")
 install.packages("broom.mixed")
 
+library("tidyverse")
+library("corrr")
+library("viridis")
+library("gt")
+library("nlme")
+library("broom.mixed")
+
 ```
 
 
