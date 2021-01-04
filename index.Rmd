@@ -29,6 +29,10 @@ knitr::opts_chunk$set(
 
 ```
 
+# Introduction {#introduction}
+
+This guided data example is a supplement to the _Longitudinal Data Analysis_ [digital ITEMS module](https://ncme.elevate.commpartners.com/products/digital-module-16-longitudinal-data-analysis), taught by [Dr. Jeffrey Harring](https://education.umd.edu/directory/jeffrey-r-harring) and [Ms. Tessa Johnson](https://github.com/tessaleejohnson/). In this guided example, we walk through a longitudinal data analysis using real data in R, providing narrative descriptions of each step and copy-and-paste-able R code blocks. For additional practice using R on the cloud, try our [longitudinal data analysis tutorial](https://tessaleejohnson.shinyapps.io/ITEMS-Longitudinal/).
+
 ```{r htmlTemp3, echo=FALSE, eval=TRUE}
 codejs <- readr::read_lines("js/codefolding.js")
 collapsejs <- readr::read_lines("js/collapse.js")
@@ -100,7 +104,7 @@ document.write(\'<div class="btn-group pull-right" style="position: absolute; to
 readr::write_lines(htmlhead, path = "header.html")
 ```
 
-# NLSY Example {#nlsy-example}
+### NLSY Example {#nlsy-example}
 
 In this example, we will be using data from the National Longitudinal Survey of Youth (NLSY). The current subset of data comes from assessments administered to mother-child pairs starting in 1986. Data were restricted to children ages 6-8 with complete data at the first wave of measurement. Data were retained from only one child per mother.
 
@@ -668,8 +672,8 @@ cor_tab <- dat_final %>%
     values_from = c("anti_score")) %>%
   dplyr::select(., -person_id) %>%
   corrr::correlate(., diagonal = 1, use = "pairwise", quiet = TRUE) %>%
-  dplyr::mutate(., child_age = as.numeric(rowname), .before = rowname) %>%
-  dplyr::select(., -rowname) %>%
+  dplyr::mutate(., child_age = as.numeric(term), .before = term) %>%
+  dplyr::select(., -term) %>%
   purrr::map_df(., ~format(round(.x, 2), nsmall = 2)) %>%
   print(.)
 
@@ -903,6 +907,41 @@ null_icc <- dat_final %>%
     random = ~ 1 | person_id,
     control = list(maxIter = 100, returnObject = TRUE)
   )
+
+# extract_var_nlme function
+
+extract_var_nlme <- function(model){
+
+  if (class(model) != "lme") {
+    stop("model not an object of class 'lme'")
+  }
+
+  # calculate level 1 error variances
+  var_l1 <- summary(model)$sigma^2
+  weights <- coef(model$modelStruct$varStruct,
+                  unconstrained = FALSE)
+
+  # extract level 2 error variances
+  drop <- "Residual"
+  var_all <- nlme::VarCorr(model)[, "Variance"] %>% sapply(., as.numeric)
+  var_l2 <- var_all[!names(var_all) %in% drop]
+
+  ##--OUTPUT--##
+  list(l1_var = c(var_l1, (var_l1 * weights^2)) %>% unname(.),
+       l2_var = var_l2 %>% unname(.))
+
+}
+
+# calc_icc function
+
+calc_icc <- function(null_model){
+
+  var_list <- extract_var_nlme(null_model)
+
+  ##--OUTPUT--##
+  var_list$l2_var / (var_list$l2_var + var_list$l1_var)
+
+}
 
 # calculate the ICC
 null_icc %>%

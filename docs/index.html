@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>ITEMS: Longitudinal Data Analysis</title>
   <meta name="description" content="ITEMS module for learning longitudinal data analysis in R." />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="ITEMS: Longitudinal Data Analysis" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Tessa L. Johnson" />
 
 
-<meta name="date" content="2020-07-12" />
+<meta name="date" content="2021-01-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -132,7 +132,7 @@ font-style: italic;
 span.theorem, span.lemma, span.corollary, span.proposition, span.conjecture {
 font-style: normal;
 }
-div.proof:after {
+div.proof>*:last-child:after {
 content: "\25a2";
 float: right;
 }
@@ -2435,7 +2435,9 @@ white-space: inherit;
 <li><a href="./">ITEMS-Longitudinal</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> NLSY Example</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.0.1" data-path="index.html"><a href="index.html#nlsy-example"><i class="fa fa-check"></i><b>1.0.1</b> NLSY Example</a></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="2-getting-started.html"><a href="2-getting-started.html"><i class="fa fa-check"></i><b>2</b> Getting Started</a><ul>
 <li class="chapter" data-level="2.1" data-path="2-1-load-data.html"><a href="2-1-load-data.html"><i class="fa fa-check"></i><b>2.1</b> Load Data</a></li>
 <li class="chapter" data-level="2.2" data-path="2-2-wide-to-long.html"><a href="2-2-wide-to-long.html"><i class="fa fa-check"></i><b>2.2</b> Wide to Long</a></li>
@@ -2513,15 +2515,19 @@ white-space: inherit;
 <div id="header">
 <h1 class="title">ITEMS: Longitudinal Data Analysis</h1>
 <p class="author"><em>Tessa L. Johnson</em></p>
-<p class="date"><em>2020-07-12</em></p>
+<p class="date"><em>2021-01-04</em></p>
 </div>
-<div id="nlsy-example" class="section level1">
-<h1><span class="header-section-number">Part 1</span> NLSY Example</h1>
+<div id="introduction" class="section level1">
+<h1><span class="header-section-number">Part 1</span> Introduction</h1>
+<p>This guided data example is a supplement to the <em>Longitudinal Data Analysis</em> <a href="https://ncme.elevate.commpartners.com/products/digital-module-16-longitudinal-data-analysis">digital ITEMS module</a>, taught by <a href="https://education.umd.edu/directory/jeffrey-r-harring">Dr. Jeffrey Harring</a> and <a href="https://github.com/tessaleejohnson/">Ms. Tessa Johnson</a>. In this guided example, we walk through a longitudinal data analysis using real data in R, providing narrative descriptions of each step and copy-and-paste-able R code blocks. For additional practice using R on the cloud, try our <a href="https://tessaleejohnson.shinyapps.io/ITEMS-Longitudinal/">longitudinal data analysis tutorial</a>.</p>
+<div id="nlsy-example" class="section level3">
+<h3><span class="header-section-number">1.0.1</span> NLSY Example</h3>
 <p>In this example, we will be using data from the National Longitudinal Survey of Youth (NLSY). The current subset of data comes from assessments administered to mother-child pairs starting in 1986. Data were restricted to children ages 6-8 with complete data at the first wave of measurement. Data were retained from only one child per mother.</p>
 <p>More information about the example data can be found here:</p>
 <ul>
 <li><a href="https://jflournoy.github.io/assets/pdf/srcdmeth.pdf">Curran, P. J. (1997). Comparing three modern approaches to longitudinal data analysis: An examination of a single developmental sample. In <em>Symposium conducted at the meeting of the Society for Research on child Development, Washington, DC.</em></a></li>
 </ul>
+</div>
 </div>
             </section>
 
@@ -2804,7 +2810,7 @@ e=n.propHooks[b]),void 0!==c?e&&"set"in e&&void 0!==(d=e.set(a,c,b))?d:a[b]=c:e&
             'icon': 'fa fa-twitter',
             'onClick': function(e) {
                 e.preventDefault();
-                window.open("http://twitter.com/intent/tweet?text="+document.title+"&url="+encodeURIComponent(location.href)+"&hashtags=rmarkdown,bookdown");
+                window.open("http://twitter.com/intent/tweet?text="+encodeURIComponent(document.title)+"&url="+encodeURIComponent(location.href)+"&hashtags=rmarkdown,bookdown");
             }
         },
         'linkedin': {

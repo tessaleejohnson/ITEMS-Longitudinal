@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3.2 Univariate Descriptives | ITEMS: Longitudinal Data Analysis</title>
   <meta name="description" content="ITEMS module for learning longitudinal data analysis in R." />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3.2 Univariate Descriptives | ITEMS: Longitudinal Data Analysis" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Tessa L. Johnson" />
 
 
-<meta name="date" content="2020-07-12" />
+<meta name="date" content="2021-01-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -132,7 +132,7 @@ font-style: italic;
 span.theorem, span.lemma, span.corollary, span.proposition, span.conjecture {
 font-style: normal;
 }
-div.proof:after {
+div.proof>*:last-child:after {
 content: "\25a2";
 float: right;
 }
@@ -2435,7 +2435,9 @@ white-space: inherit;
 <li><a href="./">ITEMS-Longitudinal</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> NLSY Example</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.0.1" data-path="index.html"><a href="index.html#nlsy-example"><i class="fa fa-check"></i><b>1.0.1</b> NLSY Example</a></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="2-getting-started.html"><a href="2-getting-started.html"><i class="fa fa-check"></i><b>2</b> Getting Started</a><ul>
 <li class="chapter" data-level="2.1" data-path="2-1-load-data.html"><a href="2-1-load-data.html"><i class="fa fa-check"></i><b>2.1</b> Load Data</a></li>
 <li class="chapter" data-level="2.2" data-path="2-2-wide-to-long.html"><a href="2-2-wide-to-long.html"><i class="fa fa-check"></i><b>2.2</b> Wide to Long</a></li>
@@ -2591,13 +2593,15 @@ white-space: inherit;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#quhaxputqe .gt_table {
+#puzpacroub .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
   font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
   background-color: #FFFFFF;
   width: auto;
   border-top-style: solid;
@@ -2614,7 +2618,7 @@ white-space: inherit;
   border-left-color: #D3D3D3;
 }
 
-#quhaxputqe .gt_heading {
+#puzpacroub .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2626,7 +2630,7 @@ white-space: inherit;
   border-right-color: #D3D3D3;
 }
 
-#quhaxputqe .gt_title {
+#puzpacroub .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2636,7 +2640,7 @@ white-space: inherit;
   border-bottom-width: 0;
 }
 
-#quhaxputqe .gt_subtitle {
+#puzpacroub .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2646,13 +2650,13 @@ white-space: inherit;
   border-top-width: 0;
 }
 
-#quhaxputqe .gt_bottom_border {
+#puzpacroub .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#quhaxputqe .gt_col_headings {
+#puzpacroub .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2667,7 +2671,7 @@ white-space: inherit;
   border-right-color: #D3D3D3;
 }
 
-#quhaxputqe .gt_col_heading {
+#puzpacroub .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2687,7 +2691,7 @@ white-space: inherit;
   overflow-x: hidden;
 }
 
-#quhaxputqe .gt_column_spanner_outer {
+#puzpacroub .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2699,15 +2703,15 @@ white-space: inherit;
   padding-right: 4px;
 }
 
-#quhaxputqe .gt_column_spanner_outer:first-child {
+#puzpacroub .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#quhaxputqe .gt_column_spanner_outer:last-child {
+#puzpacroub .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#quhaxputqe .gt_column_spanner {
+#puzpacroub .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2719,7 +2723,7 @@ white-space: inherit;
   width: 100%;
 }
 
-#quhaxputqe .gt_group_heading {
+#puzpacroub .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2741,7 +2745,7 @@ white-space: inherit;
   vertical-align: middle;
 }
 
-#quhaxputqe .gt_empty_group_heading {
+#puzpacroub .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2756,19 +2760,15 @@ white-space: inherit;
   vertical-align: middle;
 }
 
-#quhaxputqe .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#quhaxputqe .gt_from_md > :first-child {
+#puzpacroub .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#quhaxputqe .gt_from_md > :last-child {
+#puzpacroub .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#quhaxputqe .gt_row {
+#puzpacroub .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2787,7 +2787,7 @@ white-space: inherit;
   overflow-x: hidden;
 }
 
-#quhaxputqe .gt_stub {
+#puzpacroub .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2799,7 +2799,7 @@ white-space: inherit;
   padding-left: 12px;
 }
 
-#quhaxputqe .gt_summary_row {
+#puzpacroub .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2809,7 +2809,7 @@ white-space: inherit;
   padding-right: 5px;
 }
 
-#quhaxputqe .gt_first_summary_row {
+#puzpacroub .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2819,7 +2819,7 @@ white-space: inherit;
   border-top-color: #D3D3D3;
 }
 
-#quhaxputqe .gt_grand_summary_row {
+#puzpacroub .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2829,7 +2829,7 @@ white-space: inherit;
   padding-right: 5px;
 }
 
-#quhaxputqe .gt_first_grand_summary_row {
+#puzpacroub .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2839,7 +2839,11 @@ white-space: inherit;
   border-top-color: #D3D3D3;
 }
 
-#quhaxputqe .gt_table_body {
+#puzpacroub .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#puzpacroub .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2848,7 +2852,7 @@ white-space: inherit;
   border-bottom-color: #D3D3D3;
 }
 
-#quhaxputqe .gt_footnotes {
+#puzpacroub .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2862,13 +2866,13 @@ white-space: inherit;
   border-right-color: #D3D3D3;
 }
 
-#quhaxputqe .gt_footnote {
+#puzpacroub .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#quhaxputqe .gt_sourcenotes {
+#puzpacroub .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2882,46 +2886,46 @@ white-space: inherit;
   border-right-color: #D3D3D3;
 }
 
-#quhaxputqe .gt_sourcenote {
+#puzpacroub .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#quhaxputqe .gt_left {
+#puzpacroub .gt_left {
   text-align: left;
 }
 
-#quhaxputqe .gt_center {
+#puzpacroub .gt_center {
   text-align: center;
 }
 
-#quhaxputqe .gt_right {
+#puzpacroub .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#quhaxputqe .gt_font_normal {
+#puzpacroub .gt_font_normal {
   font-weight: normal;
 }
 
-#quhaxputqe .gt_font_bold {
+#puzpacroub .gt_font_bold {
   font-weight: bold;
 }
 
-#quhaxputqe .gt_font_italic {
+#puzpacroub .gt_font_italic {
   font-style: italic;
 }
 
-#quhaxputqe .gt_super {
+#puzpacroub .gt_super {
   font-size: 65%;
 }
 
-#quhaxputqe .gt_footnote_marks {
+#puzpacroub .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="quhaxputqe" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="puzpacroub" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   <thead class="gt_header">
     <tr>
       <th colspan="4" class="gt_heading gt_title gt_font_normal" style>Univariate Descriptive Statistics for Anti-Social Behavior Scores</th>
@@ -3292,7 +3296,7 @@ e=n.propHooks[b]),void 0!==c?e&&"set"in e&&void 0!==(d=e.set(a,c,b))?d:a[b]=c:e&
             'icon': 'fa fa-twitter',
             'onClick': function(e) {
                 e.preventDefault();
-                window.open("http://twitter.com/intent/tweet?text="+document.title+"&url="+encodeURIComponent(location.href)+"&hashtags=rmarkdown,bookdown");
+                window.open("http://twitter.com/intent/tweet?text="+encodeURIComponent(document.title)+"&url="+encodeURIComponent(location.href)+"&hashtags=rmarkdown,bookdown");
             }
         },
         'linkedin': {

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.1 Unconditional Models | ITEMS: Longitudinal Data Analysis</title>
   <meta name="description" content="ITEMS module for learning longitudinal data analysis in R." />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.1 Unconditional Models | ITEMS: Longitudinal Data Analysis" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Tessa L. Johnson" />
 
 
-<meta name="date" content="2020-07-12" />
+<meta name="date" content="2021-01-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -132,7 +132,7 @@ font-style: italic;
 span.theorem, span.lemma, span.corollary, span.proposition, span.conjecture {
 font-style: normal;
 }
-div.proof:after {
+div.proof>*:last-child:after {
 content: "\25a2";
 float: right;
 }
@@ -2435,7 +2435,9 @@ white-space: inherit;
 <li><a href="./">ITEMS-Longitudinal</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> NLSY Example</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.0.1" data-path="index.html"><a href="index.html#nlsy-example"><i class="fa fa-check"></i><b>1.0.1</b> NLSY Example</a></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="2-getting-started.html"><a href="2-getting-started.html"><i class="fa fa-check"></i><b>2</b> Getting Started</a><ul>
 <li class="chapter" data-level="2.1" data-path="2-1-load-data.html"><a href="2-1-load-data.html"><i class="fa fa-check"></i><b>2.1</b> Load Data</a></li>
 <li class="chapter" data-level="2.2" data-path="2-2-wide-to-long.html"><a href="2-2-wide-to-long.html"><i class="fa fa-check"></i><b>2.2</b> Wide to Long</a></li>
@@ -2536,9 +2538,44 @@ white-space: inherit;
 <span id="cb46-11"><a href="4-1-unconditional-models.html#cb46-11"></a>    <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">maxIter =</span> <span class="dv">100</span>, <span class="dt">returnObject =</span> <span class="ot">TRUE</span>)</span>
 <span id="cb46-12"><a href="4-1-unconditional-models.html#cb46-12"></a>  )</span>
 <span id="cb46-13"><a href="4-1-unconditional-models.html#cb46-13"></a></span>
-<span id="cb46-14"><a href="4-1-unconditional-models.html#cb46-14"></a><span class="co"># calculate the ICC</span></span>
-<span id="cb46-15"><a href="4-1-unconditional-models.html#cb46-15"></a>null_icc <span class="op">%&gt;%</span></span>
-<span id="cb46-16"><a href="4-1-unconditional-models.html#cb46-16"></a><span class="st">  </span><span class="kw">calc_icc</span>(.)</span></code></pre></div>
+<span id="cb46-14"><a href="4-1-unconditional-models.html#cb46-14"></a><span class="co"># extract_var_nlme function</span></span>
+<span id="cb46-15"><a href="4-1-unconditional-models.html#cb46-15"></a></span>
+<span id="cb46-16"><a href="4-1-unconditional-models.html#cb46-16"></a>extract_var_nlme &lt;-<span class="st"> </span><span class="cf">function</span>(model){</span>
+<span id="cb46-17"><a href="4-1-unconditional-models.html#cb46-17"></a></span>
+<span id="cb46-18"><a href="4-1-unconditional-models.html#cb46-18"></a>  <span class="cf">if</span> (<span class="kw">class</span>(model) <span class="op">!=</span><span class="st"> &quot;lme&quot;</span>) {</span>
+<span id="cb46-19"><a href="4-1-unconditional-models.html#cb46-19"></a>    <span class="kw">stop</span>(<span class="st">&quot;model not an object of class &#39;lme&#39;&quot;</span>)</span>
+<span id="cb46-20"><a href="4-1-unconditional-models.html#cb46-20"></a>  }</span>
+<span id="cb46-21"><a href="4-1-unconditional-models.html#cb46-21"></a></span>
+<span id="cb46-22"><a href="4-1-unconditional-models.html#cb46-22"></a>  <span class="co"># calculate level 1 error variances</span></span>
+<span id="cb46-23"><a href="4-1-unconditional-models.html#cb46-23"></a>  var_l1 &lt;-<span class="st"> </span><span class="kw">summary</span>(model)<span class="op">$</span>sigma<span class="op">^</span><span class="dv">2</span></span>
+<span id="cb46-24"><a href="4-1-unconditional-models.html#cb46-24"></a>  weights &lt;-<span class="st"> </span><span class="kw">coef</span>(model<span class="op">$</span>modelStruct<span class="op">$</span>varStruct,</span>
+<span id="cb46-25"><a href="4-1-unconditional-models.html#cb46-25"></a>                  <span class="dt">unconstrained =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb46-26"><a href="4-1-unconditional-models.html#cb46-26"></a></span>
+<span id="cb46-27"><a href="4-1-unconditional-models.html#cb46-27"></a>  <span class="co"># extract level 2 error variances</span></span>
+<span id="cb46-28"><a href="4-1-unconditional-models.html#cb46-28"></a>  drop &lt;-<span class="st"> &quot;Residual&quot;</span></span>
+<span id="cb46-29"><a href="4-1-unconditional-models.html#cb46-29"></a>  var_all &lt;-<span class="st"> </span>nlme<span class="op">::</span><span class="kw">VarCorr</span>(model)[, <span class="st">&quot;Variance&quot;</span>] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sapply</span>(., as.numeric)</span>
+<span id="cb46-30"><a href="4-1-unconditional-models.html#cb46-30"></a>  var_l2 &lt;-<span class="st"> </span>var_all[<span class="op">!</span><span class="kw">names</span>(var_all) <span class="op">%in%</span><span class="st"> </span>drop]</span>
+<span id="cb46-31"><a href="4-1-unconditional-models.html#cb46-31"></a></span>
+<span id="cb46-32"><a href="4-1-unconditional-models.html#cb46-32"></a>  <span class="co">##--OUTPUT--##</span></span>
+<span id="cb46-33"><a href="4-1-unconditional-models.html#cb46-33"></a>  <span class="kw">list</span>(<span class="dt">l1_var =</span> <span class="kw">c</span>(var_l1, (var_l1 <span class="op">*</span><span class="st"> </span>weights<span class="op">^</span><span class="dv">2</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unname</span>(.),</span>
+<span id="cb46-34"><a href="4-1-unconditional-models.html#cb46-34"></a>       <span class="dt">l2_var =</span> var_l2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unname</span>(.))</span>
+<span id="cb46-35"><a href="4-1-unconditional-models.html#cb46-35"></a></span>
+<span id="cb46-36"><a href="4-1-unconditional-models.html#cb46-36"></a>}</span>
+<span id="cb46-37"><a href="4-1-unconditional-models.html#cb46-37"></a></span>
+<span id="cb46-38"><a href="4-1-unconditional-models.html#cb46-38"></a><span class="co"># calc_icc function</span></span>
+<span id="cb46-39"><a href="4-1-unconditional-models.html#cb46-39"></a></span>
+<span id="cb46-40"><a href="4-1-unconditional-models.html#cb46-40"></a>calc_icc &lt;-<span class="st"> </span><span class="cf">function</span>(null_model){</span>
+<span id="cb46-41"><a href="4-1-unconditional-models.html#cb46-41"></a></span>
+<span id="cb46-42"><a href="4-1-unconditional-models.html#cb46-42"></a>  var_list &lt;-<span class="st"> </span><span class="kw">extract_var_nlme</span>(null_model)</span>
+<span id="cb46-43"><a href="4-1-unconditional-models.html#cb46-43"></a></span>
+<span id="cb46-44"><a href="4-1-unconditional-models.html#cb46-44"></a>  <span class="co">##--OUTPUT--##</span></span>
+<span id="cb46-45"><a href="4-1-unconditional-models.html#cb46-45"></a>  var_list<span class="op">$</span>l2_var <span class="op">/</span><span class="st"> </span>(var_list<span class="op">$</span>l2_var <span class="op">+</span><span class="st"> </span>var_list<span class="op">$</span>l1_var)</span>
+<span id="cb46-46"><a href="4-1-unconditional-models.html#cb46-46"></a></span>
+<span id="cb46-47"><a href="4-1-unconditional-models.html#cb46-47"></a>}</span>
+<span id="cb46-48"><a href="4-1-unconditional-models.html#cb46-48"></a></span>
+<span id="cb46-49"><a href="4-1-unconditional-models.html#cb46-49"></a><span class="co"># calculate the ICC</span></span>
+<span id="cb46-50"><a href="4-1-unconditional-models.html#cb46-50"></a>null_icc <span class="op">%&gt;%</span></span>
+<span id="cb46-51"><a href="4-1-unconditional-models.html#cb46-51"></a><span class="st">  </span><span class="kw">calc_icc</span>(.)</span></code></pre></div>
 <pre><code>## [1] 0.4784052</code></pre>
 </div>
 <div id="unconditional-fits" class="section level3">
@@ -2719,6 +2756,8 @@ white-space: inherit;
   margin-right: auto;
   color: #333333;
   font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
   background-color: #FFFFFF;
   width: auto;
   border-top-style: solid;
@@ -2877,10 +2916,6 @@ white-space: inherit;
   vertical-align: middle;
 }
 
-#yigrsktgxg .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
 #yigrsktgxg .gt_from_md > :first-child {
   margin-top: 0;
 }
@@ -2958,6 +2993,10 @@ white-space: inherit;
   border-top-style: double;
   border-top-width: 6px;
   border-top-color: #D3D3D3;
+}
+
+#yigrsktgxg .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
 }
 
 #yigrsktgxg .gt_table_body {
@@ -3410,7 +3449,7 @@ e=n.propHooks[b]),void 0!==c?e&&"set"in e&&void 0!==(d=e.set(a,c,b))?d:a[b]=c:e&
             'icon': 'fa fa-twitter',
             'onClick': function(e) {
                 e.preventDefault();
-                window.open("http://twitter.com/intent/tweet?text="+document.title+"&url="+encodeURIComponent(location.href)+"&hashtags=rmarkdown,bookdown");
+                window.open("http://twitter.com/intent/tweet?text="+encodeURIComponent(document.title)+"&url="+encodeURIComponent(location.href)+"&hashtags=rmarkdown,bookdown");
             }
         },
         'linkedin': {

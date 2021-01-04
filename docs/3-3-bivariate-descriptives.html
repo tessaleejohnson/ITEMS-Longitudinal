@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3.3 Bivariate Descriptives | ITEMS: Longitudinal Data Analysis</title>
   <meta name="description" content="ITEMS module for learning longitudinal data analysis in R." />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3.3 Bivariate Descriptives | ITEMS: Longitudinal Data Analysis" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Tessa L. Johnson" />
 
 
-<meta name="date" content="2020-07-12" />
+<meta name="date" content="2021-01-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -132,7 +132,7 @@ font-style: italic;
 span.theorem, span.lemma, span.corollary, span.proposition, span.conjecture {
 font-style: normal;
 }
-div.proof:after {
+div.proof>*:last-child:after {
 content: "\25a2";
 float: right;
 }
@@ -2435,7 +2435,9 @@ white-space: inherit;
 <li><a href="./">ITEMS-Longitudinal</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> NLSY Example</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.0.1" data-path="index.html"><a href="index.html#nlsy-example"><i class="fa fa-check"></i><b>1.0.1</b> NLSY Example</a></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="2-getting-started.html"><a href="2-getting-started.html"><i class="fa fa-check"></i><b>2</b> Getting Started</a><ul>
 <li class="chapter" data-level="2.1" data-path="2-1-load-data.html"><a href="2-1-load-data.html"><i class="fa fa-check"></i><b>2.1</b> Load Data</a></li>
 <li class="chapter" data-level="2.2" data-path="2-2-wide-to-long.html"><a href="2-2-wide-to-long.html"><i class="fa fa-check"></i><b>2.2</b> Wide to Long</a></li>
@@ -2526,8 +2528,8 @@ white-space: inherit;
 <span id="cb29-7"><a href="3-3-bivariate-descriptives.html#cb29-7"></a>    <span class="dt">values_from =</span> <span class="kw">c</span>(<span class="st">&quot;anti_score&quot;</span>)) <span class="op">%&gt;%</span></span>
 <span id="cb29-8"><a href="3-3-bivariate-descriptives.html#cb29-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(., <span class="op">-</span>person_id) <span class="op">%&gt;%</span></span>
 <span id="cb29-9"><a href="3-3-bivariate-descriptives.html#cb29-9"></a><span class="st">  </span>corrr<span class="op">::</span><span class="kw">correlate</span>(., <span class="dt">diagonal =</span> <span class="dv">1</span>, <span class="dt">use =</span> <span class="st">&quot;pairwise&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb29-10"><a href="3-3-bivariate-descriptives.html#cb29-10"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(., <span class="dt">child_age =</span> <span class="kw">as.numeric</span>(rowname), <span class="dt">.before =</span> rowname) <span class="op">%&gt;%</span></span>
-<span id="cb29-11"><a href="3-3-bivariate-descriptives.html#cb29-11"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(., <span class="op">-</span>rowname) <span class="op">%&gt;%</span></span>
+<span id="cb29-10"><a href="3-3-bivariate-descriptives.html#cb29-10"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(., <span class="dt">child_age =</span> <span class="kw">as.numeric</span>(term), <span class="dt">.before =</span> term) <span class="op">%&gt;%</span></span>
+<span id="cb29-11"><a href="3-3-bivariate-descriptives.html#cb29-11"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(., <span class="op">-</span>term) <span class="op">%&gt;%</span></span>
 <span id="cb29-12"><a href="3-3-bivariate-descriptives.html#cb29-12"></a><span class="st">  </span>purrr<span class="op">::</span><span class="kw">map_df</span>(., <span class="op">~</span><span class="kw">format</span>(<span class="kw">round</span>(.x, <span class="dv">2</span>), <span class="dt">nsmall =</span> <span class="dv">2</span>)) <span class="op">%&gt;%</span></span>
 <span id="cb29-13"><a href="3-3-bivariate-descriptives.html#cb29-13"></a><span class="st">  </span><span class="kw">print</span>(.)</span></code></pre></div>
 <pre><code>## Warning in stats::cor(x = x, y = y, use = use, method = method): the standard
@@ -2595,13 +2597,15 @@ white-space: inherit;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#naxpkrhaqn .gt_table {
+#otvddeydjc .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
   font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
   background-color: #FFFFFF;
   width: auto;
   border-top-style: solid;
@@ -2618,7 +2622,7 @@ white-space: inherit;
   border-left-color: #D3D3D3;
 }
 
-#naxpkrhaqn .gt_heading {
+#otvddeydjc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2630,7 +2634,7 @@ white-space: inherit;
   border-right-color: #D3D3D3;
 }
 
-#naxpkrhaqn .gt_title {
+#otvddeydjc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2640,7 +2644,7 @@ white-space: inherit;
   border-bottom-width: 0;
 }
 
-#naxpkrhaqn .gt_subtitle {
+#otvddeydjc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2650,13 +2654,13 @@ white-space: inherit;
   border-top-width: 0;
 }
 
-#naxpkrhaqn .gt_bottom_border {
+#otvddeydjc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#naxpkrhaqn .gt_col_headings {
+#otvddeydjc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2671,7 +2675,7 @@ white-space: inherit;
   border-right-color: #D3D3D3;
 }
 
-#naxpkrhaqn .gt_col_heading {
+#otvddeydjc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2691,7 +2695,7 @@ white-space: inherit;
   overflow-x: hidden;
 }
 
-#naxpkrhaqn .gt_column_spanner_outer {
+#otvddeydjc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2703,15 +2707,15 @@ white-space: inherit;
   padding-right: 4px;
 }
 
-#naxpkrhaqn .gt_column_spanner_outer:first-child {
+#otvddeydjc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#naxpkrhaqn .gt_column_spanner_outer:last-child {
+#otvddeydjc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#naxpkrhaqn .gt_column_spanner {
+#otvddeydjc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2723,7 +2727,7 @@ white-space: inherit;
   width: 100%;
 }
 
-#naxpkrhaqn .gt_group_heading {
+#otvddeydjc .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2745,7 +2749,7 @@ white-space: inherit;
   vertical-align: middle;
 }
 
-#naxpkrhaqn .gt_empty_group_heading {
+#otvddeydjc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2760,19 +2764,15 @@ white-space: inherit;
   vertical-align: middle;
 }
 
-#naxpkrhaqn .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#naxpkrhaqn .gt_from_md > :first-child {
+#otvddeydjc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#naxpkrhaqn .gt_from_md > :last-child {
+#otvddeydjc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#naxpkrhaqn .gt_row {
+#otvddeydjc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2791,7 +2791,7 @@ white-space: inherit;
   overflow-x: hidden;
 }
 
-#naxpkrhaqn .gt_stub {
+#otvddeydjc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2803,7 +2803,7 @@ white-space: inherit;
   padding-left: 12px;
 }
 
-#naxpkrhaqn .gt_summary_row {
+#otvddeydjc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2813,7 +2813,7 @@ white-space: inherit;
   padding-right: 5px;
 }
 
-#naxpkrhaqn .gt_first_summary_row {
+#otvddeydjc .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2823,7 +2823,7 @@ white-space: inherit;
   border-top-color: #D3D3D3;
 }
 
-#naxpkrhaqn .gt_grand_summary_row {
+#otvddeydjc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2833,7 +2833,7 @@ white-space: inherit;
   padding-right: 5px;
 }
 
-#naxpkrhaqn .gt_first_grand_summary_row {
+#otvddeydjc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2843,7 +2843,11 @@ white-space: inherit;
   border-top-color: #D3D3D3;
 }
 
-#naxpkrhaqn .gt_table_body {
+#otvddeydjc .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#otvddeydjc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2852,7 +2856,7 @@ white-space: inherit;
   border-bottom-color: #D3D3D3;
 }
 
-#naxpkrhaqn .gt_footnotes {
+#otvddeydjc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2866,13 +2870,13 @@ white-space: inherit;
   border-right-color: #D3D3D3;
 }
 
-#naxpkrhaqn .gt_footnote {
+#otvddeydjc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#naxpkrhaqn .gt_sourcenotes {
+#otvddeydjc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2886,46 +2890,46 @@ white-space: inherit;
   border-right-color: #D3D3D3;
 }
 
-#naxpkrhaqn .gt_sourcenote {
+#otvddeydjc .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#naxpkrhaqn .gt_left {
+#otvddeydjc .gt_left {
   text-align: left;
 }
 
-#naxpkrhaqn .gt_center {
+#otvddeydjc .gt_center {
   text-align: center;
 }
 
-#naxpkrhaqn .gt_right {
+#otvddeydjc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#naxpkrhaqn .gt_font_normal {
+#otvddeydjc .gt_font_normal {
   font-weight: normal;
 }
 
-#naxpkrhaqn .gt_font_bold {
+#otvddeydjc .gt_font_bold {
   font-weight: bold;
 }
 
-#naxpkrhaqn .gt_font_italic {
+#otvddeydjc .gt_font_italic {
   font-style: italic;
 }
 
-#naxpkrhaqn .gt_super {
+#otvddeydjc .gt_super {
   font-size: 65%;
 }
 
-#naxpkrhaqn .gt_footnote_marks {
+#otvddeydjc .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="naxpkrhaqn" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="otvddeydjc" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   <thead class="gt_header">
     <tr>
       <th colspan="10" class="gt_heading gt_title gt_font_normal" style>Correlation of Anti-Social Scores Across Age</th>
@@ -3350,7 +3354,7 @@ e=n.propHooks[b]),void 0!==c?e&&"set"in e&&void 0!==(d=e.set(a,c,b))?d:a[b]=c:e&
             'icon': 'fa fa-twitter',
             'onClick': function(e) {
                 e.preventDefault();
-                window.open("http://twitter.com/intent/tweet?text="+document.title+"&url="+encodeURIComponent(location.href)+"&hashtags=rmarkdown,bookdown");
+                window.open("http://twitter.com/intent/tweet?text="+encodeURIComponent(document.title)+"&url="+encodeURIComponent(location.href)+"&hashtags=rmarkdown,bookdown");
             }
         },
         'linkedin': {

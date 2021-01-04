@@ -1,7 +1,7 @@
 ---
 title: "ITEMS: Longitudinal Data Analysis"
 author: "Tessa L. Johnson"
-date: "2020-07-12"
+date: "2021-01-04"
 output: 
    bookdown::gitbook:
      self_contained: TRUE
@@ -15,9 +15,13 @@ description: "ITEMS module for learning longitudinal data analysis in R."
 
 
 
+# Introduction {#introduction}
+
+This guided data example is a supplement to the _Longitudinal Data Analysis_ [digital ITEMS module](https://ncme.elevate.commpartners.com/products/digital-module-16-longitudinal-data-analysis), taught by [Dr. Jeffrey Harring](https://education.umd.edu/directory/jeffrey-r-harring) and [Ms. Tessa Johnson](https://github.com/tessaleejohnson/). In this guided example, we walk through a longitudinal data analysis using real data in R, providing narrative descriptions of each step and copy-and-paste-able R code blocks. For additional practice using R on the cloud, try our [longitudinal data analysis tutorial](https://tessaleejohnson.shinyapps.io/ITEMS-Longitudinal/).
 
 
-# NLSY Example {#nlsy-example}
+
+### NLSY Example {#nlsy-example}
 
 In this example, we will be using data from the National Longitudinal Survey of Youth (NLSY). The current subset of data comes from assessments administered to mother-child pairs starting in 1986. Data were restricted to children ages 6-8 with complete data at the first wave of measurement. Data were retained from only one child per mother.
 
@@ -304,7 +308,7 @@ lolli_plot <- dat_lollipop %>%
 lolli_plot
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_miss-lolli-plot-1.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox (Personal)/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_miss-lolli-plot-1.png" width="672" />
 
 ### Bar Plot by Pattern {#bar-pattern}
 
@@ -389,7 +393,7 @@ bar_plot_l <- dat_attrit_l %>%
 bar_plot_l
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_miss-attrit-l-plot-1.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox (Personal)/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_miss-attrit-l-plot-1.png" width="672" />
 
 ### Bar Plot by Wave {#bar-wave}
 
@@ -467,7 +471,7 @@ bar_plot_c <- dat_attrit_c %>%
 bar_plot_c
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_miss-attrit-c-plot-1.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox (Personal)/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_miss-attrit-c-plot-1.png" width="672" />
 
 ### Raster Plot {#raster-plot}
 
@@ -518,7 +522,7 @@ raster_plot <- dat_miss %>%
 raster_plot
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_miss-raster-plot-1.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox (Personal)/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_miss-raster-plot-1.png" width="672" />
 
 ### Update Dataset {#updated-dataset}
 
@@ -649,13 +653,15 @@ gt_moments
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#quhaxputqe .gt_table {
+#puzpacroub .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
   font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
   background-color: #FFFFFF;
   width: auto;
   border-top-style: solid;
@@ -672,7 +678,7 @@ gt_moments
   border-left-color: #D3D3D3;
 }
 
-#quhaxputqe .gt_heading {
+#puzpacroub .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -684,7 +690,7 @@ gt_moments
   border-right-color: #D3D3D3;
 }
 
-#quhaxputqe .gt_title {
+#puzpacroub .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -694,7 +700,7 @@ gt_moments
   border-bottom-width: 0;
 }
 
-#quhaxputqe .gt_subtitle {
+#puzpacroub .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -704,13 +710,13 @@ gt_moments
   border-top-width: 0;
 }
 
-#quhaxputqe .gt_bottom_border {
+#puzpacroub .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#quhaxputqe .gt_col_headings {
+#puzpacroub .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -725,7 +731,7 @@ gt_moments
   border-right-color: #D3D3D3;
 }
 
-#quhaxputqe .gt_col_heading {
+#puzpacroub .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -745,7 +751,7 @@ gt_moments
   overflow-x: hidden;
 }
 
-#quhaxputqe .gt_column_spanner_outer {
+#puzpacroub .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -757,15 +763,15 @@ gt_moments
   padding-right: 4px;
 }
 
-#quhaxputqe .gt_column_spanner_outer:first-child {
+#puzpacroub .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#quhaxputqe .gt_column_spanner_outer:last-child {
+#puzpacroub .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#quhaxputqe .gt_column_spanner {
+#puzpacroub .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -777,7 +783,7 @@ gt_moments
   width: 100%;
 }
 
-#quhaxputqe .gt_group_heading {
+#puzpacroub .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -799,7 +805,7 @@ gt_moments
   vertical-align: middle;
 }
 
-#quhaxputqe .gt_empty_group_heading {
+#puzpacroub .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -814,19 +820,15 @@ gt_moments
   vertical-align: middle;
 }
 
-#quhaxputqe .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#quhaxputqe .gt_from_md > :first-child {
+#puzpacroub .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#quhaxputqe .gt_from_md > :last-child {
+#puzpacroub .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#quhaxputqe .gt_row {
+#puzpacroub .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -845,7 +847,7 @@ gt_moments
   overflow-x: hidden;
 }
 
-#quhaxputqe .gt_stub {
+#puzpacroub .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -857,7 +859,7 @@ gt_moments
   padding-left: 12px;
 }
 
-#quhaxputqe .gt_summary_row {
+#puzpacroub .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -867,7 +869,7 @@ gt_moments
   padding-right: 5px;
 }
 
-#quhaxputqe .gt_first_summary_row {
+#puzpacroub .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -877,7 +879,7 @@ gt_moments
   border-top-color: #D3D3D3;
 }
 
-#quhaxputqe .gt_grand_summary_row {
+#puzpacroub .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -887,7 +889,7 @@ gt_moments
   padding-right: 5px;
 }
 
-#quhaxputqe .gt_first_grand_summary_row {
+#puzpacroub .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -897,7 +899,11 @@ gt_moments
   border-top-color: #D3D3D3;
 }
 
-#quhaxputqe .gt_table_body {
+#puzpacroub .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#puzpacroub .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -906,7 +912,7 @@ gt_moments
   border-bottom-color: #D3D3D3;
 }
 
-#quhaxputqe .gt_footnotes {
+#puzpacroub .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -920,13 +926,13 @@ gt_moments
   border-right-color: #D3D3D3;
 }
 
-#quhaxputqe .gt_footnote {
+#puzpacroub .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#quhaxputqe .gt_sourcenotes {
+#puzpacroub .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -940,46 +946,46 @@ gt_moments
   border-right-color: #D3D3D3;
 }
 
-#quhaxputqe .gt_sourcenote {
+#puzpacroub .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#quhaxputqe .gt_left {
+#puzpacroub .gt_left {
   text-align: left;
 }
 
-#quhaxputqe .gt_center {
+#puzpacroub .gt_center {
   text-align: center;
 }
 
-#quhaxputqe .gt_right {
+#puzpacroub .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#quhaxputqe .gt_font_normal {
+#puzpacroub .gt_font_normal {
   font-weight: normal;
 }
 
-#quhaxputqe .gt_font_bold {
+#puzpacroub .gt_font_bold {
   font-weight: bold;
 }
 
-#quhaxputqe .gt_font_italic {
+#puzpacroub .gt_font_italic {
   font-style: italic;
 }
 
-#quhaxputqe .gt_super {
+#puzpacroub .gt_super {
   font-size: 65%;
 }
 
-#quhaxputqe .gt_footnote_marks {
+#puzpacroub .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="quhaxputqe" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="puzpacroub" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   <thead class="gt_header">
     <tr>
       <th colspan="4" class="gt_heading gt_title gt_font_normal" style>Univariate Descriptive Statistics for Anti-Social Behavior Scores</th>
@@ -1090,8 +1096,8 @@ cor_tab <- dat_final %>%
     values_from = c("anti_score")) %>%
   dplyr::select(., -person_id) %>%
   corrr::correlate(., diagonal = 1, use = "pairwise", quiet = TRUE) %>%
-  dplyr::mutate(., child_age = as.numeric(rowname), .before = rowname) %>%
-  dplyr::select(., -rowname) %>%
+  dplyr::mutate(., child_age = as.numeric(term), .before = term) %>%
+  dplyr::select(., -term) %>%
   purrr::map_df(., ~format(round(.x, 2), nsmall = 2)) %>%
   print(.)
 ```
@@ -1174,13 +1180,15 @@ gt_cor_tab
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#naxpkrhaqn .gt_table {
+#otvddeydjc .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
   font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
   background-color: #FFFFFF;
   width: auto;
   border-top-style: solid;
@@ -1197,7 +1205,7 @@ gt_cor_tab
   border-left-color: #D3D3D3;
 }
 
-#naxpkrhaqn .gt_heading {
+#otvddeydjc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1209,7 +1217,7 @@ gt_cor_tab
   border-right-color: #D3D3D3;
 }
 
-#naxpkrhaqn .gt_title {
+#otvddeydjc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1219,7 +1227,7 @@ gt_cor_tab
   border-bottom-width: 0;
 }
 
-#naxpkrhaqn .gt_subtitle {
+#otvddeydjc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1229,13 +1237,13 @@ gt_cor_tab
   border-top-width: 0;
 }
 
-#naxpkrhaqn .gt_bottom_border {
+#otvddeydjc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#naxpkrhaqn .gt_col_headings {
+#otvddeydjc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1250,7 +1258,7 @@ gt_cor_tab
   border-right-color: #D3D3D3;
 }
 
-#naxpkrhaqn .gt_col_heading {
+#otvddeydjc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1270,7 +1278,7 @@ gt_cor_tab
   overflow-x: hidden;
 }
 
-#naxpkrhaqn .gt_column_spanner_outer {
+#otvddeydjc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1282,15 +1290,15 @@ gt_cor_tab
   padding-right: 4px;
 }
 
-#naxpkrhaqn .gt_column_spanner_outer:first-child {
+#otvddeydjc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#naxpkrhaqn .gt_column_spanner_outer:last-child {
+#otvddeydjc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#naxpkrhaqn .gt_column_spanner {
+#otvddeydjc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1302,7 +1310,7 @@ gt_cor_tab
   width: 100%;
 }
 
-#naxpkrhaqn .gt_group_heading {
+#otvddeydjc .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1324,7 +1332,7 @@ gt_cor_tab
   vertical-align: middle;
 }
 
-#naxpkrhaqn .gt_empty_group_heading {
+#otvddeydjc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1339,19 +1347,15 @@ gt_cor_tab
   vertical-align: middle;
 }
 
-#naxpkrhaqn .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#naxpkrhaqn .gt_from_md > :first-child {
+#otvddeydjc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#naxpkrhaqn .gt_from_md > :last-child {
+#otvddeydjc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#naxpkrhaqn .gt_row {
+#otvddeydjc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1370,7 +1374,7 @@ gt_cor_tab
   overflow-x: hidden;
 }
 
-#naxpkrhaqn .gt_stub {
+#otvddeydjc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1382,7 +1386,7 @@ gt_cor_tab
   padding-left: 12px;
 }
 
-#naxpkrhaqn .gt_summary_row {
+#otvddeydjc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1392,7 +1396,7 @@ gt_cor_tab
   padding-right: 5px;
 }
 
-#naxpkrhaqn .gt_first_summary_row {
+#otvddeydjc .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1402,7 +1406,7 @@ gt_cor_tab
   border-top-color: #D3D3D3;
 }
 
-#naxpkrhaqn .gt_grand_summary_row {
+#otvddeydjc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1412,7 +1416,7 @@ gt_cor_tab
   padding-right: 5px;
 }
 
-#naxpkrhaqn .gt_first_grand_summary_row {
+#otvddeydjc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1422,7 +1426,11 @@ gt_cor_tab
   border-top-color: #D3D3D3;
 }
 
-#naxpkrhaqn .gt_table_body {
+#otvddeydjc .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#otvddeydjc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1431,7 +1439,7 @@ gt_cor_tab
   border-bottom-color: #D3D3D3;
 }
 
-#naxpkrhaqn .gt_footnotes {
+#otvddeydjc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1445,13 +1453,13 @@ gt_cor_tab
   border-right-color: #D3D3D3;
 }
 
-#naxpkrhaqn .gt_footnote {
+#otvddeydjc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#naxpkrhaqn .gt_sourcenotes {
+#otvddeydjc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1465,46 +1473,46 @@ gt_cor_tab
   border-right-color: #D3D3D3;
 }
 
-#naxpkrhaqn .gt_sourcenote {
+#otvddeydjc .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#naxpkrhaqn .gt_left {
+#otvddeydjc .gt_left {
   text-align: left;
 }
 
-#naxpkrhaqn .gt_center {
+#otvddeydjc .gt_center {
   text-align: center;
 }
 
-#naxpkrhaqn .gt_right {
+#otvddeydjc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#naxpkrhaqn .gt_font_normal {
+#otvddeydjc .gt_font_normal {
   font-weight: normal;
 }
 
-#naxpkrhaqn .gt_font_bold {
+#otvddeydjc .gt_font_bold {
   font-weight: bold;
 }
 
-#naxpkrhaqn .gt_font_italic {
+#otvddeydjc .gt_font_italic {
   font-style: italic;
 }
 
-#naxpkrhaqn .gt_super {
+#otvddeydjc .gt_super {
   font-size: 65%;
 }
 
-#naxpkrhaqn .gt_footnote_marks {
+#otvddeydjc .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="naxpkrhaqn" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="otvddeydjc" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   <thead class="gt_header">
     <tr>
       <th colspan="10" class="gt_heading gt_title gt_font_normal" style>Correlation of Anti-Social Scores Across Age</th>
@@ -1718,7 +1726,7 @@ agg_plot
 ## Warning: Removed 249 row(s) containing missing values (geom_path).
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_plot-means-out-1.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox (Personal)/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_plot-means-out-1.png" width="672" />
 
 ### Individual Plot {#individual-plots}
 
@@ -1796,7 +1804,7 @@ spag_plot
 ## the group aesthetic?
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_spaghet-indiv-plot-1.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox (Personal)/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_spaghet-indiv-plot-1.png" width="672" />
 
 # Model Fitting {#model-fitting}
 
@@ -1844,6 +1852,41 @@ null_icc <- dat_final %>%
     random = ~ 1 | person_id,
     control = list(maxIter = 100, returnObject = TRUE)
   )
+
+# extract_var_nlme function
+
+extract_var_nlme <- function(model){
+
+  if (class(model) != "lme") {
+    stop("model not an object of class 'lme'")
+  }
+
+  # calculate level 1 error variances
+  var_l1 <- summary(model)$sigma^2
+  weights <- coef(model$modelStruct$varStruct,
+                  unconstrained = FALSE)
+
+  # extract level 2 error variances
+  drop <- "Residual"
+  var_all <- nlme::VarCorr(model)[, "Variance"] %>% sapply(., as.numeric)
+  var_l2 <- var_all[!names(var_all) %in% drop]
+
+  ##--OUTPUT--##
+  list(l1_var = c(var_l1, (var_l1 * weights^2)) %>% unname(.),
+       l2_var = var_l2 %>% unname(.))
+
+}
+
+# calc_icc function
+
+calc_icc <- function(null_model){
+
+  var_list <- extract_var_nlme(null_model)
+
+  ##--OUTPUT--##
+  var_list$l2_var / (var_list$l2_var + var_list$l1_var)
+
+}
 
 # calculate the ICC
 null_icc %>%
@@ -2048,6 +2091,8 @@ gt_global_tab
   margin-right: auto;
   color: #333333;
   font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
   background-color: #FFFFFF;
   width: auto;
   border-top-style: solid;
@@ -2206,10 +2251,6 @@ gt_global_tab
   vertical-align: middle;
 }
 
-#yigrsktgxg .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
 #yigrsktgxg .gt_from_md > :first-child {
   margin-top: 0;
 }
@@ -2287,6 +2328,10 @@ gt_global_tab
   border-top-style: double;
   border-top-width: 6px;
   border-top-color: #D3D3D3;
+}
+
+#yigrsktgxg .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
 }
 
 #yigrsktgxg .gt_table_body {
@@ -2651,6 +2696,8 @@ gt_results_tab
   margin-right: auto;
   color: #333333;
   font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
   background-color: #FFFFFF;
   width: auto;
   border-top-style: solid;
@@ -2809,10 +2856,6 @@ gt_results_tab
   vertical-align: middle;
 }
 
-#opfazzmjrx .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
 #opfazzmjrx .gt_from_md > :first-child {
   margin-top: 0;
 }
@@ -2890,6 +2933,10 @@ gt_results_tab
   border-top-style: double;
   border-top-width: 6px;
   border-top-color: #D3D3D3;
+}
+
+#opfazzmjrx .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
 }
 
 #opfazzmjrx .gt_table_body {
@@ -3249,7 +3296,7 @@ hist_l1
 ## Warning: Removed 316 rows containing non-finite values (stat_bin).
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_check-normal-plot-1.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox (Personal)/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_check-normal-plot-1.png" width="672" />
 
 ```r
 # level-1 qq plot
@@ -3264,7 +3311,7 @@ qq_l1
 ## Warning: Removed 316 rows containing non-finite values (stat_qq_line).
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_check-normal-plot-2.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox (Personal)/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_check-normal-plot-2.png" width="672" />
 
 ```r
 # level-2 random effect histogram (intercept)
@@ -3275,14 +3322,14 @@ hist_l2_int
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_check-normal-plot-3.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox (Personal)/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_check-normal-plot-3.png" width="672" />
 
 ```r
 # level-2 qq plot (intercept)
 qq_l2_int
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_check-normal-plot-4.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox (Personal)/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_check-normal-plot-4.png" width="672" />
 
 ```r
 # level-2 random effect histogram (random time slope)
@@ -3293,14 +3340,14 @@ hist_l2_age
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_check-normal-plot-5.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox (Personal)/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_check-normal-plot-5.png" width="672" />
 
 ```r
 # level-2 qq plot (random time slope)
 qq_l2_age
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_check-normal-plot-6.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox (Personal)/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_check-normal-plot-6.png" width="672" />
 
 ## Homoskedasticity Plots {#diag-homo}
 
@@ -3350,7 +3397,7 @@ scatter_l1
 ## Warning: Removed 316 rows containing missing values (geom_point).
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_check-homog-plot-1.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox (Personal)/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_check-homog-plot-1.png" width="672" />
 
 ```r
 # level-1 group boxplot
@@ -3361,7 +3408,7 @@ box_l1
 ## Warning: Removed 316 rows containing non-finite values (stat_boxplot).
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_check-homog-plot-2.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox (Personal)/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_check-homog-plot-2.png" width="672" />
 
 ## Independence Plots {#diag-indep}
 
@@ -3412,7 +3459,7 @@ scatter_l1_int
 ## Warning: Removed 316 rows containing missing values (geom_point).
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_check-indep-plot-1.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox (Personal)/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_check-indep-plot-1.png" width="672" />
 
 ```r
 ## level-1 residuals & level-2 random effects (random time slope)
@@ -3423,13 +3470,13 @@ scatter_l1_age
 ## Warning: Removed 316 rows containing missing values (geom_point).
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_check-indep-plot-2.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox (Personal)/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_check-indep-plot-2.png" width="672" />
 
 ```r
 ## level-2 random effects (intercept & random time slope) - not independent
 scatter_int_age
 ```
 
-<img src="C:/Users/tjohnson/Dropbox/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_check-indep-plot-3.png" width="672" />
+<img src="C:/Users/tjohnson/Dropbox (Personal)/zz_Tessa/UMD/NCME_ITEMS_Longitudinal-Growth/ITEMSlme/inst/example/output/Fig_check-indep-plot-3.png" width="672" />
 
 
