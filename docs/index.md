@@ -42,6 +42,19 @@ Throughout these sections, we present example code for producing display-quality
 
 *  Pinheiro, J., & Bates, D. (2006). _Mixed-effects models in S and S-PLUS._ Springer Science & Business Media.
 
+In order to follow along, you may need to first install the following packages (click to show the code block if not currently visible):
+
+
+```r
+install.packages("tidyverse")
+install.packages("corrr")
+install.packages("viridis")
+install.packages("gt")
+install.packages("nlme")
+install.packages("broom.mixed")
+```
+
+
 ## Load Data {#load-data}
 
 To load the data, we use the `readr::read_csv` function. The `na = "-99"` statement tells `readr` how to recode missing data.
@@ -653,7 +666,7 @@ gt_moments
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#puzpacroub .gt_table {
+#wwmegjadwf .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -678,7 +691,7 @@ gt_moments
   border-left-color: #D3D3D3;
 }
 
-#puzpacroub .gt_heading {
+#wwmegjadwf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -690,7 +703,7 @@ gt_moments
   border-right-color: #D3D3D3;
 }
 
-#puzpacroub .gt_title {
+#wwmegjadwf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -700,7 +713,7 @@ gt_moments
   border-bottom-width: 0;
 }
 
-#puzpacroub .gt_subtitle {
+#wwmegjadwf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -710,13 +723,13 @@ gt_moments
   border-top-width: 0;
 }
 
-#puzpacroub .gt_bottom_border {
+#wwmegjadwf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#puzpacroub .gt_col_headings {
+#wwmegjadwf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -731,7 +744,7 @@ gt_moments
   border-right-color: #D3D3D3;
 }
 
-#puzpacroub .gt_col_heading {
+#wwmegjadwf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -751,7 +764,7 @@ gt_moments
   overflow-x: hidden;
 }
 
-#puzpacroub .gt_column_spanner_outer {
+#wwmegjadwf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -763,15 +776,15 @@ gt_moments
   padding-right: 4px;
 }
 
-#puzpacroub .gt_column_spanner_outer:first-child {
+#wwmegjadwf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#puzpacroub .gt_column_spanner_outer:last-child {
+#wwmegjadwf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#puzpacroub .gt_column_spanner {
+#wwmegjadwf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -783,7 +796,7 @@ gt_moments
   width: 100%;
 }
 
-#puzpacroub .gt_group_heading {
+#wwmegjadwf .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -805,7 +818,7 @@ gt_moments
   vertical-align: middle;
 }
 
-#puzpacroub .gt_empty_group_heading {
+#wwmegjadwf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -820,15 +833,15 @@ gt_moments
   vertical-align: middle;
 }
 
-#puzpacroub .gt_from_md > :first-child {
+#wwmegjadwf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#puzpacroub .gt_from_md > :last-child {
+#wwmegjadwf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#puzpacroub .gt_row {
+#wwmegjadwf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -847,7 +860,7 @@ gt_moments
   overflow-x: hidden;
 }
 
-#puzpacroub .gt_stub {
+#wwmegjadwf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -859,7 +872,7 @@ gt_moments
   padding-left: 12px;
 }
 
-#puzpacroub .gt_summary_row {
+#wwmegjadwf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -869,7 +882,7 @@ gt_moments
   padding-right: 5px;
 }
 
-#puzpacroub .gt_first_summary_row {
+#wwmegjadwf .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -879,7 +892,7 @@ gt_moments
   border-top-color: #D3D3D3;
 }
 
-#puzpacroub .gt_grand_summary_row {
+#wwmegjadwf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -889,7 +902,7 @@ gt_moments
   padding-right: 5px;
 }
 
-#puzpacroub .gt_first_grand_summary_row {
+#wwmegjadwf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -899,11 +912,11 @@ gt_moments
   border-top-color: #D3D3D3;
 }
 
-#puzpacroub .gt_striped {
+#wwmegjadwf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#puzpacroub .gt_table_body {
+#wwmegjadwf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -912,7 +925,7 @@ gt_moments
   border-bottom-color: #D3D3D3;
 }
 
-#puzpacroub .gt_footnotes {
+#wwmegjadwf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -926,13 +939,13 @@ gt_moments
   border-right-color: #D3D3D3;
 }
 
-#puzpacroub .gt_footnote {
+#wwmegjadwf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#puzpacroub .gt_sourcenotes {
+#wwmegjadwf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -946,46 +959,46 @@ gt_moments
   border-right-color: #D3D3D3;
 }
 
-#puzpacroub .gt_sourcenote {
+#wwmegjadwf .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#puzpacroub .gt_left {
+#wwmegjadwf .gt_left {
   text-align: left;
 }
 
-#puzpacroub .gt_center {
+#wwmegjadwf .gt_center {
   text-align: center;
 }
 
-#puzpacroub .gt_right {
+#wwmegjadwf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#puzpacroub .gt_font_normal {
+#wwmegjadwf .gt_font_normal {
   font-weight: normal;
 }
 
-#puzpacroub .gt_font_bold {
+#wwmegjadwf .gt_font_bold {
   font-weight: bold;
 }
 
-#puzpacroub .gt_font_italic {
+#wwmegjadwf .gt_font_italic {
   font-style: italic;
 }
 
-#puzpacroub .gt_super {
+#wwmegjadwf .gt_super {
   font-size: 65%;
 }
 
-#puzpacroub .gt_footnote_marks {
+#wwmegjadwf .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="puzpacroub" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="wwmegjadwf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   <thead class="gt_header">
     <tr>
       <th colspan="4" class="gt_heading gt_title gt_font_normal" style>Univariate Descriptive Statistics for Anti-Social Behavior Scores</th>
@@ -1180,7 +1193,7 @@ gt_cor_tab
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#otvddeydjc .gt_table {
+#pdmafuqtii .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1205,7 +1218,7 @@ gt_cor_tab
   border-left-color: #D3D3D3;
 }
 
-#otvddeydjc .gt_heading {
+#pdmafuqtii .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1217,7 +1230,7 @@ gt_cor_tab
   border-right-color: #D3D3D3;
 }
 
-#otvddeydjc .gt_title {
+#pdmafuqtii .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1227,7 +1240,7 @@ gt_cor_tab
   border-bottom-width: 0;
 }
 
-#otvddeydjc .gt_subtitle {
+#pdmafuqtii .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1237,13 +1250,13 @@ gt_cor_tab
   border-top-width: 0;
 }
 
-#otvddeydjc .gt_bottom_border {
+#pdmafuqtii .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#otvddeydjc .gt_col_headings {
+#pdmafuqtii .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1258,7 +1271,7 @@ gt_cor_tab
   border-right-color: #D3D3D3;
 }
 
-#otvddeydjc .gt_col_heading {
+#pdmafuqtii .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1278,7 +1291,7 @@ gt_cor_tab
   overflow-x: hidden;
 }
 
-#otvddeydjc .gt_column_spanner_outer {
+#pdmafuqtii .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1290,15 +1303,15 @@ gt_cor_tab
   padding-right: 4px;
 }
 
-#otvddeydjc .gt_column_spanner_outer:first-child {
+#pdmafuqtii .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#otvddeydjc .gt_column_spanner_outer:last-child {
+#pdmafuqtii .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#otvddeydjc .gt_column_spanner {
+#pdmafuqtii .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1310,7 +1323,7 @@ gt_cor_tab
   width: 100%;
 }
 
-#otvddeydjc .gt_group_heading {
+#pdmafuqtii .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1332,7 +1345,7 @@ gt_cor_tab
   vertical-align: middle;
 }
 
-#otvddeydjc .gt_empty_group_heading {
+#pdmafuqtii .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1347,15 +1360,15 @@ gt_cor_tab
   vertical-align: middle;
 }
 
-#otvddeydjc .gt_from_md > :first-child {
+#pdmafuqtii .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#otvddeydjc .gt_from_md > :last-child {
+#pdmafuqtii .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#otvddeydjc .gt_row {
+#pdmafuqtii .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1374,7 +1387,7 @@ gt_cor_tab
   overflow-x: hidden;
 }
 
-#otvddeydjc .gt_stub {
+#pdmafuqtii .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1386,7 +1399,7 @@ gt_cor_tab
   padding-left: 12px;
 }
 
-#otvddeydjc .gt_summary_row {
+#pdmafuqtii .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1396,7 +1409,7 @@ gt_cor_tab
   padding-right: 5px;
 }
 
-#otvddeydjc .gt_first_summary_row {
+#pdmafuqtii .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1406,7 +1419,7 @@ gt_cor_tab
   border-top-color: #D3D3D3;
 }
 
-#otvddeydjc .gt_grand_summary_row {
+#pdmafuqtii .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1416,7 +1429,7 @@ gt_cor_tab
   padding-right: 5px;
 }
 
-#otvddeydjc .gt_first_grand_summary_row {
+#pdmafuqtii .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1426,11 +1439,11 @@ gt_cor_tab
   border-top-color: #D3D3D3;
 }
 
-#otvddeydjc .gt_striped {
+#pdmafuqtii .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#otvddeydjc .gt_table_body {
+#pdmafuqtii .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1439,7 +1452,7 @@ gt_cor_tab
   border-bottom-color: #D3D3D3;
 }
 
-#otvddeydjc .gt_footnotes {
+#pdmafuqtii .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1453,13 +1466,13 @@ gt_cor_tab
   border-right-color: #D3D3D3;
 }
 
-#otvddeydjc .gt_footnote {
+#pdmafuqtii .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#otvddeydjc .gt_sourcenotes {
+#pdmafuqtii .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1473,46 +1486,46 @@ gt_cor_tab
   border-right-color: #D3D3D3;
 }
 
-#otvddeydjc .gt_sourcenote {
+#pdmafuqtii .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#otvddeydjc .gt_left {
+#pdmafuqtii .gt_left {
   text-align: left;
 }
 
-#otvddeydjc .gt_center {
+#pdmafuqtii .gt_center {
   text-align: center;
 }
 
-#otvddeydjc .gt_right {
+#pdmafuqtii .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#otvddeydjc .gt_font_normal {
+#pdmafuqtii .gt_font_normal {
   font-weight: normal;
 }
 
-#otvddeydjc .gt_font_bold {
+#pdmafuqtii .gt_font_bold {
   font-weight: bold;
 }
 
-#otvddeydjc .gt_font_italic {
+#pdmafuqtii .gt_font_italic {
   font-style: italic;
 }
 
-#otvddeydjc .gt_super {
+#pdmafuqtii .gt_super {
   font-size: 65%;
 }
 
-#otvddeydjc .gt_footnote_marks {
+#pdmafuqtii .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="otvddeydjc" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="pdmafuqtii" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   <thead class="gt_header">
     <tr>
       <th colspan="10" class="gt_heading gt_title gt_font_normal" style>Correlation of Anti-Social Scores Across Age</th>

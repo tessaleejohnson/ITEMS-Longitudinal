@@ -2519,19 +2519,19 @@ white-space: inherit;
 <div id="bivariate-setup" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> Setup</h3>
 <p>Using the <code>pivot_wider</code> function like we did in <a href="3-2-univariate-descriptives.html#univariate-setup">Univariate Setup</a>, we can create a wide-format dataset with a column for each unique child age (e.g., 6, 7, 8, 9, …). Then, calculating the correlation matrix proceeds in a straightforward manner. As with calculating the variances by age in <a href="3-2-univariate-descriptives.html#univariate-setup">Univariate Setup</a>, calculating the anti-social score correlations by age can help inform us about various modeling choices later.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="3-3-bivariate-descriptives.html#cb29-1"></a>cor_tab &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
-<span id="cb29-2"><a href="3-3-bivariate-descriptives.html#cb29-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(., person_id, child_age, anti_score) <span class="op">%&gt;%</span></span>
-<span id="cb29-3"><a href="3-3-bivariate-descriptives.html#cb29-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(., <span class="op">!</span><span class="kw">is.na</span>(child_age)) <span class="op">%&gt;%</span></span>
-<span id="cb29-4"><a href="3-3-bivariate-descriptives.html#cb29-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">arrange</span>(., child_age, person_id) <span class="op">%&gt;%</span></span>
-<span id="cb29-5"><a href="3-3-bivariate-descriptives.html#cb29-5"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_wider</span>(</span>
-<span id="cb29-6"><a href="3-3-bivariate-descriptives.html#cb29-6"></a>    <span class="dt">names_from =</span> <span class="st">&quot;child_age&quot;</span>,</span>
-<span id="cb29-7"><a href="3-3-bivariate-descriptives.html#cb29-7"></a>    <span class="dt">values_from =</span> <span class="kw">c</span>(<span class="st">&quot;anti_score&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb29-8"><a href="3-3-bivariate-descriptives.html#cb29-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(., <span class="op">-</span>person_id) <span class="op">%&gt;%</span></span>
-<span id="cb29-9"><a href="3-3-bivariate-descriptives.html#cb29-9"></a><span class="st">  </span>corrr<span class="op">::</span><span class="kw">correlate</span>(., <span class="dt">diagonal =</span> <span class="dv">1</span>, <span class="dt">use =</span> <span class="st">&quot;pairwise&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb29-10"><a href="3-3-bivariate-descriptives.html#cb29-10"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(., <span class="dt">child_age =</span> <span class="kw">as.numeric</span>(term), <span class="dt">.before =</span> term) <span class="op">%&gt;%</span></span>
-<span id="cb29-11"><a href="3-3-bivariate-descriptives.html#cb29-11"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(., <span class="op">-</span>term) <span class="op">%&gt;%</span></span>
-<span id="cb29-12"><a href="3-3-bivariate-descriptives.html#cb29-12"></a><span class="st">  </span>purrr<span class="op">::</span><span class="kw">map_df</span>(., <span class="op">~</span><span class="kw">format</span>(<span class="kw">round</span>(.x, <span class="dv">2</span>), <span class="dt">nsmall =</span> <span class="dv">2</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb29-13"><a href="3-3-bivariate-descriptives.html#cb29-13"></a><span class="st">  </span><span class="kw">print</span>(.)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="3-3-bivariate-descriptives.html#cb30-1"></a>cor_tab &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
+<span id="cb30-2"><a href="3-3-bivariate-descriptives.html#cb30-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(., person_id, child_age, anti_score) <span class="op">%&gt;%</span></span>
+<span id="cb30-3"><a href="3-3-bivariate-descriptives.html#cb30-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(., <span class="op">!</span><span class="kw">is.na</span>(child_age)) <span class="op">%&gt;%</span></span>
+<span id="cb30-4"><a href="3-3-bivariate-descriptives.html#cb30-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">arrange</span>(., child_age, person_id) <span class="op">%&gt;%</span></span>
+<span id="cb30-5"><a href="3-3-bivariate-descriptives.html#cb30-5"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_wider</span>(</span>
+<span id="cb30-6"><a href="3-3-bivariate-descriptives.html#cb30-6"></a>    <span class="dt">names_from =</span> <span class="st">&quot;child_age&quot;</span>,</span>
+<span id="cb30-7"><a href="3-3-bivariate-descriptives.html#cb30-7"></a>    <span class="dt">values_from =</span> <span class="kw">c</span>(<span class="st">&quot;anti_score&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb30-8"><a href="3-3-bivariate-descriptives.html#cb30-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(., <span class="op">-</span>person_id) <span class="op">%&gt;%</span></span>
+<span id="cb30-9"><a href="3-3-bivariate-descriptives.html#cb30-9"></a><span class="st">  </span>corrr<span class="op">::</span><span class="kw">correlate</span>(., <span class="dt">diagonal =</span> <span class="dv">1</span>, <span class="dt">use =</span> <span class="st">&quot;pairwise&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb30-10"><a href="3-3-bivariate-descriptives.html#cb30-10"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(., <span class="dt">child_age =</span> <span class="kw">as.numeric</span>(term), <span class="dt">.before =</span> term) <span class="op">%&gt;%</span></span>
+<span id="cb30-11"><a href="3-3-bivariate-descriptives.html#cb30-11"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(., <span class="op">-</span>term) <span class="op">%&gt;%</span></span>
+<span id="cb30-12"><a href="3-3-bivariate-descriptives.html#cb30-12"></a><span class="st">  </span>purrr<span class="op">::</span><span class="kw">map_df</span>(., <span class="op">~</span><span class="kw">format</span>(<span class="kw">round</span>(.x, <span class="dv">2</span>), <span class="dt">nsmall =</span> <span class="dv">2</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb30-13"><a href="3-3-bivariate-descriptives.html#cb30-13"></a><span class="st">  </span><span class="kw">print</span>(.)</span></code></pre></div>
 <pre><code>## Warning in stats::cor(x = x, y = y, use = use, method = method): the standard
 ## deviation is zero</code></pre>
 <pre><code>## # A tibble: 9 x 10
@@ -2552,52 +2552,52 @@ white-space: inherit;
 <p>With a few small tweaks to the raw correlation matrix produced above, we can now use the <code>gt</code> package as <a href="3-2-univariate-descriptives.html#univariate-table">before</a> to produce a display-quality correlation table. Note that the “—” symbol blocks off the upper triangle of the correlation matrix to reduce visual redundancy, and “NA” symbols within the lower triangle indicate correlations that could not be calculated due to missing data (for example, the correlation for anti-social behavior at age 6 and age 14 is missing because no children were measured at both age 6 and 14).</p>
 <div id="bivariate-code" class="section level4">
 <h4><span class="header-section-number">3.3.2.1</span> Code</h4>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="3-3-bivariate-descriptives.html#cb32-1"></a><span class="co"># table results</span></span>
-<span id="cb32-2"><a href="3-3-bivariate-descriptives.html#cb32-2"></a>cor_tab_upper &lt;-<span class="st"> </span>cor_tab <span class="op">%&gt;%</span></span>
-<span id="cb32-3"><a href="3-3-bivariate-descriptives.html#cb32-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(., <span class="op">-</span>child_age)</span>
-<span id="cb32-4"><a href="3-3-bivariate-descriptives.html#cb32-4"></a></span>
-<span id="cb32-5"><a href="3-3-bivariate-descriptives.html#cb32-5"></a>cor_tab_upper[<span class="kw">upper.tri</span>(cor_tab_upper, <span class="dt">diag =</span> <span class="ot">FALSE</span>)] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb32-6"><a href="3-3-bivariate-descriptives.html#cb32-6"></a></span>
-<span id="cb32-7"><a href="3-3-bivariate-descriptives.html#cb32-7"></a>gt_cor_tab &lt;-<span class="st"> </span>cor_tab_upper <span class="op">%&gt;%</span></span>
-<span id="cb32-8"><a href="3-3-bivariate-descriptives.html#cb32-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(., <span class="dt">child_age =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">14</span>, <span class="dt">.before =</span> <span class="st">&quot;6&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb32-9"><a href="3-3-bivariate-descriptives.html#cb32-9"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">gt</span>(.) <span class="op">%&gt;%</span></span>
-<span id="cb32-10"><a href="3-3-bivariate-descriptives.html#cb32-10"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_header</span>(</span>
-<span id="cb32-11"><a href="3-3-bivariate-descriptives.html#cb32-11"></a>    <span class="dt">data =</span> ., </span>
-<span id="cb32-12"><a href="3-3-bivariate-descriptives.html#cb32-12"></a>    <span class="dt">title =</span> <span class="st">&quot;Correlation of Anti-Social Scores Across Age&quot;</span>,</span>
-<span id="cb32-13"><a href="3-3-bivariate-descriptives.html#cb32-13"></a>    <span class="dt">subtitle =</span> <span class="st">&quot;Complete pairwise observations were retained.&quot;</span></span>
-<span id="cb32-14"><a href="3-3-bivariate-descriptives.html#cb32-14"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb32-15"><a href="3-3-bivariate-descriptives.html#cb32-15"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_spanner</span>(</span>
-<span id="cb32-16"><a href="3-3-bivariate-descriptives.html#cb32-16"></a>    <span class="dt">data =</span> ., </span>
-<span id="cb32-17"><a href="3-3-bivariate-descriptives.html#cb32-17"></a>    <span class="dt">label =</span> <span class="st">&quot;Self-Correlated Scores by Age&quot;</span>, </span>
-<span id="cb32-18"><a href="3-3-bivariate-descriptives.html#cb32-18"></a>    <span class="dt">columns =</span> tidyselect<span class="op">::</span><span class="kw">matches</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">d&quot;</span>)</span>
-<span id="cb32-19"><a href="3-3-bivariate-descriptives.html#cb32-19"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb32-20"><a href="3-3-bivariate-descriptives.html#cb32-20"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_label</span>(., <span class="dt">child_age =</span> <span class="st">&quot;Child Age&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb32-21"><a href="3-3-bivariate-descriptives.html#cb32-21"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">fmt_missing</span>(., <span class="dt">columns =</span> tidyselect<span class="op">::</span><span class="kw">matches</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">d&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb32-22"><a href="3-3-bivariate-descriptives.html#cb32-22"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_options</span>(., <span class="dt">row.striping.include_table_body =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb32-23"><a href="3-3-bivariate-descriptives.html#cb32-23"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_style</span>(</span>
-<span id="cb32-24"><a href="3-3-bivariate-descriptives.html#cb32-24"></a>    <span class="dt">data =</span> ., </span>
-<span id="cb32-25"><a href="3-3-bivariate-descriptives.html#cb32-25"></a>    <span class="dt">style =</span> gt<span class="op">::</span><span class="kw">cell_borders</span>(</span>
-<span id="cb32-26"><a href="3-3-bivariate-descriptives.html#cb32-26"></a>      <span class="dt">sides =</span> <span class="kw">c</span>(<span class="st">&quot;top&quot;</span>, <span class="st">&quot;bottom&quot;</span>),</span>
-<span id="cb32-27"><a href="3-3-bivariate-descriptives.html#cb32-27"></a>      <span class="dt">color =</span> <span class="st">&quot;#ffffff&quot;</span>,</span>
-<span id="cb32-28"><a href="3-3-bivariate-descriptives.html#cb32-28"></a>      <span class="dt">weight =</span> gt<span class="op">::</span><span class="kw">px</span>(<span class="dv">0</span>),</span>
-<span id="cb32-29"><a href="3-3-bivariate-descriptives.html#cb32-29"></a>      <span class="dt">style =</span> <span class="st">&quot;solid&quot;</span></span>
-<span id="cb32-30"><a href="3-3-bivariate-descriptives.html#cb32-30"></a>    ),</span>
-<span id="cb32-31"><a href="3-3-bivariate-descriptives.html#cb32-31"></a>    <span class="dt">locations =</span> gt<span class="op">::</span><span class="kw">cells_body</span>(</span>
-<span id="cb32-32"><a href="3-3-bivariate-descriptives.html#cb32-32"></a>      <span class="dt">columns =</span> dplyr<span class="op">::</span><span class="kw">everything</span>(),</span>
-<span id="cb32-33"><a href="3-3-bivariate-descriptives.html#cb32-33"></a>      <span class="dt">rows =</span> dplyr<span class="op">::</span><span class="kw">everything</span>()</span>
-<span id="cb32-34"><a href="3-3-bivariate-descriptives.html#cb32-34"></a>    )</span>
-<span id="cb32-35"><a href="3-3-bivariate-descriptives.html#cb32-35"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb32-36"><a href="3-3-bivariate-descriptives.html#cb32-36"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_align</span>(., <span class="dt">align =</span> <span class="st">&quot;center&quot;</span>, <span class="dt">columns =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="3-3-bivariate-descriptives.html#cb33-1"></a><span class="co"># table results</span></span>
+<span id="cb33-2"><a href="3-3-bivariate-descriptives.html#cb33-2"></a>cor_tab_upper &lt;-<span class="st"> </span>cor_tab <span class="op">%&gt;%</span></span>
+<span id="cb33-3"><a href="3-3-bivariate-descriptives.html#cb33-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(., <span class="op">-</span>child_age)</span>
+<span id="cb33-4"><a href="3-3-bivariate-descriptives.html#cb33-4"></a></span>
+<span id="cb33-5"><a href="3-3-bivariate-descriptives.html#cb33-5"></a>cor_tab_upper[<span class="kw">upper.tri</span>(cor_tab_upper, <span class="dt">diag =</span> <span class="ot">FALSE</span>)] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb33-6"><a href="3-3-bivariate-descriptives.html#cb33-6"></a></span>
+<span id="cb33-7"><a href="3-3-bivariate-descriptives.html#cb33-7"></a>gt_cor_tab &lt;-<span class="st"> </span>cor_tab_upper <span class="op">%&gt;%</span></span>
+<span id="cb33-8"><a href="3-3-bivariate-descriptives.html#cb33-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(., <span class="dt">child_age =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">14</span>, <span class="dt">.before =</span> <span class="st">&quot;6&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb33-9"><a href="3-3-bivariate-descriptives.html#cb33-9"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">gt</span>(.) <span class="op">%&gt;%</span></span>
+<span id="cb33-10"><a href="3-3-bivariate-descriptives.html#cb33-10"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_header</span>(</span>
+<span id="cb33-11"><a href="3-3-bivariate-descriptives.html#cb33-11"></a>    <span class="dt">data =</span> ., </span>
+<span id="cb33-12"><a href="3-3-bivariate-descriptives.html#cb33-12"></a>    <span class="dt">title =</span> <span class="st">&quot;Correlation of Anti-Social Scores Across Age&quot;</span>,</span>
+<span id="cb33-13"><a href="3-3-bivariate-descriptives.html#cb33-13"></a>    <span class="dt">subtitle =</span> <span class="st">&quot;Complete pairwise observations were retained.&quot;</span></span>
+<span id="cb33-14"><a href="3-3-bivariate-descriptives.html#cb33-14"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb33-15"><a href="3-3-bivariate-descriptives.html#cb33-15"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_spanner</span>(</span>
+<span id="cb33-16"><a href="3-3-bivariate-descriptives.html#cb33-16"></a>    <span class="dt">data =</span> ., </span>
+<span id="cb33-17"><a href="3-3-bivariate-descriptives.html#cb33-17"></a>    <span class="dt">label =</span> <span class="st">&quot;Self-Correlated Scores by Age&quot;</span>, </span>
+<span id="cb33-18"><a href="3-3-bivariate-descriptives.html#cb33-18"></a>    <span class="dt">columns =</span> tidyselect<span class="op">::</span><span class="kw">matches</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">d&quot;</span>)</span>
+<span id="cb33-19"><a href="3-3-bivariate-descriptives.html#cb33-19"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb33-20"><a href="3-3-bivariate-descriptives.html#cb33-20"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_label</span>(., <span class="dt">child_age =</span> <span class="st">&quot;Child Age&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb33-21"><a href="3-3-bivariate-descriptives.html#cb33-21"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">fmt_missing</span>(., <span class="dt">columns =</span> tidyselect<span class="op">::</span><span class="kw">matches</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">d&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb33-22"><a href="3-3-bivariate-descriptives.html#cb33-22"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_options</span>(., <span class="dt">row.striping.include_table_body =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb33-23"><a href="3-3-bivariate-descriptives.html#cb33-23"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_style</span>(</span>
+<span id="cb33-24"><a href="3-3-bivariate-descriptives.html#cb33-24"></a>    <span class="dt">data =</span> ., </span>
+<span id="cb33-25"><a href="3-3-bivariate-descriptives.html#cb33-25"></a>    <span class="dt">style =</span> gt<span class="op">::</span><span class="kw">cell_borders</span>(</span>
+<span id="cb33-26"><a href="3-3-bivariate-descriptives.html#cb33-26"></a>      <span class="dt">sides =</span> <span class="kw">c</span>(<span class="st">&quot;top&quot;</span>, <span class="st">&quot;bottom&quot;</span>),</span>
+<span id="cb33-27"><a href="3-3-bivariate-descriptives.html#cb33-27"></a>      <span class="dt">color =</span> <span class="st">&quot;#ffffff&quot;</span>,</span>
+<span id="cb33-28"><a href="3-3-bivariate-descriptives.html#cb33-28"></a>      <span class="dt">weight =</span> gt<span class="op">::</span><span class="kw">px</span>(<span class="dv">0</span>),</span>
+<span id="cb33-29"><a href="3-3-bivariate-descriptives.html#cb33-29"></a>      <span class="dt">style =</span> <span class="st">&quot;solid&quot;</span></span>
+<span id="cb33-30"><a href="3-3-bivariate-descriptives.html#cb33-30"></a>    ),</span>
+<span id="cb33-31"><a href="3-3-bivariate-descriptives.html#cb33-31"></a>    <span class="dt">locations =</span> gt<span class="op">::</span><span class="kw">cells_body</span>(</span>
+<span id="cb33-32"><a href="3-3-bivariate-descriptives.html#cb33-32"></a>      <span class="dt">columns =</span> dplyr<span class="op">::</span><span class="kw">everything</span>(),</span>
+<span id="cb33-33"><a href="3-3-bivariate-descriptives.html#cb33-33"></a>      <span class="dt">rows =</span> dplyr<span class="op">::</span><span class="kw">everything</span>()</span>
+<span id="cb33-34"><a href="3-3-bivariate-descriptives.html#cb33-34"></a>    )</span>
+<span id="cb33-35"><a href="3-3-bivariate-descriptives.html#cb33-35"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb33-36"><a href="3-3-bivariate-descriptives.html#cb33-36"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_align</span>(., <span class="dt">align =</span> <span class="st">&quot;center&quot;</span>, <span class="dt">columns =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 </div>
 <div id="bivariate-printed" class="section level4">
 <h4><span class="header-section-number">3.3.2.2</span> Printed Table</h4>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="3-3-bivariate-descriptives.html#cb33-1"></a><span class="co"># print correlation table</span></span>
-<span id="cb33-2"><a href="3-3-bivariate-descriptives.html#cb33-2"></a>gt_cor_tab</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="3-3-bivariate-descriptives.html#cb34-1"></a><span class="co"># print correlation table</span></span>
+<span id="cb34-2"><a href="3-3-bivariate-descriptives.html#cb34-2"></a>gt_cor_tab</span></code></pre></div>
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#otvddeydjc .gt_table {
+#pdmafuqtii .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -2622,7 +2622,7 @@ white-space: inherit;
   border-left-color: #D3D3D3;
 }
 
-#otvddeydjc .gt_heading {
+#pdmafuqtii .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2634,7 +2634,7 @@ white-space: inherit;
   border-right-color: #D3D3D3;
 }
 
-#otvddeydjc .gt_title {
+#pdmafuqtii .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2644,7 +2644,7 @@ white-space: inherit;
   border-bottom-width: 0;
 }
 
-#otvddeydjc .gt_subtitle {
+#pdmafuqtii .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2654,13 +2654,13 @@ white-space: inherit;
   border-top-width: 0;
 }
 
-#otvddeydjc .gt_bottom_border {
+#pdmafuqtii .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#otvddeydjc .gt_col_headings {
+#pdmafuqtii .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2675,7 +2675,7 @@ white-space: inherit;
   border-right-color: #D3D3D3;
 }
 
-#otvddeydjc .gt_col_heading {
+#pdmafuqtii .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2695,7 +2695,7 @@ white-space: inherit;
   overflow-x: hidden;
 }
 
-#otvddeydjc .gt_column_spanner_outer {
+#pdmafuqtii .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2707,15 +2707,15 @@ white-space: inherit;
   padding-right: 4px;
 }
 
-#otvddeydjc .gt_column_spanner_outer:first-child {
+#pdmafuqtii .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#otvddeydjc .gt_column_spanner_outer:last-child {
+#pdmafuqtii .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#otvddeydjc .gt_column_spanner {
+#pdmafuqtii .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2727,7 +2727,7 @@ white-space: inherit;
   width: 100%;
 }
 
-#otvddeydjc .gt_group_heading {
+#pdmafuqtii .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2749,7 +2749,7 @@ white-space: inherit;
   vertical-align: middle;
 }
 
-#otvddeydjc .gt_empty_group_heading {
+#pdmafuqtii .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2764,15 +2764,15 @@ white-space: inherit;
   vertical-align: middle;
 }
 
-#otvddeydjc .gt_from_md > :first-child {
+#pdmafuqtii .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#otvddeydjc .gt_from_md > :last-child {
+#pdmafuqtii .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#otvddeydjc .gt_row {
+#pdmafuqtii .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2791,7 +2791,7 @@ white-space: inherit;
   overflow-x: hidden;
 }
 
-#otvddeydjc .gt_stub {
+#pdmafuqtii .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2803,7 +2803,7 @@ white-space: inherit;
   padding-left: 12px;
 }
 
-#otvddeydjc .gt_summary_row {
+#pdmafuqtii .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2813,7 +2813,7 @@ white-space: inherit;
   padding-right: 5px;
 }
 
-#otvddeydjc .gt_first_summary_row {
+#pdmafuqtii .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2823,7 +2823,7 @@ white-space: inherit;
   border-top-color: #D3D3D3;
 }
 
-#otvddeydjc .gt_grand_summary_row {
+#pdmafuqtii .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2833,7 +2833,7 @@ white-space: inherit;
   padding-right: 5px;
 }
 
-#otvddeydjc .gt_first_grand_summary_row {
+#pdmafuqtii .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2843,11 +2843,11 @@ white-space: inherit;
   border-top-color: #D3D3D3;
 }
 
-#otvddeydjc .gt_striped {
+#pdmafuqtii .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#otvddeydjc .gt_table_body {
+#pdmafuqtii .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2856,7 +2856,7 @@ white-space: inherit;
   border-bottom-color: #D3D3D3;
 }
 
-#otvddeydjc .gt_footnotes {
+#pdmafuqtii .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2870,13 +2870,13 @@ white-space: inherit;
   border-right-color: #D3D3D3;
 }
 
-#otvddeydjc .gt_footnote {
+#pdmafuqtii .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#otvddeydjc .gt_sourcenotes {
+#pdmafuqtii .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2890,46 +2890,46 @@ white-space: inherit;
   border-right-color: #D3D3D3;
 }
 
-#otvddeydjc .gt_sourcenote {
+#pdmafuqtii .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#otvddeydjc .gt_left {
+#pdmafuqtii .gt_left {
   text-align: left;
 }
 
-#otvddeydjc .gt_center {
+#pdmafuqtii .gt_center {
   text-align: center;
 }
 
-#otvddeydjc .gt_right {
+#pdmafuqtii .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#otvddeydjc .gt_font_normal {
+#pdmafuqtii .gt_font_normal {
   font-weight: normal;
 }
 
-#otvddeydjc .gt_font_bold {
+#pdmafuqtii .gt_font_bold {
   font-weight: bold;
 }
 
-#otvddeydjc .gt_font_italic {
+#pdmafuqtii .gt_font_italic {
   font-style: italic;
 }
 
-#otvddeydjc .gt_super {
+#pdmafuqtii .gt_super {
   font-size: 65%;
 }
 
-#otvddeydjc .gt_footnote_marks {
+#pdmafuqtii .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="otvddeydjc" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="pdmafuqtii" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   <thead class="gt_header">
     <tr>
       <th colspan="10" class="gt_heading gt_title gt_font_normal" style>Correlation of Anti-Social Scores Across Age</th>

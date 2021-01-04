@@ -2525,57 +2525,57 @@ white-space: inherit;
 <li>Hoffman, L. (2015). <em>Longitudinal analysis: Modeling within-person fluctuation and change.</em> Routledge.</li>
 </ul>
 <p>Following this method, the estimated intercept for this model yields the grand mean of all of the children’s mean anti-social behavior scores. In other words, if we calculated an average anti-social score for each child across all of their measurements and then averaged those averages, we would be pretty close to the estimated intercept for the <code>null_icc</code> model. In that case, the interpretation of the ICC is the amount of variability in the person-average anti-social scores. A large ICC (closer to 1) would tell us that there is substantial variability in the average anti-social score across children; a smaller ICC (closer to 0) would tell us that children are similar in average anti-social behavior score.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="4-1-unconditional-models.html#cb46-1"></a><span class="co">##--MODEL FITTING--##</span></span>
-<span id="cb46-2"><a href="4-1-unconditional-models.html#cb46-2"></a></span>
-<span id="cb46-3"><a href="4-1-unconditional-models.html#cb46-3"></a><span class="co"># unconditional (null) model</span></span>
-<span id="cb46-4"><a href="4-1-unconditional-models.html#cb46-4"></a>null_icc &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
-<span id="cb46-5"><a href="4-1-unconditional-models.html#cb46-5"></a><span class="st">  </span>nlme<span class="op">::</span><span class="kw">lme</span>(</span>
-<span id="cb46-6"><a href="4-1-unconditional-models.html#cb46-6"></a>    anti_score <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, </span>
-<span id="cb46-7"><a href="4-1-unconditional-models.html#cb46-7"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb46-8"><a href="4-1-unconditional-models.html#cb46-8"></a>    <span class="dt">na.action =</span> na.exclude,</span>
-<span id="cb46-9"><a href="4-1-unconditional-models.html#cb46-9"></a>    <span class="dt">method =</span> <span class="st">&quot;ML&quot;</span>,</span>
-<span id="cb46-10"><a href="4-1-unconditional-models.html#cb46-10"></a>    <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>person_id,</span>
-<span id="cb46-11"><a href="4-1-unconditional-models.html#cb46-11"></a>    <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">maxIter =</span> <span class="dv">100</span>, <span class="dt">returnObject =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb46-12"><a href="4-1-unconditional-models.html#cb46-12"></a>  )</span>
-<span id="cb46-13"><a href="4-1-unconditional-models.html#cb46-13"></a></span>
-<span id="cb46-14"><a href="4-1-unconditional-models.html#cb46-14"></a><span class="co"># extract_var_nlme function</span></span>
-<span id="cb46-15"><a href="4-1-unconditional-models.html#cb46-15"></a></span>
-<span id="cb46-16"><a href="4-1-unconditional-models.html#cb46-16"></a>extract_var_nlme &lt;-<span class="st"> </span><span class="cf">function</span>(model){</span>
-<span id="cb46-17"><a href="4-1-unconditional-models.html#cb46-17"></a></span>
-<span id="cb46-18"><a href="4-1-unconditional-models.html#cb46-18"></a>  <span class="cf">if</span> (<span class="kw">class</span>(model) <span class="op">!=</span><span class="st"> &quot;lme&quot;</span>) {</span>
-<span id="cb46-19"><a href="4-1-unconditional-models.html#cb46-19"></a>    <span class="kw">stop</span>(<span class="st">&quot;model not an object of class &#39;lme&#39;&quot;</span>)</span>
-<span id="cb46-20"><a href="4-1-unconditional-models.html#cb46-20"></a>  }</span>
-<span id="cb46-21"><a href="4-1-unconditional-models.html#cb46-21"></a></span>
-<span id="cb46-22"><a href="4-1-unconditional-models.html#cb46-22"></a>  <span class="co"># calculate level 1 error variances</span></span>
-<span id="cb46-23"><a href="4-1-unconditional-models.html#cb46-23"></a>  var_l1 &lt;-<span class="st"> </span><span class="kw">summary</span>(model)<span class="op">$</span>sigma<span class="op">^</span><span class="dv">2</span></span>
-<span id="cb46-24"><a href="4-1-unconditional-models.html#cb46-24"></a>  weights &lt;-<span class="st"> </span><span class="kw">coef</span>(model<span class="op">$</span>modelStruct<span class="op">$</span>varStruct,</span>
-<span id="cb46-25"><a href="4-1-unconditional-models.html#cb46-25"></a>                  <span class="dt">unconstrained =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb46-26"><a href="4-1-unconditional-models.html#cb46-26"></a></span>
-<span id="cb46-27"><a href="4-1-unconditional-models.html#cb46-27"></a>  <span class="co"># extract level 2 error variances</span></span>
-<span id="cb46-28"><a href="4-1-unconditional-models.html#cb46-28"></a>  drop &lt;-<span class="st"> &quot;Residual&quot;</span></span>
-<span id="cb46-29"><a href="4-1-unconditional-models.html#cb46-29"></a>  var_all &lt;-<span class="st"> </span>nlme<span class="op">::</span><span class="kw">VarCorr</span>(model)[, <span class="st">&quot;Variance&quot;</span>] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sapply</span>(., as.numeric)</span>
-<span id="cb46-30"><a href="4-1-unconditional-models.html#cb46-30"></a>  var_l2 &lt;-<span class="st"> </span>var_all[<span class="op">!</span><span class="kw">names</span>(var_all) <span class="op">%in%</span><span class="st"> </span>drop]</span>
-<span id="cb46-31"><a href="4-1-unconditional-models.html#cb46-31"></a></span>
-<span id="cb46-32"><a href="4-1-unconditional-models.html#cb46-32"></a>  <span class="co">##--OUTPUT--##</span></span>
-<span id="cb46-33"><a href="4-1-unconditional-models.html#cb46-33"></a>  <span class="kw">list</span>(<span class="dt">l1_var =</span> <span class="kw">c</span>(var_l1, (var_l1 <span class="op">*</span><span class="st"> </span>weights<span class="op">^</span><span class="dv">2</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unname</span>(.),</span>
-<span id="cb46-34"><a href="4-1-unconditional-models.html#cb46-34"></a>       <span class="dt">l2_var =</span> var_l2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unname</span>(.))</span>
-<span id="cb46-35"><a href="4-1-unconditional-models.html#cb46-35"></a></span>
-<span id="cb46-36"><a href="4-1-unconditional-models.html#cb46-36"></a>}</span>
-<span id="cb46-37"><a href="4-1-unconditional-models.html#cb46-37"></a></span>
-<span id="cb46-38"><a href="4-1-unconditional-models.html#cb46-38"></a><span class="co"># calc_icc function</span></span>
-<span id="cb46-39"><a href="4-1-unconditional-models.html#cb46-39"></a></span>
-<span id="cb46-40"><a href="4-1-unconditional-models.html#cb46-40"></a>calc_icc &lt;-<span class="st"> </span><span class="cf">function</span>(null_model){</span>
-<span id="cb46-41"><a href="4-1-unconditional-models.html#cb46-41"></a></span>
-<span id="cb46-42"><a href="4-1-unconditional-models.html#cb46-42"></a>  var_list &lt;-<span class="st"> </span><span class="kw">extract_var_nlme</span>(null_model)</span>
-<span id="cb46-43"><a href="4-1-unconditional-models.html#cb46-43"></a></span>
-<span id="cb46-44"><a href="4-1-unconditional-models.html#cb46-44"></a>  <span class="co">##--OUTPUT--##</span></span>
-<span id="cb46-45"><a href="4-1-unconditional-models.html#cb46-45"></a>  var_list<span class="op">$</span>l2_var <span class="op">/</span><span class="st"> </span>(var_list<span class="op">$</span>l2_var <span class="op">+</span><span class="st"> </span>var_list<span class="op">$</span>l1_var)</span>
-<span id="cb46-46"><a href="4-1-unconditional-models.html#cb46-46"></a></span>
-<span id="cb46-47"><a href="4-1-unconditional-models.html#cb46-47"></a>}</span>
-<span id="cb46-48"><a href="4-1-unconditional-models.html#cb46-48"></a></span>
-<span id="cb46-49"><a href="4-1-unconditional-models.html#cb46-49"></a><span class="co"># calculate the ICC</span></span>
-<span id="cb46-50"><a href="4-1-unconditional-models.html#cb46-50"></a>null_icc <span class="op">%&gt;%</span></span>
-<span id="cb46-51"><a href="4-1-unconditional-models.html#cb46-51"></a><span class="st">  </span><span class="kw">calc_icc</span>(.)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="4-1-unconditional-models.html#cb47-1"></a><span class="co">##--MODEL FITTING--##</span></span>
+<span id="cb47-2"><a href="4-1-unconditional-models.html#cb47-2"></a></span>
+<span id="cb47-3"><a href="4-1-unconditional-models.html#cb47-3"></a><span class="co"># unconditional (null) model</span></span>
+<span id="cb47-4"><a href="4-1-unconditional-models.html#cb47-4"></a>null_icc &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
+<span id="cb47-5"><a href="4-1-unconditional-models.html#cb47-5"></a><span class="st">  </span>nlme<span class="op">::</span><span class="kw">lme</span>(</span>
+<span id="cb47-6"><a href="4-1-unconditional-models.html#cb47-6"></a>    anti_score <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, </span>
+<span id="cb47-7"><a href="4-1-unconditional-models.html#cb47-7"></a>    <span class="dt">data =</span> .,</span>
+<span id="cb47-8"><a href="4-1-unconditional-models.html#cb47-8"></a>    <span class="dt">na.action =</span> na.exclude,</span>
+<span id="cb47-9"><a href="4-1-unconditional-models.html#cb47-9"></a>    <span class="dt">method =</span> <span class="st">&quot;ML&quot;</span>,</span>
+<span id="cb47-10"><a href="4-1-unconditional-models.html#cb47-10"></a>    <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>person_id,</span>
+<span id="cb47-11"><a href="4-1-unconditional-models.html#cb47-11"></a>    <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">maxIter =</span> <span class="dv">100</span>, <span class="dt">returnObject =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb47-12"><a href="4-1-unconditional-models.html#cb47-12"></a>  )</span>
+<span id="cb47-13"><a href="4-1-unconditional-models.html#cb47-13"></a></span>
+<span id="cb47-14"><a href="4-1-unconditional-models.html#cb47-14"></a><span class="co"># extract_var_nlme function</span></span>
+<span id="cb47-15"><a href="4-1-unconditional-models.html#cb47-15"></a></span>
+<span id="cb47-16"><a href="4-1-unconditional-models.html#cb47-16"></a>extract_var_nlme &lt;-<span class="st"> </span><span class="cf">function</span>(model){</span>
+<span id="cb47-17"><a href="4-1-unconditional-models.html#cb47-17"></a></span>
+<span id="cb47-18"><a href="4-1-unconditional-models.html#cb47-18"></a>  <span class="cf">if</span> (<span class="kw">class</span>(model) <span class="op">!=</span><span class="st"> &quot;lme&quot;</span>) {</span>
+<span id="cb47-19"><a href="4-1-unconditional-models.html#cb47-19"></a>    <span class="kw">stop</span>(<span class="st">&quot;model not an object of class &#39;lme&#39;&quot;</span>)</span>
+<span id="cb47-20"><a href="4-1-unconditional-models.html#cb47-20"></a>  }</span>
+<span id="cb47-21"><a href="4-1-unconditional-models.html#cb47-21"></a></span>
+<span id="cb47-22"><a href="4-1-unconditional-models.html#cb47-22"></a>  <span class="co"># calculate level 1 error variances</span></span>
+<span id="cb47-23"><a href="4-1-unconditional-models.html#cb47-23"></a>  var_l1 &lt;-<span class="st"> </span><span class="kw">summary</span>(model)<span class="op">$</span>sigma<span class="op">^</span><span class="dv">2</span></span>
+<span id="cb47-24"><a href="4-1-unconditional-models.html#cb47-24"></a>  weights &lt;-<span class="st"> </span><span class="kw">coef</span>(model<span class="op">$</span>modelStruct<span class="op">$</span>varStruct,</span>
+<span id="cb47-25"><a href="4-1-unconditional-models.html#cb47-25"></a>                  <span class="dt">unconstrained =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb47-26"><a href="4-1-unconditional-models.html#cb47-26"></a></span>
+<span id="cb47-27"><a href="4-1-unconditional-models.html#cb47-27"></a>  <span class="co"># extract level 2 error variances</span></span>
+<span id="cb47-28"><a href="4-1-unconditional-models.html#cb47-28"></a>  drop &lt;-<span class="st"> &quot;Residual&quot;</span></span>
+<span id="cb47-29"><a href="4-1-unconditional-models.html#cb47-29"></a>  var_all &lt;-<span class="st"> </span>nlme<span class="op">::</span><span class="kw">VarCorr</span>(model)[, <span class="st">&quot;Variance&quot;</span>] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sapply</span>(., as.numeric)</span>
+<span id="cb47-30"><a href="4-1-unconditional-models.html#cb47-30"></a>  var_l2 &lt;-<span class="st"> </span>var_all[<span class="op">!</span><span class="kw">names</span>(var_all) <span class="op">%in%</span><span class="st"> </span>drop]</span>
+<span id="cb47-31"><a href="4-1-unconditional-models.html#cb47-31"></a></span>
+<span id="cb47-32"><a href="4-1-unconditional-models.html#cb47-32"></a>  <span class="co">##--OUTPUT--##</span></span>
+<span id="cb47-33"><a href="4-1-unconditional-models.html#cb47-33"></a>  <span class="kw">list</span>(<span class="dt">l1_var =</span> <span class="kw">c</span>(var_l1, (var_l1 <span class="op">*</span><span class="st"> </span>weights<span class="op">^</span><span class="dv">2</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unname</span>(.),</span>
+<span id="cb47-34"><a href="4-1-unconditional-models.html#cb47-34"></a>       <span class="dt">l2_var =</span> var_l2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unname</span>(.))</span>
+<span id="cb47-35"><a href="4-1-unconditional-models.html#cb47-35"></a></span>
+<span id="cb47-36"><a href="4-1-unconditional-models.html#cb47-36"></a>}</span>
+<span id="cb47-37"><a href="4-1-unconditional-models.html#cb47-37"></a></span>
+<span id="cb47-38"><a href="4-1-unconditional-models.html#cb47-38"></a><span class="co"># calc_icc function</span></span>
+<span id="cb47-39"><a href="4-1-unconditional-models.html#cb47-39"></a></span>
+<span id="cb47-40"><a href="4-1-unconditional-models.html#cb47-40"></a>calc_icc &lt;-<span class="st"> </span><span class="cf">function</span>(null_model){</span>
+<span id="cb47-41"><a href="4-1-unconditional-models.html#cb47-41"></a></span>
+<span id="cb47-42"><a href="4-1-unconditional-models.html#cb47-42"></a>  var_list &lt;-<span class="st"> </span><span class="kw">extract_var_nlme</span>(null_model)</span>
+<span id="cb47-43"><a href="4-1-unconditional-models.html#cb47-43"></a></span>
+<span id="cb47-44"><a href="4-1-unconditional-models.html#cb47-44"></a>  <span class="co">##--OUTPUT--##</span></span>
+<span id="cb47-45"><a href="4-1-unconditional-models.html#cb47-45"></a>  var_list<span class="op">$</span>l2_var <span class="op">/</span><span class="st"> </span>(var_list<span class="op">$</span>l2_var <span class="op">+</span><span class="st"> </span>var_list<span class="op">$</span>l1_var)</span>
+<span id="cb47-46"><a href="4-1-unconditional-models.html#cb47-46"></a></span>
+<span id="cb47-47"><a href="4-1-unconditional-models.html#cb47-47"></a>}</span>
+<span id="cb47-48"><a href="4-1-unconditional-models.html#cb47-48"></a></span>
+<span id="cb47-49"><a href="4-1-unconditional-models.html#cb47-49"></a><span class="co"># calculate the ICC</span></span>
+<span id="cb47-50"><a href="4-1-unconditional-models.html#cb47-50"></a>null_icc <span class="op">%&gt;%</span></span>
+<span id="cb47-51"><a href="4-1-unconditional-models.html#cb47-51"></a><span class="st">  </span><span class="kw">calc_icc</span>(.)</span></code></pre></div>
 <pre><code>## [1] 0.4784052</code></pre>
 </div>
 <div id="unconditional-fits" class="section level3">
@@ -2590,57 +2590,57 @@ white-space: inherit;
 </ol>
 <p>Our model building strategy was largely guided by the information we gained from exploratory data analysis. First, we assumed a linear trajectory for the outcome over time in <code>null_fslp</code> based on the plots created in <a href="3-4-trajectories.html#trajectories">Trajectories</a>. Noting the wide variability in slopes and intercepts in the <a href="#individual-plot">spaghetti plots</a> helped us choose to add a random effect for our time variable to the model in <code>null_rslp</code>.</p>
 <p>In addition, by calculating the variances and correlations across ages in <a href="3-2-univariate-descriptives.html#univariate-descriptives">Univariate Descriptives</a> and <a href="3-3-bivariate-descriptives.html#bivariate-descriptives">Bivariate Descriptives</a>, respectively, we were able to make better decisions about how to model the error variance/covariance structure. Knowing that the variances increased slightly though remained fairly similar across age groups, we decided to try out a heterogeneous error variance structure in <code>null_hvar</code> using the <code>weights = nlme::varIdent()</code> argument. In addition, the pattern of correlations across ages suggested that a compound symmetric error structure might improve our model fit, which we added to the <code>null_csym</code> model using the <code>correlation = nlme::corCompSymm</code> argument.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="4-1-unconditional-models.html#cb48-1"></a><span class="co"># unconditional model with fixed slope for time var</span></span>
-<span id="cb48-2"><a href="4-1-unconditional-models.html#cb48-2"></a>null_fslp &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
-<span id="cb48-3"><a href="4-1-unconditional-models.html#cb48-3"></a><span class="st">  </span>nlme<span class="op">::</span><span class="kw">lme</span>(</span>
-<span id="cb48-4"><a href="4-1-unconditional-models.html#cb48-4"></a>    anti_score <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age, </span>
-<span id="cb48-5"><a href="4-1-unconditional-models.html#cb48-5"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb48-6"><a href="4-1-unconditional-models.html#cb48-6"></a>    <span class="dt">na.action =</span> na.exclude,</span>
-<span id="cb48-7"><a href="4-1-unconditional-models.html#cb48-7"></a>    <span class="dt">method =</span> <span class="st">&quot;ML&quot;</span>,</span>
-<span id="cb48-8"><a href="4-1-unconditional-models.html#cb48-8"></a>    <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>person_id,</span>
-<span id="cb48-9"><a href="4-1-unconditional-models.html#cb48-9"></a>    <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">maxIter =</span> <span class="dv">100</span>, <span class="dt">returnObject =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb48-10"><a href="4-1-unconditional-models.html#cb48-10"></a>  )</span>
-<span id="cb48-11"><a href="4-1-unconditional-models.html#cb48-11"></a></span>
-<span id="cb48-12"><a href="4-1-unconditional-models.html#cb48-12"></a><span class="co"># unconditional model with random slope for time var</span></span>
-<span id="cb48-13"><a href="4-1-unconditional-models.html#cb48-13"></a>null_rslp &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
-<span id="cb48-14"><a href="4-1-unconditional-models.html#cb48-14"></a><span class="st">  </span>nlme<span class="op">::</span><span class="kw">lme</span>(</span>
-<span id="cb48-15"><a href="4-1-unconditional-models.html#cb48-15"></a>    anti_score <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age, </span>
-<span id="cb48-16"><a href="4-1-unconditional-models.html#cb48-16"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb48-17"><a href="4-1-unconditional-models.html#cb48-17"></a>    <span class="dt">na.action =</span> na.exclude,</span>
-<span id="cb48-18"><a href="4-1-unconditional-models.html#cb48-18"></a>    <span class="dt">method =</span> <span class="st">&quot;ML&quot;</span>,</span>
-<span id="cb48-19"><a href="4-1-unconditional-models.html#cb48-19"></a>    <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age <span class="op">|</span><span class="st"> </span>person_id,</span>
-<span id="cb48-20"><a href="4-1-unconditional-models.html#cb48-20"></a>    <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">maxIter =</span> <span class="dv">100</span>, <span class="dt">returnObject =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb48-21"><a href="4-1-unconditional-models.html#cb48-21"></a>  )</span>
-<span id="cb48-22"><a href="4-1-unconditional-models.html#cb48-22"></a></span>
-<span id="cb48-23"><a href="4-1-unconditional-models.html#cb48-23"></a><span class="co"># unconditional model with heterogeneous variances</span></span>
-<span id="cb48-24"><a href="4-1-unconditional-models.html#cb48-24"></a>null_hvar &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
-<span id="cb48-25"><a href="4-1-unconditional-models.html#cb48-25"></a><span class="st">  </span>nlme<span class="op">::</span><span class="kw">lme</span>(</span>
-<span id="cb48-26"><a href="4-1-unconditional-models.html#cb48-26"></a>    anti_score <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age, </span>
-<span id="cb48-27"><a href="4-1-unconditional-models.html#cb48-27"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb48-28"><a href="4-1-unconditional-models.html#cb48-28"></a>    <span class="dt">na.action =</span> na.exclude,</span>
-<span id="cb48-29"><a href="4-1-unconditional-models.html#cb48-29"></a>    <span class="dt">method =</span> <span class="st">&quot;ML&quot;</span>,</span>
-<span id="cb48-30"><a href="4-1-unconditional-models.html#cb48-30"></a>    <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age <span class="op">|</span><span class="st"> </span>person_id,</span>
-<span id="cb48-31"><a href="4-1-unconditional-models.html#cb48-31"></a>    <span class="dt">weights =</span> nlme<span class="op">::</span><span class="kw">varIdent</span>(<span class="dt">form =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>child_age),</span>
-<span id="cb48-32"><a href="4-1-unconditional-models.html#cb48-32"></a>    <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">maxIter =</span> <span class="dv">100</span>, <span class="dt">returnObject =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb48-33"><a href="4-1-unconditional-models.html#cb48-33"></a>  )</span>
-<span id="cb48-34"><a href="4-1-unconditional-models.html#cb48-34"></a></span>
-<span id="cb48-35"><a href="4-1-unconditional-models.html#cb48-35"></a><span class="co"># unconditional model with ar1 error covariance</span></span>
-<span id="cb48-36"><a href="4-1-unconditional-models.html#cb48-36"></a>null_csym &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
-<span id="cb48-37"><a href="4-1-unconditional-models.html#cb48-37"></a><span class="st">  </span>nlme<span class="op">::</span><span class="kw">lme</span>(</span>
-<span id="cb48-38"><a href="4-1-unconditional-models.html#cb48-38"></a>    anti_score <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age,</span>
-<span id="cb48-39"><a href="4-1-unconditional-models.html#cb48-39"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb48-40"><a href="4-1-unconditional-models.html#cb48-40"></a>    <span class="dt">na.action =</span> na.exclude,</span>
-<span id="cb48-41"><a href="4-1-unconditional-models.html#cb48-41"></a>    <span class="dt">method =</span> <span class="st">&quot;ML&quot;</span>,</span>
-<span id="cb48-42"><a href="4-1-unconditional-models.html#cb48-42"></a>    <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age <span class="op">|</span><span class="st"> </span>person_id,</span>
-<span id="cb48-43"><a href="4-1-unconditional-models.html#cb48-43"></a>    <span class="dt">correlation =</span> nlme<span class="op">::</span><span class="kw">corCompSymm</span>(</span>
-<span id="cb48-44"><a href="4-1-unconditional-models.html#cb48-44"></a>      <span class="dt">value =</span> <span class="fl">-.3</span>, <span class="dt">form =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age <span class="op">|</span><span class="st"> </span>person_id</span>
-<span id="cb48-45"><a href="4-1-unconditional-models.html#cb48-45"></a>    ),</span>
-<span id="cb48-46"><a href="4-1-unconditional-models.html#cb48-46"></a>    <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">maxIter =</span> <span class="dv">100</span>, <span class="dt">returnObject =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb48-47"><a href="4-1-unconditional-models.html#cb48-47"></a>  )</span>
-<span id="cb48-48"><a href="4-1-unconditional-models.html#cb48-48"></a></span>
-<span id="cb48-49"><a href="4-1-unconditional-models.html#cb48-49"></a><span class="co"># example of the raw results from the nlme::lme package</span></span>
-<span id="cb48-50"><a href="4-1-unconditional-models.html#cb48-50"></a>null_csym <span class="op">%&gt;%</span></span>
-<span id="cb48-51"><a href="4-1-unconditional-models.html#cb48-51"></a><span class="st">  </span><span class="kw">summary</span>(.)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="4-1-unconditional-models.html#cb49-1"></a><span class="co"># unconditional model with fixed slope for time var</span></span>
+<span id="cb49-2"><a href="4-1-unconditional-models.html#cb49-2"></a>null_fslp &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
+<span id="cb49-3"><a href="4-1-unconditional-models.html#cb49-3"></a><span class="st">  </span>nlme<span class="op">::</span><span class="kw">lme</span>(</span>
+<span id="cb49-4"><a href="4-1-unconditional-models.html#cb49-4"></a>    anti_score <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age, </span>
+<span id="cb49-5"><a href="4-1-unconditional-models.html#cb49-5"></a>    <span class="dt">data =</span> .,</span>
+<span id="cb49-6"><a href="4-1-unconditional-models.html#cb49-6"></a>    <span class="dt">na.action =</span> na.exclude,</span>
+<span id="cb49-7"><a href="4-1-unconditional-models.html#cb49-7"></a>    <span class="dt">method =</span> <span class="st">&quot;ML&quot;</span>,</span>
+<span id="cb49-8"><a href="4-1-unconditional-models.html#cb49-8"></a>    <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>person_id,</span>
+<span id="cb49-9"><a href="4-1-unconditional-models.html#cb49-9"></a>    <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">maxIter =</span> <span class="dv">100</span>, <span class="dt">returnObject =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb49-10"><a href="4-1-unconditional-models.html#cb49-10"></a>  )</span>
+<span id="cb49-11"><a href="4-1-unconditional-models.html#cb49-11"></a></span>
+<span id="cb49-12"><a href="4-1-unconditional-models.html#cb49-12"></a><span class="co"># unconditional model with random slope for time var</span></span>
+<span id="cb49-13"><a href="4-1-unconditional-models.html#cb49-13"></a>null_rslp &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
+<span id="cb49-14"><a href="4-1-unconditional-models.html#cb49-14"></a><span class="st">  </span>nlme<span class="op">::</span><span class="kw">lme</span>(</span>
+<span id="cb49-15"><a href="4-1-unconditional-models.html#cb49-15"></a>    anti_score <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age, </span>
+<span id="cb49-16"><a href="4-1-unconditional-models.html#cb49-16"></a>    <span class="dt">data =</span> .,</span>
+<span id="cb49-17"><a href="4-1-unconditional-models.html#cb49-17"></a>    <span class="dt">na.action =</span> na.exclude,</span>
+<span id="cb49-18"><a href="4-1-unconditional-models.html#cb49-18"></a>    <span class="dt">method =</span> <span class="st">&quot;ML&quot;</span>,</span>
+<span id="cb49-19"><a href="4-1-unconditional-models.html#cb49-19"></a>    <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age <span class="op">|</span><span class="st"> </span>person_id,</span>
+<span id="cb49-20"><a href="4-1-unconditional-models.html#cb49-20"></a>    <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">maxIter =</span> <span class="dv">100</span>, <span class="dt">returnObject =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb49-21"><a href="4-1-unconditional-models.html#cb49-21"></a>  )</span>
+<span id="cb49-22"><a href="4-1-unconditional-models.html#cb49-22"></a></span>
+<span id="cb49-23"><a href="4-1-unconditional-models.html#cb49-23"></a><span class="co"># unconditional model with heterogeneous variances</span></span>
+<span id="cb49-24"><a href="4-1-unconditional-models.html#cb49-24"></a>null_hvar &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
+<span id="cb49-25"><a href="4-1-unconditional-models.html#cb49-25"></a><span class="st">  </span>nlme<span class="op">::</span><span class="kw">lme</span>(</span>
+<span id="cb49-26"><a href="4-1-unconditional-models.html#cb49-26"></a>    anti_score <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age, </span>
+<span id="cb49-27"><a href="4-1-unconditional-models.html#cb49-27"></a>    <span class="dt">data =</span> .,</span>
+<span id="cb49-28"><a href="4-1-unconditional-models.html#cb49-28"></a>    <span class="dt">na.action =</span> na.exclude,</span>
+<span id="cb49-29"><a href="4-1-unconditional-models.html#cb49-29"></a>    <span class="dt">method =</span> <span class="st">&quot;ML&quot;</span>,</span>
+<span id="cb49-30"><a href="4-1-unconditional-models.html#cb49-30"></a>    <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age <span class="op">|</span><span class="st"> </span>person_id,</span>
+<span id="cb49-31"><a href="4-1-unconditional-models.html#cb49-31"></a>    <span class="dt">weights =</span> nlme<span class="op">::</span><span class="kw">varIdent</span>(<span class="dt">form =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>child_age),</span>
+<span id="cb49-32"><a href="4-1-unconditional-models.html#cb49-32"></a>    <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">maxIter =</span> <span class="dv">100</span>, <span class="dt">returnObject =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb49-33"><a href="4-1-unconditional-models.html#cb49-33"></a>  )</span>
+<span id="cb49-34"><a href="4-1-unconditional-models.html#cb49-34"></a></span>
+<span id="cb49-35"><a href="4-1-unconditional-models.html#cb49-35"></a><span class="co"># unconditional model with ar1 error covariance</span></span>
+<span id="cb49-36"><a href="4-1-unconditional-models.html#cb49-36"></a>null_csym &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
+<span id="cb49-37"><a href="4-1-unconditional-models.html#cb49-37"></a><span class="st">  </span>nlme<span class="op">::</span><span class="kw">lme</span>(</span>
+<span id="cb49-38"><a href="4-1-unconditional-models.html#cb49-38"></a>    anti_score <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age,</span>
+<span id="cb49-39"><a href="4-1-unconditional-models.html#cb49-39"></a>    <span class="dt">data =</span> .,</span>
+<span id="cb49-40"><a href="4-1-unconditional-models.html#cb49-40"></a>    <span class="dt">na.action =</span> na.exclude,</span>
+<span id="cb49-41"><a href="4-1-unconditional-models.html#cb49-41"></a>    <span class="dt">method =</span> <span class="st">&quot;ML&quot;</span>,</span>
+<span id="cb49-42"><a href="4-1-unconditional-models.html#cb49-42"></a>    <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age <span class="op">|</span><span class="st"> </span>person_id,</span>
+<span id="cb49-43"><a href="4-1-unconditional-models.html#cb49-43"></a>    <span class="dt">correlation =</span> nlme<span class="op">::</span><span class="kw">corCompSymm</span>(</span>
+<span id="cb49-44"><a href="4-1-unconditional-models.html#cb49-44"></a>      <span class="dt">value =</span> <span class="fl">-.3</span>, <span class="dt">form =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age <span class="op">|</span><span class="st"> </span>person_id</span>
+<span id="cb49-45"><a href="4-1-unconditional-models.html#cb49-45"></a>    ),</span>
+<span id="cb49-46"><a href="4-1-unconditional-models.html#cb49-46"></a>    <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">maxIter =</span> <span class="dv">100</span>, <span class="dt">returnObject =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb49-47"><a href="4-1-unconditional-models.html#cb49-47"></a>  )</span>
+<span id="cb49-48"><a href="4-1-unconditional-models.html#cb49-48"></a></span>
+<span id="cb49-49"><a href="4-1-unconditional-models.html#cb49-49"></a><span class="co"># example of the raw results from the nlme::lme package</span></span>
+<span id="cb49-50"><a href="4-1-unconditional-models.html#cb49-50"></a>null_csym <span class="op">%&gt;%</span></span>
+<span id="cb49-51"><a href="4-1-unconditional-models.html#cb49-51"></a><span class="st">  </span><span class="kw">summary</span>(.)</span></code></pre></div>
 <pre><code>## Linear mixed-effects model fit by maximum likelihood
 ##  Data: . 
 ##        AIC      BIC    logLik
@@ -2679,72 +2679,72 @@ white-space: inherit;
 <p>Using the <code>anova</code> function and <code>gt</code> package, we can built a display-quality table of global model fit statistics. As recommended in the ITEMS modules, we use the information criteria to compare non-nested models and models with different random effects structures. The “best” model, and the one we will move forward with when adding covariates in the next section, is the one with the lowest AIC and BIC (in this case, the <code>null_rslp</code> model with a random effect for time, homogenous error variances, and independent error covariance structure). All models are estimated with maximum likelihood during the model-building phase.</p>
 <div id="global-code" class="section level4">
 <h4><span class="header-section-number">4.1.3.1</span> Code</h4>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="4-1-unconditional-models.html#cb50-1"></a><span class="co"># comparing models</span></span>
-<span id="cb50-2"><a href="4-1-unconditional-models.html#cb50-2"></a>gt_global_tab &lt;-<span class="st"> </span><span class="kw">anova</span>(null_icc, null_fslp, null_rslp, null_hvar, null_csym) <span class="op">%&gt;%</span></span>
-<span id="cb50-3"><a href="4-1-unconditional-models.html#cb50-3"></a><span class="st">  </span>tibble<span class="op">::</span><span class="kw">as_tibble</span>(.) <span class="op">%&gt;%</span></span>
-<span id="cb50-4"><a href="4-1-unconditional-models.html#cb50-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(</span>
-<span id="cb50-5"><a href="4-1-unconditional-models.html#cb50-5"></a>    <span class="dt">Name =</span> dplyr<span class="op">::</span><span class="kw">case_when</span>(</span>
-<span id="cb50-6"><a href="4-1-unconditional-models.html#cb50-6"></a>      Model <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;Intercept-Only&quot;</span>,</span>
-<span id="cb50-7"><a href="4-1-unconditional-models.html#cb50-7"></a>      Model <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">~</span><span class="st"> &quot;Time (Fixed)&quot;</span>,</span>
-<span id="cb50-8"><a href="4-1-unconditional-models.html#cb50-8"></a>      Model <span class="op">==</span><span class="st"> </span><span class="dv">3</span> <span class="op">~</span><span class="st"> &quot;Time (Fixed and Random)&quot;</span>,</span>
-<span id="cb50-9"><a href="4-1-unconditional-models.html#cb50-9"></a>      Model <span class="op">==</span><span class="st"> </span><span class="dv">4</span> <span class="op">~</span><span class="st"> &quot;Heterogeneous Variances&quot;</span>,</span>
-<span id="cb50-10"><a href="4-1-unconditional-models.html#cb50-10"></a>      Model <span class="op">==</span><span class="st"> </span><span class="dv">5</span> <span class="op">~</span><span class="st"> &quot;Compound Symmetry&quot;</span></span>
-<span id="cb50-11"><a href="4-1-unconditional-models.html#cb50-11"></a>    ),</span>
-<span id="cb50-12"><a href="4-1-unconditional-models.html#cb50-12"></a>    <span class="dt">AIC =</span> <span class="kw">round</span>(AIC, <span class="dv">2</span>), </span>
-<span id="cb50-13"><a href="4-1-unconditional-models.html#cb50-13"></a>    <span class="dt">BIC =</span> <span class="kw">round</span>(BIC, <span class="dv">2</span>)</span>
-<span id="cb50-14"><a href="4-1-unconditional-models.html#cb50-14"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb50-15"><a href="4-1-unconditional-models.html#cb50-15"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(., Model, Name, df, AIC, BIC) <span class="op">%&gt;%</span></span>
-<span id="cb50-16"><a href="4-1-unconditional-models.html#cb50-16"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">gt</span>(.) <span class="op">%&gt;%</span></span>
-<span id="cb50-17"><a href="4-1-unconditional-models.html#cb50-17"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_header</span>(</span>
-<span id="cb50-18"><a href="4-1-unconditional-models.html#cb50-18"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb50-19"><a href="4-1-unconditional-models.html#cb50-19"></a>    <span class="dt">title =</span> <span class="st">&quot;Global Model Comparisons&quot;</span>,</span>
-<span id="cb50-20"><a href="4-1-unconditional-models.html#cb50-20"></a>    <span class="dt">subtitle =</span> <span class="st">&quot;Semi-unconditional models with fixed and random effects for time.&quot;</span></span>
-<span id="cb50-21"><a href="4-1-unconditional-models.html#cb50-21"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb50-22"><a href="4-1-unconditional-models.html#cb50-22"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_spanner</span>(</span>
-<span id="cb50-23"><a href="4-1-unconditional-models.html#cb50-23"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb50-24"><a href="4-1-unconditional-models.html#cb50-24"></a>    <span class="dt">label =</span> <span class="st">&quot;Model Fit&quot;</span>, </span>
-<span id="cb50-25"><a href="4-1-unconditional-models.html#cb50-25"></a>    <span class="dt">columns =</span> <span class="kw">c</span>(<span class="st">&quot;df&quot;</span>, <span class="st">&quot;AIC&quot;</span>, <span class="st">&quot;BIC&quot;</span>)</span>
-<span id="cb50-26"><a href="4-1-unconditional-models.html#cb50-26"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb50-27"><a href="4-1-unconditional-models.html#cb50-27"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_options</span>(</span>
-<span id="cb50-28"><a href="4-1-unconditional-models.html#cb50-28"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb50-29"><a href="4-1-unconditional-models.html#cb50-29"></a>    <span class="dt">row.striping.include_table_body =</span> <span class="ot">FALSE</span></span>
-<span id="cb50-30"><a href="4-1-unconditional-models.html#cb50-30"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb50-31"><a href="4-1-unconditional-models.html#cb50-31"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_style</span>(</span>
-<span id="cb50-32"><a href="4-1-unconditional-models.html#cb50-32"></a>    <span class="dt">data =</span> ., </span>
-<span id="cb50-33"><a href="4-1-unconditional-models.html#cb50-33"></a>    <span class="dt">style =</span> gt<span class="op">::</span><span class="kw">cell_borders</span>(</span>
-<span id="cb50-34"><a href="4-1-unconditional-models.html#cb50-34"></a>      <span class="dt">sides =</span> <span class="kw">c</span>(<span class="st">&quot;top&quot;</span>, <span class="st">&quot;bottom&quot;</span>),</span>
-<span id="cb50-35"><a href="4-1-unconditional-models.html#cb50-35"></a>      <span class="dt">color =</span> <span class="st">&quot;#ffffff&quot;</span>,</span>
-<span id="cb50-36"><a href="4-1-unconditional-models.html#cb50-36"></a>      <span class="dt">weight =</span> gt<span class="op">::</span><span class="kw">px</span>(<span class="dv">0</span>),</span>
-<span id="cb50-37"><a href="4-1-unconditional-models.html#cb50-37"></a>      <span class="dt">style =</span> <span class="st">&quot;solid&quot;</span></span>
-<span id="cb50-38"><a href="4-1-unconditional-models.html#cb50-38"></a>    ),</span>
-<span id="cb50-39"><a href="4-1-unconditional-models.html#cb50-39"></a>    <span class="dt">locations =</span> gt<span class="op">::</span><span class="kw">cells_body</span>(</span>
-<span id="cb50-40"><a href="4-1-unconditional-models.html#cb50-40"></a>      <span class="dt">columns =</span> dplyr<span class="op">::</span><span class="kw">everything</span>(),</span>
-<span id="cb50-41"><a href="4-1-unconditional-models.html#cb50-41"></a>      <span class="dt">rows =</span> dplyr<span class="op">::</span><span class="kw">everything</span>()</span>
-<span id="cb50-42"><a href="4-1-unconditional-models.html#cb50-42"></a>    )</span>
-<span id="cb50-43"><a href="4-1-unconditional-models.html#cb50-43"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb50-44"><a href="4-1-unconditional-models.html#cb50-44"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_align</span>(</span>
-<span id="cb50-45"><a href="4-1-unconditional-models.html#cb50-45"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb50-46"><a href="4-1-unconditional-models.html#cb50-46"></a>    <span class="dt">align =</span> <span class="st">&quot;center&quot;</span>, <span class="dt">columns =</span> <span class="kw">c</span>(<span class="st">&quot;Model&quot;</span>, <span class="st">&quot;df&quot;</span>, <span class="st">&quot;AIC&quot;</span>, <span class="st">&quot;BIC&quot;</span>)</span>
-<span id="cb50-47"><a href="4-1-unconditional-models.html#cb50-47"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb50-48"><a href="4-1-unconditional-models.html#cb50-48"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_align</span>(., <span class="dt">align =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">columns =</span> <span class="st">&quot;Name&quot;</span>)  <span class="op">%&gt;%</span></span>
-<span id="cb50-49"><a href="4-1-unconditional-models.html#cb50-49"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_footnote</span>(</span>
-<span id="cb50-50"><a href="4-1-unconditional-models.html#cb50-50"></a>    <span class="dt">data =</span> ., </span>
-<span id="cb50-51"><a href="4-1-unconditional-models.html#cb50-51"></a>    <span class="dt">footnote =</span> <span class="kw">paste</span>(</span>
-<span id="cb50-52"><a href="4-1-unconditional-models.html#cb50-52"></a>      <span class="st">&quot;Models 4 &amp; 5 retain the fixed and random effects for time;&quot;</span>, </span>
-<span id="cb50-53"><a href="4-1-unconditional-models.html#cb50-53"></a>      <span class="st">&quot;Model 4 does not contain compound symmetric covariance structure;&quot;</span>,</span>
-<span id="cb50-54"><a href="4-1-unconditional-models.html#cb50-54"></a>      <span class="st">&quot;Model 5 does not contain heterogeneous variances.&quot;</span></span>
-<span id="cb50-55"><a href="4-1-unconditional-models.html#cb50-55"></a>    ),</span>
-<span id="cb50-56"><a href="4-1-unconditional-models.html#cb50-56"></a>    <span class="dt">locations =</span> gt<span class="op">::</span><span class="kw">cells_column_labels</span>(<span class="dt">columns =</span> dplyr<span class="op">::</span><span class="kw">vars</span>(Name))) <span class="op">%&gt;%</span></span>
-<span id="cb50-57"><a href="4-1-unconditional-models.html#cb50-57"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_footnote</span>(</span>
-<span id="cb50-58"><a href="4-1-unconditional-models.html#cb50-58"></a>    <span class="dt">data =</span> ., </span>
-<span id="cb50-59"><a href="4-1-unconditional-models.html#cb50-59"></a>    <span class="dt">footnote =</span> <span class="st">&quot;df = Model degrees of freedom.&quot;</span>,</span>
-<span id="cb50-60"><a href="4-1-unconditional-models.html#cb50-60"></a>    <span class="dt">locations =</span> gt<span class="op">::</span><span class="kw">cells_column_labels</span>(<span class="dt">columns =</span> dplyr<span class="op">::</span><span class="kw">vars</span>(df))</span>
-<span id="cb50-61"><a href="4-1-unconditional-models.html#cb50-61"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="4-1-unconditional-models.html#cb51-1"></a><span class="co"># comparing models</span></span>
+<span id="cb51-2"><a href="4-1-unconditional-models.html#cb51-2"></a>gt_global_tab &lt;-<span class="st"> </span><span class="kw">anova</span>(null_icc, null_fslp, null_rslp, null_hvar, null_csym) <span class="op">%&gt;%</span></span>
+<span id="cb51-3"><a href="4-1-unconditional-models.html#cb51-3"></a><span class="st">  </span>tibble<span class="op">::</span><span class="kw">as_tibble</span>(.) <span class="op">%&gt;%</span></span>
+<span id="cb51-4"><a href="4-1-unconditional-models.html#cb51-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(</span>
+<span id="cb51-5"><a href="4-1-unconditional-models.html#cb51-5"></a>    <span class="dt">Name =</span> dplyr<span class="op">::</span><span class="kw">case_when</span>(</span>
+<span id="cb51-6"><a href="4-1-unconditional-models.html#cb51-6"></a>      Model <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">~</span><span class="st"> &quot;Intercept-Only&quot;</span>,</span>
+<span id="cb51-7"><a href="4-1-unconditional-models.html#cb51-7"></a>      Model <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">~</span><span class="st"> &quot;Time (Fixed)&quot;</span>,</span>
+<span id="cb51-8"><a href="4-1-unconditional-models.html#cb51-8"></a>      Model <span class="op">==</span><span class="st"> </span><span class="dv">3</span> <span class="op">~</span><span class="st"> &quot;Time (Fixed and Random)&quot;</span>,</span>
+<span id="cb51-9"><a href="4-1-unconditional-models.html#cb51-9"></a>      Model <span class="op">==</span><span class="st"> </span><span class="dv">4</span> <span class="op">~</span><span class="st"> &quot;Heterogeneous Variances&quot;</span>,</span>
+<span id="cb51-10"><a href="4-1-unconditional-models.html#cb51-10"></a>      Model <span class="op">==</span><span class="st"> </span><span class="dv">5</span> <span class="op">~</span><span class="st"> &quot;Compound Symmetry&quot;</span></span>
+<span id="cb51-11"><a href="4-1-unconditional-models.html#cb51-11"></a>    ),</span>
+<span id="cb51-12"><a href="4-1-unconditional-models.html#cb51-12"></a>    <span class="dt">AIC =</span> <span class="kw">round</span>(AIC, <span class="dv">2</span>), </span>
+<span id="cb51-13"><a href="4-1-unconditional-models.html#cb51-13"></a>    <span class="dt">BIC =</span> <span class="kw">round</span>(BIC, <span class="dv">2</span>)</span>
+<span id="cb51-14"><a href="4-1-unconditional-models.html#cb51-14"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb51-15"><a href="4-1-unconditional-models.html#cb51-15"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(., Model, Name, df, AIC, BIC) <span class="op">%&gt;%</span></span>
+<span id="cb51-16"><a href="4-1-unconditional-models.html#cb51-16"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">gt</span>(.) <span class="op">%&gt;%</span></span>
+<span id="cb51-17"><a href="4-1-unconditional-models.html#cb51-17"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_header</span>(</span>
+<span id="cb51-18"><a href="4-1-unconditional-models.html#cb51-18"></a>    <span class="dt">data =</span> .,</span>
+<span id="cb51-19"><a href="4-1-unconditional-models.html#cb51-19"></a>    <span class="dt">title =</span> <span class="st">&quot;Global Model Comparisons&quot;</span>,</span>
+<span id="cb51-20"><a href="4-1-unconditional-models.html#cb51-20"></a>    <span class="dt">subtitle =</span> <span class="st">&quot;Semi-unconditional models with fixed and random effects for time.&quot;</span></span>
+<span id="cb51-21"><a href="4-1-unconditional-models.html#cb51-21"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb51-22"><a href="4-1-unconditional-models.html#cb51-22"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_spanner</span>(</span>
+<span id="cb51-23"><a href="4-1-unconditional-models.html#cb51-23"></a>    <span class="dt">data =</span> .,</span>
+<span id="cb51-24"><a href="4-1-unconditional-models.html#cb51-24"></a>    <span class="dt">label =</span> <span class="st">&quot;Model Fit&quot;</span>, </span>
+<span id="cb51-25"><a href="4-1-unconditional-models.html#cb51-25"></a>    <span class="dt">columns =</span> <span class="kw">c</span>(<span class="st">&quot;df&quot;</span>, <span class="st">&quot;AIC&quot;</span>, <span class="st">&quot;BIC&quot;</span>)</span>
+<span id="cb51-26"><a href="4-1-unconditional-models.html#cb51-26"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb51-27"><a href="4-1-unconditional-models.html#cb51-27"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_options</span>(</span>
+<span id="cb51-28"><a href="4-1-unconditional-models.html#cb51-28"></a>    <span class="dt">data =</span> .,</span>
+<span id="cb51-29"><a href="4-1-unconditional-models.html#cb51-29"></a>    <span class="dt">row.striping.include_table_body =</span> <span class="ot">FALSE</span></span>
+<span id="cb51-30"><a href="4-1-unconditional-models.html#cb51-30"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb51-31"><a href="4-1-unconditional-models.html#cb51-31"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_style</span>(</span>
+<span id="cb51-32"><a href="4-1-unconditional-models.html#cb51-32"></a>    <span class="dt">data =</span> ., </span>
+<span id="cb51-33"><a href="4-1-unconditional-models.html#cb51-33"></a>    <span class="dt">style =</span> gt<span class="op">::</span><span class="kw">cell_borders</span>(</span>
+<span id="cb51-34"><a href="4-1-unconditional-models.html#cb51-34"></a>      <span class="dt">sides =</span> <span class="kw">c</span>(<span class="st">&quot;top&quot;</span>, <span class="st">&quot;bottom&quot;</span>),</span>
+<span id="cb51-35"><a href="4-1-unconditional-models.html#cb51-35"></a>      <span class="dt">color =</span> <span class="st">&quot;#ffffff&quot;</span>,</span>
+<span id="cb51-36"><a href="4-1-unconditional-models.html#cb51-36"></a>      <span class="dt">weight =</span> gt<span class="op">::</span><span class="kw">px</span>(<span class="dv">0</span>),</span>
+<span id="cb51-37"><a href="4-1-unconditional-models.html#cb51-37"></a>      <span class="dt">style =</span> <span class="st">&quot;solid&quot;</span></span>
+<span id="cb51-38"><a href="4-1-unconditional-models.html#cb51-38"></a>    ),</span>
+<span id="cb51-39"><a href="4-1-unconditional-models.html#cb51-39"></a>    <span class="dt">locations =</span> gt<span class="op">::</span><span class="kw">cells_body</span>(</span>
+<span id="cb51-40"><a href="4-1-unconditional-models.html#cb51-40"></a>      <span class="dt">columns =</span> dplyr<span class="op">::</span><span class="kw">everything</span>(),</span>
+<span id="cb51-41"><a href="4-1-unconditional-models.html#cb51-41"></a>      <span class="dt">rows =</span> dplyr<span class="op">::</span><span class="kw">everything</span>()</span>
+<span id="cb51-42"><a href="4-1-unconditional-models.html#cb51-42"></a>    )</span>
+<span id="cb51-43"><a href="4-1-unconditional-models.html#cb51-43"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb51-44"><a href="4-1-unconditional-models.html#cb51-44"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_align</span>(</span>
+<span id="cb51-45"><a href="4-1-unconditional-models.html#cb51-45"></a>    <span class="dt">data =</span> .,</span>
+<span id="cb51-46"><a href="4-1-unconditional-models.html#cb51-46"></a>    <span class="dt">align =</span> <span class="st">&quot;center&quot;</span>, <span class="dt">columns =</span> <span class="kw">c</span>(<span class="st">&quot;Model&quot;</span>, <span class="st">&quot;df&quot;</span>, <span class="st">&quot;AIC&quot;</span>, <span class="st">&quot;BIC&quot;</span>)</span>
+<span id="cb51-47"><a href="4-1-unconditional-models.html#cb51-47"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb51-48"><a href="4-1-unconditional-models.html#cb51-48"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_align</span>(., <span class="dt">align =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">columns =</span> <span class="st">&quot;Name&quot;</span>)  <span class="op">%&gt;%</span></span>
+<span id="cb51-49"><a href="4-1-unconditional-models.html#cb51-49"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_footnote</span>(</span>
+<span id="cb51-50"><a href="4-1-unconditional-models.html#cb51-50"></a>    <span class="dt">data =</span> ., </span>
+<span id="cb51-51"><a href="4-1-unconditional-models.html#cb51-51"></a>    <span class="dt">footnote =</span> <span class="kw">paste</span>(</span>
+<span id="cb51-52"><a href="4-1-unconditional-models.html#cb51-52"></a>      <span class="st">&quot;Models 4 &amp; 5 retain the fixed and random effects for time;&quot;</span>, </span>
+<span id="cb51-53"><a href="4-1-unconditional-models.html#cb51-53"></a>      <span class="st">&quot;Model 4 does not contain compound symmetric covariance structure;&quot;</span>,</span>
+<span id="cb51-54"><a href="4-1-unconditional-models.html#cb51-54"></a>      <span class="st">&quot;Model 5 does not contain heterogeneous variances.&quot;</span></span>
+<span id="cb51-55"><a href="4-1-unconditional-models.html#cb51-55"></a>    ),</span>
+<span id="cb51-56"><a href="4-1-unconditional-models.html#cb51-56"></a>    <span class="dt">locations =</span> gt<span class="op">::</span><span class="kw">cells_column_labels</span>(<span class="dt">columns =</span> dplyr<span class="op">::</span><span class="kw">vars</span>(Name))) <span class="op">%&gt;%</span></span>
+<span id="cb51-57"><a href="4-1-unconditional-models.html#cb51-57"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_footnote</span>(</span>
+<span id="cb51-58"><a href="4-1-unconditional-models.html#cb51-58"></a>    <span class="dt">data =</span> ., </span>
+<span id="cb51-59"><a href="4-1-unconditional-models.html#cb51-59"></a>    <span class="dt">footnote =</span> <span class="st">&quot;df = Model degrees of freedom.&quot;</span>,</span>
+<span id="cb51-60"><a href="4-1-unconditional-models.html#cb51-60"></a>    <span class="dt">locations =</span> gt<span class="op">::</span><span class="kw">cells_column_labels</span>(<span class="dt">columns =</span> dplyr<span class="op">::</span><span class="kw">vars</span>(df))</span>
+<span id="cb51-61"><a href="4-1-unconditional-models.html#cb51-61"></a>  )</span></code></pre></div>
 </div>
 <div id="global-printed" class="section level4">
 <h4><span class="header-section-number">4.1.3.2</span> Printed Table</h4>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="4-1-unconditional-models.html#cb51-1"></a><span class="co"># print plot</span></span>
-<span id="cb51-2"><a href="4-1-unconditional-models.html#cb51-2"></a>gt_global_tab</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="4-1-unconditional-models.html#cb52-1"></a><span class="co"># print plot</span></span>
+<span id="cb52-2"><a href="4-1-unconditional-models.html#cb52-2"></a>gt_global_tab</span></code></pre></div>
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }

@@ -2518,39 +2518,39 @@ white-space: inherit;
 <div id="conditional-fits" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Conditional Fits</h3>
 <p>Let’s add predictors to the linear mixed-effects model with random slope for <code>child_age</code>. The effects of <code>read_score</code>, <code>mom_age</code>, <code>home_emo</code>, and <code>home_cog</code> have been standardized for the purposes of interpretation.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="4-2-conditional-models.html#cb52-1"></a><span class="co"># conditional model</span></span>
-<span id="cb52-2"><a href="4-2-conditional-models.html#cb52-2"></a>cond_full &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
-<span id="cb52-3"><a href="4-2-conditional-models.html#cb52-3"></a><span class="st">  </span>nlme<span class="op">::</span><span class="kw">lme</span>(</span>
-<span id="cb52-4"><a href="4-2-conditional-models.html#cb52-4"></a>    anti_score <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age <span class="op">+</span><span class="st"> </span>assigned_sex <span class="op">+</span></span>
-<span id="cb52-5"><a href="4-2-conditional-models.html#cb52-5"></a><span class="st">      </span><span class="kw">scale</span>(read_score) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb52-6"><a href="4-2-conditional-models.html#cb52-6"></a><span class="st">      </span><span class="kw">scale</span>(mom_age) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb52-7"><a href="4-2-conditional-models.html#cb52-7"></a><span class="st">      </span><span class="kw">scale</span>(home_emo) <span class="op">+</span></span>
-<span id="cb52-8"><a href="4-2-conditional-models.html#cb52-8"></a><span class="st">      </span><span class="kw">scale</span>(home_cog),</span>
-<span id="cb52-9"><a href="4-2-conditional-models.html#cb52-9"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb52-10"><a href="4-2-conditional-models.html#cb52-10"></a>    <span class="dt">na.action =</span> na.exclude,</span>
-<span id="cb52-11"><a href="4-2-conditional-models.html#cb52-11"></a>    <span class="dt">method =</span> <span class="st">&quot;ML&quot;</span>,</span>
-<span id="cb52-12"><a href="4-2-conditional-models.html#cb52-12"></a>    <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age <span class="op">|</span><span class="st"> </span>person_id,</span>
-<span id="cb52-13"><a href="4-2-conditional-models.html#cb52-13"></a>    <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">maxIter =</span> <span class="dv">100</span>, <span class="dt">returnObject =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb52-14"><a href="4-2-conditional-models.html#cb52-14"></a>  )</span>
-<span id="cb52-15"><a href="4-2-conditional-models.html#cb52-15"></a></span>
-<span id="cb52-16"><a href="4-2-conditional-models.html#cb52-16"></a><span class="co"># final model fit with REML</span></span>
-<span id="cb52-17"><a href="4-2-conditional-models.html#cb52-17"></a>cond_reml &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
-<span id="cb52-18"><a href="4-2-conditional-models.html#cb52-18"></a><span class="st">  </span>nlme<span class="op">::</span><span class="kw">lme</span>(</span>
-<span id="cb52-19"><a href="4-2-conditional-models.html#cb52-19"></a>    anti_score <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age <span class="op">+</span><span class="st"> </span>assigned_sex <span class="op">+</span></span>
-<span id="cb52-20"><a href="4-2-conditional-models.html#cb52-20"></a><span class="st">      </span><span class="kw">scale</span>(read_score) <span class="op">+</span></span>
-<span id="cb52-21"><a href="4-2-conditional-models.html#cb52-21"></a><span class="st">      </span><span class="kw">scale</span>(mom_age) <span class="op">+</span></span>
-<span id="cb52-22"><a href="4-2-conditional-models.html#cb52-22"></a><span class="st">      </span><span class="kw">scale</span>(home_emo) <span class="op">+</span></span>
-<span id="cb52-23"><a href="4-2-conditional-models.html#cb52-23"></a><span class="st">      </span><span class="kw">scale</span>(home_cog),</span>
-<span id="cb52-24"><a href="4-2-conditional-models.html#cb52-24"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb52-25"><a href="4-2-conditional-models.html#cb52-25"></a>    <span class="dt">na.action =</span> na.exclude,</span>
-<span id="cb52-26"><a href="4-2-conditional-models.html#cb52-26"></a>    <span class="dt">method =</span> <span class="st">&quot;REML&quot;</span>,</span>
-<span id="cb52-27"><a href="4-2-conditional-models.html#cb52-27"></a>    <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age <span class="op">|</span><span class="st"> </span>person_id,</span>
-<span id="cb52-28"><a href="4-2-conditional-models.html#cb52-28"></a>    <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">maxIter =</span> <span class="dv">100</span>, <span class="dt">returnObject =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb52-29"><a href="4-2-conditional-models.html#cb52-29"></a>  )</span>
-<span id="cb52-30"><a href="4-2-conditional-models.html#cb52-30"></a></span>
-<span id="cb52-31"><a href="4-2-conditional-models.html#cb52-31"></a><span class="co"># example of raw output</span></span>
-<span id="cb52-32"><a href="4-2-conditional-models.html#cb52-32"></a>cond_reml <span class="op">%&gt;%</span></span>
-<span id="cb52-33"><a href="4-2-conditional-models.html#cb52-33"></a><span class="st">  </span><span class="kw">summary</span>(.)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="4-2-conditional-models.html#cb53-1"></a><span class="co"># conditional model</span></span>
+<span id="cb53-2"><a href="4-2-conditional-models.html#cb53-2"></a>cond_full &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
+<span id="cb53-3"><a href="4-2-conditional-models.html#cb53-3"></a><span class="st">  </span>nlme<span class="op">::</span><span class="kw">lme</span>(</span>
+<span id="cb53-4"><a href="4-2-conditional-models.html#cb53-4"></a>    anti_score <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age <span class="op">+</span><span class="st"> </span>assigned_sex <span class="op">+</span></span>
+<span id="cb53-5"><a href="4-2-conditional-models.html#cb53-5"></a><span class="st">      </span><span class="kw">scale</span>(read_score) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb53-6"><a href="4-2-conditional-models.html#cb53-6"></a><span class="st">      </span><span class="kw">scale</span>(mom_age) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb53-7"><a href="4-2-conditional-models.html#cb53-7"></a><span class="st">      </span><span class="kw">scale</span>(home_emo) <span class="op">+</span></span>
+<span id="cb53-8"><a href="4-2-conditional-models.html#cb53-8"></a><span class="st">      </span><span class="kw">scale</span>(home_cog),</span>
+<span id="cb53-9"><a href="4-2-conditional-models.html#cb53-9"></a>    <span class="dt">data =</span> .,</span>
+<span id="cb53-10"><a href="4-2-conditional-models.html#cb53-10"></a>    <span class="dt">na.action =</span> na.exclude,</span>
+<span id="cb53-11"><a href="4-2-conditional-models.html#cb53-11"></a>    <span class="dt">method =</span> <span class="st">&quot;ML&quot;</span>,</span>
+<span id="cb53-12"><a href="4-2-conditional-models.html#cb53-12"></a>    <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age <span class="op">|</span><span class="st"> </span>person_id,</span>
+<span id="cb53-13"><a href="4-2-conditional-models.html#cb53-13"></a>    <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">maxIter =</span> <span class="dv">100</span>, <span class="dt">returnObject =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb53-14"><a href="4-2-conditional-models.html#cb53-14"></a>  )</span>
+<span id="cb53-15"><a href="4-2-conditional-models.html#cb53-15"></a></span>
+<span id="cb53-16"><a href="4-2-conditional-models.html#cb53-16"></a><span class="co"># final model fit with REML</span></span>
+<span id="cb53-17"><a href="4-2-conditional-models.html#cb53-17"></a>cond_reml &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
+<span id="cb53-18"><a href="4-2-conditional-models.html#cb53-18"></a><span class="st">  </span>nlme<span class="op">::</span><span class="kw">lme</span>(</span>
+<span id="cb53-19"><a href="4-2-conditional-models.html#cb53-19"></a>    anti_score <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age <span class="op">+</span><span class="st"> </span>assigned_sex <span class="op">+</span></span>
+<span id="cb53-20"><a href="4-2-conditional-models.html#cb53-20"></a><span class="st">      </span><span class="kw">scale</span>(read_score) <span class="op">+</span></span>
+<span id="cb53-21"><a href="4-2-conditional-models.html#cb53-21"></a><span class="st">      </span><span class="kw">scale</span>(mom_age) <span class="op">+</span></span>
+<span id="cb53-22"><a href="4-2-conditional-models.html#cb53-22"></a><span class="st">      </span><span class="kw">scale</span>(home_emo) <span class="op">+</span></span>
+<span id="cb53-23"><a href="4-2-conditional-models.html#cb53-23"></a><span class="st">      </span><span class="kw">scale</span>(home_cog),</span>
+<span id="cb53-24"><a href="4-2-conditional-models.html#cb53-24"></a>    <span class="dt">data =</span> .,</span>
+<span id="cb53-25"><a href="4-2-conditional-models.html#cb53-25"></a>    <span class="dt">na.action =</span> na.exclude,</span>
+<span id="cb53-26"><a href="4-2-conditional-models.html#cb53-26"></a>    <span class="dt">method =</span> <span class="st">&quot;REML&quot;</span>,</span>
+<span id="cb53-27"><a href="4-2-conditional-models.html#cb53-27"></a>    <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>child_age <span class="op">|</span><span class="st"> </span>person_id,</span>
+<span id="cb53-28"><a href="4-2-conditional-models.html#cb53-28"></a>    <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">maxIter =</span> <span class="dv">100</span>, <span class="dt">returnObject =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb53-29"><a href="4-2-conditional-models.html#cb53-29"></a>  )</span>
+<span id="cb53-30"><a href="4-2-conditional-models.html#cb53-30"></a></span>
+<span id="cb53-31"><a href="4-2-conditional-models.html#cb53-31"></a><span class="co"># example of raw output</span></span>
+<span id="cb53-32"><a href="4-2-conditional-models.html#cb53-32"></a>cond_reml <span class="op">%&gt;%</span></span>
+<span id="cb53-33"><a href="4-2-conditional-models.html#cb53-33"></a><span class="st">  </span><span class="kw">summary</span>(.)</span></code></pre></div>
 <pre><code>## Linear mixed-effects model fit by REML
 ##  Data: . 
 ##        AIC      BIC    logLik
@@ -2594,82 +2594,82 @@ white-space: inherit;
 <p>Now, we create a table of parameter estimates for the final model (<code>cond_reml</code>), grouped by fixed and random effects (note that we have opted to remove p-values from our table and instead included lower and upper bounds of the 95% confidence interval).</p>
 <div id="parameter-code" class="section level4">
 <h4><span class="header-section-number">4.2.2.1</span> Code</h4>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="4-2-conditional-models.html#cb54-1"></a><span class="co"># table results</span></span>
-<span id="cb54-2"><a href="4-2-conditional-models.html#cb54-2"></a>gt_results_tab &lt;-<span class="st"> </span>cond_reml <span class="op">%&gt;%</span></span>
-<span id="cb54-3"><a href="4-2-conditional-models.html#cb54-3"></a><span class="st">  </span>broom.mixed<span class="op">::</span><span class="kw">tidy</span>(., <span class="dt">conf.int =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb54-4"><a href="4-2-conditional-models.html#cb54-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(</span>
-<span id="cb54-5"><a href="4-2-conditional-models.html#cb54-5"></a>    <span class="op">-</span>tidyselect<span class="op">::</span><span class="kw">any_of</span>(<span class="kw">c</span>(<span class="st">&quot;effect&quot;</span>, <span class="st">&quot;group&quot;</span>, <span class="st">&quot;df&quot;</span>, <span class="st">&quot;statistic&quot;</span>, <span class="st">&quot;p.value&quot;</span>))</span>
-<span id="cb54-6"><a href="4-2-conditional-models.html#cb54-6"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb54-7"><a href="4-2-conditional-models.html#cb54-7"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(., dplyr<span class="op">::</span><span class="kw">across</span>(<span class="kw">where</span>(is.numeric), <span class="op">~</span><span class="kw">round</span>(., <span class="dv">2</span>))) <span class="op">%&gt;%</span></span>
-<span id="cb54-8"><a href="4-2-conditional-models.html#cb54-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(</span>
-<span id="cb54-9"><a href="4-2-conditional-models.html#cb54-9"></a>    <span class="dt">Parameter =</span> term,</span>
-<span id="cb54-10"><a href="4-2-conditional-models.html#cb54-10"></a>    <span class="dt">Estimate =</span> estimate,</span>
-<span id="cb54-11"><a href="4-2-conditional-models.html#cb54-11"></a>    <span class="dt">SE =</span> std.error,</span>
-<span id="cb54-12"><a href="4-2-conditional-models.html#cb54-12"></a>    <span class="dt">CI_low =</span> conf.low,</span>
-<span id="cb54-13"><a href="4-2-conditional-models.html#cb54-13"></a>    <span class="dt">CI_high =</span> conf.high) <span class="op">%&gt;%</span></span>
-<span id="cb54-14"><a href="4-2-conditional-models.html#cb54-14"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(</span>
-<span id="cb54-15"><a href="4-2-conditional-models.html#cb54-15"></a>    <span class="dt">Parameter =</span> dplyr<span class="op">::</span><span class="kw">case_when</span>(</span>
-<span id="cb54-16"><a href="4-2-conditional-models.html#cb54-16"></a>      Parameter <span class="op">==</span><span class="st"> &quot;child_age&quot;</span> <span class="op">~</span><span class="st"> &quot;Child Age&quot;</span>,</span>
-<span id="cb54-17"><a href="4-2-conditional-models.html#cb54-17"></a>      Parameter <span class="op">==</span><span class="st"> &quot;assigned_sexmale&quot;</span> <span class="op">~</span><span class="st"> &quot;Male&quot;</span>,</span>
-<span id="cb54-18"><a href="4-2-conditional-models.html#cb54-18"></a>      Parameter <span class="op">==</span><span class="st"> &quot;scale(read_score)&quot;</span> <span class="op">~</span><span class="st"> &quot;Reading Score (std.)&quot;</span>,</span>
-<span id="cb54-19"><a href="4-2-conditional-models.html#cb54-19"></a>      Parameter <span class="op">==</span><span class="st"> &quot;scale(mom_age)&quot;</span> <span class="op">~</span><span class="st"> &quot;Mother&#39;s Age (std.)&quot;</span>,</span>
-<span id="cb54-20"><a href="4-2-conditional-models.html#cb54-20"></a>      Parameter <span class="op">==</span><span class="st"> &quot;scale(home_emo)&quot;</span> <span class="op">~</span><span class="st"> &quot;Home Emotional Stimulation (std.)&quot;</span>,</span>
-<span id="cb54-21"><a href="4-2-conditional-models.html#cb54-21"></a>      Parameter <span class="op">==</span><span class="st"> &quot;scale(home_cog)&quot;</span> <span class="op">~</span><span class="st"> &quot;Home Cognitive Stimulation (std.)&quot;</span>,</span>
-<span id="cb54-22"><a href="4-2-conditional-models.html#cb54-22"></a>      Parameter <span class="op">==</span><span class="st"> &quot;sd_(Intercept)&quot;</span> <span class="op">~</span><span class="st"> &quot;Std. Dev. (Intercept)&quot;</span>,</span>
-<span id="cb54-23"><a href="4-2-conditional-models.html#cb54-23"></a>      Parameter <span class="op">==</span><span class="st"> &quot;cor_child_age.(Intercept)&quot;</span> <span class="op">~</span><span class="st"> &quot;Corr. (Intercept. with Child Age)&quot;</span>,</span>
-<span id="cb54-24"><a href="4-2-conditional-models.html#cb54-24"></a>      Parameter <span class="op">==</span><span class="st"> &quot;sd_child_age&quot;</span> <span class="op">~</span><span class="st"> &quot;Std. Dev. (Child Age)&quot;</span>,</span>
-<span id="cb54-25"><a href="4-2-conditional-models.html#cb54-25"></a>      Parameter <span class="op">==</span><span class="st"> &quot;sd_Observation&quot;</span> <span class="op">~</span><span class="st"> &quot;Std. Dev. (Residual)&quot;</span>,</span>
-<span id="cb54-26"><a href="4-2-conditional-models.html#cb54-26"></a>      <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span>Parameter</span>
-<span id="cb54-27"><a href="4-2-conditional-models.html#cb54-27"></a>    )</span>
-<span id="cb54-28"><a href="4-2-conditional-models.html#cb54-28"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb54-29"><a href="4-2-conditional-models.html#cb54-29"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">gt</span>(.) <span class="op">%&gt;%</span></span>
-<span id="cb54-30"><a href="4-2-conditional-models.html#cb54-30"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_header</span>(</span>
-<span id="cb54-31"><a href="4-2-conditional-models.html#cb54-31"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb54-32"><a href="4-2-conditional-models.html#cb54-32"></a>    <span class="dt">title =</span> <span class="st">&quot;Model Results&quot;</span>,</span>
-<span id="cb54-33"><a href="4-2-conditional-models.html#cb54-33"></a>    <span class="dt">subtitle =</span> <span class="st">&quot;Conditional model with homogenous variances and independent error covariance.&quot;</span></span>
-<span id="cb54-34"><a href="4-2-conditional-models.html#cb54-34"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb54-35"><a href="4-2-conditional-models.html#cb54-35"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_spanner</span>(</span>
-<span id="cb54-36"><a href="4-2-conditional-models.html#cb54-36"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb54-37"><a href="4-2-conditional-models.html#cb54-37"></a>    <span class="dt">label =</span> <span class="st">&quot;Model Estimates&quot;</span>, </span>
-<span id="cb54-38"><a href="4-2-conditional-models.html#cb54-38"></a>    <span class="dt">columns =</span> <span class="kw">c</span>(<span class="st">&quot;Estimate&quot;</span>, <span class="st">&quot;SE&quot;</span>, <span class="st">&quot;CI_low&quot;</span>, <span class="st">&quot;CI_high&quot;</span>)</span>
-<span id="cb54-39"><a href="4-2-conditional-models.html#cb54-39"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb54-40"><a href="4-2-conditional-models.html#cb54-40"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_options</span>(., <span class="dt">row.striping.include_table_body =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb54-41"><a href="4-2-conditional-models.html#cb54-41"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_style</span>(</span>
-<span id="cb54-42"><a href="4-2-conditional-models.html#cb54-42"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb54-43"><a href="4-2-conditional-models.html#cb54-43"></a>    <span class="dt">style =</span> gt<span class="op">::</span><span class="kw">cell_borders</span>(</span>
-<span id="cb54-44"><a href="4-2-conditional-models.html#cb54-44"></a>      <span class="dt">sides =</span> <span class="kw">c</span>(<span class="st">&quot;top&quot;</span>, <span class="st">&quot;bottom&quot;</span>),</span>
-<span id="cb54-45"><a href="4-2-conditional-models.html#cb54-45"></a>      <span class="dt">color =</span> <span class="st">&quot;#ffffff&quot;</span>,</span>
-<span id="cb54-46"><a href="4-2-conditional-models.html#cb54-46"></a>      <span class="dt">weight =</span> gt<span class="op">::</span><span class="kw">px</span>(<span class="dv">0</span>),</span>
-<span id="cb54-47"><a href="4-2-conditional-models.html#cb54-47"></a>      <span class="dt">style =</span> <span class="st">&quot;solid&quot;</span></span>
-<span id="cb54-48"><a href="4-2-conditional-models.html#cb54-48"></a>    ),</span>
-<span id="cb54-49"><a href="4-2-conditional-models.html#cb54-49"></a>    <span class="dt">locations =</span> gt<span class="op">::</span><span class="kw">cells_body</span>(</span>
-<span id="cb54-50"><a href="4-2-conditional-models.html#cb54-50"></a>      <span class="dt">columns =</span> dplyr<span class="op">::</span><span class="kw">everything</span>(),</span>
-<span id="cb54-51"><a href="4-2-conditional-models.html#cb54-51"></a>      <span class="dt">rows =</span> dplyr<span class="op">::</span><span class="kw">everything</span>()</span>
-<span id="cb54-52"><a href="4-2-conditional-models.html#cb54-52"></a>    )</span>
-<span id="cb54-53"><a href="4-2-conditional-models.html#cb54-53"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb54-54"><a href="4-2-conditional-models.html#cb54-54"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_label</span>(., <span class="dt">CI_low =</span> <span class="st">&quot;CI (2.5%)&quot;</span>, <span class="dt">CI_high =</span> <span class="st">&quot;CI (97.5%)&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb54-55"><a href="4-2-conditional-models.html#cb54-55"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_align</span>(</span>
-<span id="cb54-56"><a href="4-2-conditional-models.html#cb54-56"></a>    <span class="dt">data =</span> ., </span>
-<span id="cb54-57"><a href="4-2-conditional-models.html#cb54-57"></a>    <span class="dt">align =</span> <span class="st">&quot;center&quot;</span>, </span>
-<span id="cb54-58"><a href="4-2-conditional-models.html#cb54-58"></a>    <span class="dt">columns =</span> <span class="kw">c</span>(<span class="st">&quot;Estimate&quot;</span>, <span class="st">&quot;SE&quot;</span>, <span class="st">&quot;CI_low&quot;</span>, <span class="st">&quot;CI_high&quot;</span>)</span>
-<span id="cb54-59"><a href="4-2-conditional-models.html#cb54-59"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb54-60"><a href="4-2-conditional-models.html#cb54-60"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_align</span>(., <span class="dt">align =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">columns =</span> <span class="st">&quot;Parameter&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb54-61"><a href="4-2-conditional-models.html#cb54-61"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_row_group</span>(., <span class="dt">group =</span> <span class="st">&quot;Random Effects&quot;</span>, <span class="dt">rows =</span> <span class="dv">8</span><span class="op">:</span><span class="dv">11</span>) <span class="op">%&gt;%</span></span>
-<span id="cb54-62"><a href="4-2-conditional-models.html#cb54-62"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_row_group</span>(., <span class="dt">group =</span> <span class="st">&quot;Fixed Effects&quot;</span>, <span class="dt">rows =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>) <span class="op">%&gt;%</span></span>
-<span id="cb54-63"><a href="4-2-conditional-models.html#cb54-63"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">fmt_missing</span>(., <span class="dt">columns =</span> <span class="dv">2</span><span class="op">:</span><span class="dv">5</span>) <span class="op">%&gt;%</span></span>
-<span id="cb54-64"><a href="4-2-conditional-models.html#cb54-64"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_footnote</span>(<span class="dt">data =</span> .,</span>
-<span id="cb54-65"><a href="4-2-conditional-models.html#cb54-65"></a>    <span class="dt">footnote =</span> <span class="kw">paste</span>(</span>
-<span id="cb54-66"><a href="4-2-conditional-models.html#cb54-66"></a>      <span class="st">&quot;(std.) = Covariate has been standardized;&quot;</span>,</span>
-<span id="cb54-67"><a href="4-2-conditional-models.html#cb54-67"></a>      <span class="st">&quot;Std. Dev. = Estimated standard deviation of the random effect;&quot;</span>,</span>
-<span id="cb54-68"><a href="4-2-conditional-models.html#cb54-68"></a>      <span class="st">&quot;Corr. = Estimated correlation between level-2 random effects.&quot;</span></span>
-<span id="cb54-69"><a href="4-2-conditional-models.html#cb54-69"></a>    ),</span>
-<span id="cb54-70"><a href="4-2-conditional-models.html#cb54-70"></a>    <span class="dt">locations =</span> gt<span class="op">::</span><span class="kw">cells_column_labels</span>(<span class="dt">columns =</span> dplyr<span class="op">::</span><span class="kw">vars</span>(Parameter))</span>
-<span id="cb54-71"><a href="4-2-conditional-models.html#cb54-71"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="4-2-conditional-models.html#cb55-1"></a><span class="co"># table results</span></span>
+<span id="cb55-2"><a href="4-2-conditional-models.html#cb55-2"></a>gt_results_tab &lt;-<span class="st"> </span>cond_reml <span class="op">%&gt;%</span></span>
+<span id="cb55-3"><a href="4-2-conditional-models.html#cb55-3"></a><span class="st">  </span>broom.mixed<span class="op">::</span><span class="kw">tidy</span>(., <span class="dt">conf.int =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb55-4"><a href="4-2-conditional-models.html#cb55-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(</span>
+<span id="cb55-5"><a href="4-2-conditional-models.html#cb55-5"></a>    <span class="op">-</span>tidyselect<span class="op">::</span><span class="kw">any_of</span>(<span class="kw">c</span>(<span class="st">&quot;effect&quot;</span>, <span class="st">&quot;group&quot;</span>, <span class="st">&quot;df&quot;</span>, <span class="st">&quot;statistic&quot;</span>, <span class="st">&quot;p.value&quot;</span>))</span>
+<span id="cb55-6"><a href="4-2-conditional-models.html#cb55-6"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb55-7"><a href="4-2-conditional-models.html#cb55-7"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(., dplyr<span class="op">::</span><span class="kw">across</span>(<span class="kw">where</span>(is.numeric), <span class="op">~</span><span class="kw">round</span>(., <span class="dv">2</span>))) <span class="op">%&gt;%</span></span>
+<span id="cb55-8"><a href="4-2-conditional-models.html#cb55-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(</span>
+<span id="cb55-9"><a href="4-2-conditional-models.html#cb55-9"></a>    <span class="dt">Parameter =</span> term,</span>
+<span id="cb55-10"><a href="4-2-conditional-models.html#cb55-10"></a>    <span class="dt">Estimate =</span> estimate,</span>
+<span id="cb55-11"><a href="4-2-conditional-models.html#cb55-11"></a>    <span class="dt">SE =</span> std.error,</span>
+<span id="cb55-12"><a href="4-2-conditional-models.html#cb55-12"></a>    <span class="dt">CI_low =</span> conf.low,</span>
+<span id="cb55-13"><a href="4-2-conditional-models.html#cb55-13"></a>    <span class="dt">CI_high =</span> conf.high) <span class="op">%&gt;%</span></span>
+<span id="cb55-14"><a href="4-2-conditional-models.html#cb55-14"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(</span>
+<span id="cb55-15"><a href="4-2-conditional-models.html#cb55-15"></a>    <span class="dt">Parameter =</span> dplyr<span class="op">::</span><span class="kw">case_when</span>(</span>
+<span id="cb55-16"><a href="4-2-conditional-models.html#cb55-16"></a>      Parameter <span class="op">==</span><span class="st"> &quot;child_age&quot;</span> <span class="op">~</span><span class="st"> &quot;Child Age&quot;</span>,</span>
+<span id="cb55-17"><a href="4-2-conditional-models.html#cb55-17"></a>      Parameter <span class="op">==</span><span class="st"> &quot;assigned_sexmale&quot;</span> <span class="op">~</span><span class="st"> &quot;Male&quot;</span>,</span>
+<span id="cb55-18"><a href="4-2-conditional-models.html#cb55-18"></a>      Parameter <span class="op">==</span><span class="st"> &quot;scale(read_score)&quot;</span> <span class="op">~</span><span class="st"> &quot;Reading Score (std.)&quot;</span>,</span>
+<span id="cb55-19"><a href="4-2-conditional-models.html#cb55-19"></a>      Parameter <span class="op">==</span><span class="st"> &quot;scale(mom_age)&quot;</span> <span class="op">~</span><span class="st"> &quot;Mother&#39;s Age (std.)&quot;</span>,</span>
+<span id="cb55-20"><a href="4-2-conditional-models.html#cb55-20"></a>      Parameter <span class="op">==</span><span class="st"> &quot;scale(home_emo)&quot;</span> <span class="op">~</span><span class="st"> &quot;Home Emotional Stimulation (std.)&quot;</span>,</span>
+<span id="cb55-21"><a href="4-2-conditional-models.html#cb55-21"></a>      Parameter <span class="op">==</span><span class="st"> &quot;scale(home_cog)&quot;</span> <span class="op">~</span><span class="st"> &quot;Home Cognitive Stimulation (std.)&quot;</span>,</span>
+<span id="cb55-22"><a href="4-2-conditional-models.html#cb55-22"></a>      Parameter <span class="op">==</span><span class="st"> &quot;sd_(Intercept)&quot;</span> <span class="op">~</span><span class="st"> &quot;Std. Dev. (Intercept)&quot;</span>,</span>
+<span id="cb55-23"><a href="4-2-conditional-models.html#cb55-23"></a>      Parameter <span class="op">==</span><span class="st"> &quot;cor_child_age.(Intercept)&quot;</span> <span class="op">~</span><span class="st"> &quot;Corr. (Intercept. with Child Age)&quot;</span>,</span>
+<span id="cb55-24"><a href="4-2-conditional-models.html#cb55-24"></a>      Parameter <span class="op">==</span><span class="st"> &quot;sd_child_age&quot;</span> <span class="op">~</span><span class="st"> &quot;Std. Dev. (Child Age)&quot;</span>,</span>
+<span id="cb55-25"><a href="4-2-conditional-models.html#cb55-25"></a>      Parameter <span class="op">==</span><span class="st"> &quot;sd_Observation&quot;</span> <span class="op">~</span><span class="st"> &quot;Std. Dev. (Residual)&quot;</span>,</span>
+<span id="cb55-26"><a href="4-2-conditional-models.html#cb55-26"></a>      <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span>Parameter</span>
+<span id="cb55-27"><a href="4-2-conditional-models.html#cb55-27"></a>    )</span>
+<span id="cb55-28"><a href="4-2-conditional-models.html#cb55-28"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb55-29"><a href="4-2-conditional-models.html#cb55-29"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">gt</span>(.) <span class="op">%&gt;%</span></span>
+<span id="cb55-30"><a href="4-2-conditional-models.html#cb55-30"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_header</span>(</span>
+<span id="cb55-31"><a href="4-2-conditional-models.html#cb55-31"></a>    <span class="dt">data =</span> .,</span>
+<span id="cb55-32"><a href="4-2-conditional-models.html#cb55-32"></a>    <span class="dt">title =</span> <span class="st">&quot;Model Results&quot;</span>,</span>
+<span id="cb55-33"><a href="4-2-conditional-models.html#cb55-33"></a>    <span class="dt">subtitle =</span> <span class="st">&quot;Conditional model with homogenous variances and independent error covariance.&quot;</span></span>
+<span id="cb55-34"><a href="4-2-conditional-models.html#cb55-34"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb55-35"><a href="4-2-conditional-models.html#cb55-35"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_spanner</span>(</span>
+<span id="cb55-36"><a href="4-2-conditional-models.html#cb55-36"></a>    <span class="dt">data =</span> .,</span>
+<span id="cb55-37"><a href="4-2-conditional-models.html#cb55-37"></a>    <span class="dt">label =</span> <span class="st">&quot;Model Estimates&quot;</span>, </span>
+<span id="cb55-38"><a href="4-2-conditional-models.html#cb55-38"></a>    <span class="dt">columns =</span> <span class="kw">c</span>(<span class="st">&quot;Estimate&quot;</span>, <span class="st">&quot;SE&quot;</span>, <span class="st">&quot;CI_low&quot;</span>, <span class="st">&quot;CI_high&quot;</span>)</span>
+<span id="cb55-39"><a href="4-2-conditional-models.html#cb55-39"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb55-40"><a href="4-2-conditional-models.html#cb55-40"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_options</span>(., <span class="dt">row.striping.include_table_body =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb55-41"><a href="4-2-conditional-models.html#cb55-41"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_style</span>(</span>
+<span id="cb55-42"><a href="4-2-conditional-models.html#cb55-42"></a>    <span class="dt">data =</span> .,</span>
+<span id="cb55-43"><a href="4-2-conditional-models.html#cb55-43"></a>    <span class="dt">style =</span> gt<span class="op">::</span><span class="kw">cell_borders</span>(</span>
+<span id="cb55-44"><a href="4-2-conditional-models.html#cb55-44"></a>      <span class="dt">sides =</span> <span class="kw">c</span>(<span class="st">&quot;top&quot;</span>, <span class="st">&quot;bottom&quot;</span>),</span>
+<span id="cb55-45"><a href="4-2-conditional-models.html#cb55-45"></a>      <span class="dt">color =</span> <span class="st">&quot;#ffffff&quot;</span>,</span>
+<span id="cb55-46"><a href="4-2-conditional-models.html#cb55-46"></a>      <span class="dt">weight =</span> gt<span class="op">::</span><span class="kw">px</span>(<span class="dv">0</span>),</span>
+<span id="cb55-47"><a href="4-2-conditional-models.html#cb55-47"></a>      <span class="dt">style =</span> <span class="st">&quot;solid&quot;</span></span>
+<span id="cb55-48"><a href="4-2-conditional-models.html#cb55-48"></a>    ),</span>
+<span id="cb55-49"><a href="4-2-conditional-models.html#cb55-49"></a>    <span class="dt">locations =</span> gt<span class="op">::</span><span class="kw">cells_body</span>(</span>
+<span id="cb55-50"><a href="4-2-conditional-models.html#cb55-50"></a>      <span class="dt">columns =</span> dplyr<span class="op">::</span><span class="kw">everything</span>(),</span>
+<span id="cb55-51"><a href="4-2-conditional-models.html#cb55-51"></a>      <span class="dt">rows =</span> dplyr<span class="op">::</span><span class="kw">everything</span>()</span>
+<span id="cb55-52"><a href="4-2-conditional-models.html#cb55-52"></a>    )</span>
+<span id="cb55-53"><a href="4-2-conditional-models.html#cb55-53"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb55-54"><a href="4-2-conditional-models.html#cb55-54"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_label</span>(., <span class="dt">CI_low =</span> <span class="st">&quot;CI (2.5%)&quot;</span>, <span class="dt">CI_high =</span> <span class="st">&quot;CI (97.5%)&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb55-55"><a href="4-2-conditional-models.html#cb55-55"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_align</span>(</span>
+<span id="cb55-56"><a href="4-2-conditional-models.html#cb55-56"></a>    <span class="dt">data =</span> ., </span>
+<span id="cb55-57"><a href="4-2-conditional-models.html#cb55-57"></a>    <span class="dt">align =</span> <span class="st">&quot;center&quot;</span>, </span>
+<span id="cb55-58"><a href="4-2-conditional-models.html#cb55-58"></a>    <span class="dt">columns =</span> <span class="kw">c</span>(<span class="st">&quot;Estimate&quot;</span>, <span class="st">&quot;SE&quot;</span>, <span class="st">&quot;CI_low&quot;</span>, <span class="st">&quot;CI_high&quot;</span>)</span>
+<span id="cb55-59"><a href="4-2-conditional-models.html#cb55-59"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb55-60"><a href="4-2-conditional-models.html#cb55-60"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_align</span>(., <span class="dt">align =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">columns =</span> <span class="st">&quot;Parameter&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb55-61"><a href="4-2-conditional-models.html#cb55-61"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_row_group</span>(., <span class="dt">group =</span> <span class="st">&quot;Random Effects&quot;</span>, <span class="dt">rows =</span> <span class="dv">8</span><span class="op">:</span><span class="dv">11</span>) <span class="op">%&gt;%</span></span>
+<span id="cb55-62"><a href="4-2-conditional-models.html#cb55-62"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_row_group</span>(., <span class="dt">group =</span> <span class="st">&quot;Fixed Effects&quot;</span>, <span class="dt">rows =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>) <span class="op">%&gt;%</span></span>
+<span id="cb55-63"><a href="4-2-conditional-models.html#cb55-63"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">fmt_missing</span>(., <span class="dt">columns =</span> <span class="dv">2</span><span class="op">:</span><span class="dv">5</span>) <span class="op">%&gt;%</span></span>
+<span id="cb55-64"><a href="4-2-conditional-models.html#cb55-64"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_footnote</span>(<span class="dt">data =</span> .,</span>
+<span id="cb55-65"><a href="4-2-conditional-models.html#cb55-65"></a>    <span class="dt">footnote =</span> <span class="kw">paste</span>(</span>
+<span id="cb55-66"><a href="4-2-conditional-models.html#cb55-66"></a>      <span class="st">&quot;(std.) = Covariate has been standardized;&quot;</span>,</span>
+<span id="cb55-67"><a href="4-2-conditional-models.html#cb55-67"></a>      <span class="st">&quot;Std. Dev. = Estimated standard deviation of the random effect;&quot;</span>,</span>
+<span id="cb55-68"><a href="4-2-conditional-models.html#cb55-68"></a>      <span class="st">&quot;Corr. = Estimated correlation between level-2 random effects.&quot;</span></span>
+<span id="cb55-69"><a href="4-2-conditional-models.html#cb55-69"></a>    ),</span>
+<span id="cb55-70"><a href="4-2-conditional-models.html#cb55-70"></a>    <span class="dt">locations =</span> gt<span class="op">::</span><span class="kw">cells_column_labels</span>(<span class="dt">columns =</span> dplyr<span class="op">::</span><span class="kw">vars</span>(Parameter))</span>
+<span id="cb55-71"><a href="4-2-conditional-models.html#cb55-71"></a>  )</span></code></pre></div>
 </div>
 <div id="parameter-printed" class="section level4">
 <h4><span class="header-section-number">4.2.2.2</span> Printed Table</h4>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="4-2-conditional-models.html#cb55-1"></a><span class="co"># print plot</span></span>
-<span id="cb55-2"><a href="4-2-conditional-models.html#cb55-2"></a>gt_results_tab</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="4-2-conditional-models.html#cb56-1"></a><span class="co"># print plot</span></span>
+<span id="cb56-2"><a href="4-2-conditional-models.html#cb56-2"></a>gt_results_tab</span></code></pre></div>
 <pre><code>## Warning in min(rows_matched): no non-missing arguments to min; returning Inf</code></pre>
 <pre><code>## Warning in max(rows_matched): no non-missing arguments to max; returning -Inf</code></pre>
 <style>html {

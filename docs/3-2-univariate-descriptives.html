@@ -2519,18 +2519,18 @@ white-space: inherit;
 <h3><span class="header-section-number">3.2.1</span> Setup</h3>
 <p>Using the <code>dat_final</code> long dataset, it is fairly straightforward to calculate the means, variances, and number of observations of the anti-social behavior scores within each age. Knowing the means and variances within each age group can help us see whether and how anti-social behavior changes on average over time. In addition, understanding whether the variances are changing over time can help us make modeling decisions later on.</p>
 <p>Recall that our new sample size is 397, following the steps in <a href="3-1-missingness.html#updated-dataset">Updated Data</a>. Each child was measured up to four times (and we retained a row even when missing their anti-social behavior information), so summing the <code>n</code>, or number of observations, should yield 397 * 4 = 1588. Note that 249 observations have a child age listed as <code>NA</code>. This number tells us how many anti-social behavior scores were not recorded across all measurement waves and individuals. For more information on how the missing anti-social behavior scores are distributed across individuals, see <a href="3-1-missingness.html#raster-plot">Raster Plot</a>.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="3-2-univariate-descriptives.html#cb24-1"></a><span class="co"># calculate descriptive statistics for each level of child&#39;s age</span></span>
-<span id="cb24-2"><a href="3-2-univariate-descriptives.html#cb24-2"></a>moment_tab &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
-<span id="cb24-3"><a href="3-2-univariate-descriptives.html#cb24-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(., child_age) <span class="op">%&gt;%</span></span>
-<span id="cb24-4"><a href="3-2-univariate-descriptives.html#cb24-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">summarize</span>(</span>
-<span id="cb24-5"><a href="3-2-univariate-descriptives.html#cb24-5"></a>    <span class="dt">n =</span> dplyr<span class="op">::</span><span class="kw">n</span>(),</span>
-<span id="cb24-6"><a href="3-2-univariate-descriptives.html#cb24-6"></a>    <span class="dt">mean =</span> <span class="kw">round</span>(<span class="kw">mean</span>(anti_score, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dv">2</span>),</span>
-<span id="cb24-7"><a href="3-2-univariate-descriptives.html#cb24-7"></a>    <span class="dt">variance =</span> <span class="kw">round</span>(<span class="kw">var</span>(anti_score, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dv">2</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb24-8"><a href="3-2-univariate-descriptives.html#cb24-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(., <span class="dt">child_age =</span> dplyr<span class="op">::</span><span class="kw">case_when</span>(</span>
-<span id="cb24-9"><a href="3-2-univariate-descriptives.html#cb24-9"></a>    <span class="kw">is.na</span>(child_age) <span class="op">~</span><span class="st"> &quot;Missing&quot;</span>,</span>
-<span id="cb24-10"><a href="3-2-univariate-descriptives.html#cb24-10"></a>    <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="kw">as.character</span>(child_age)</span>
-<span id="cb24-11"><a href="3-2-univariate-descriptives.html#cb24-11"></a>  )) <span class="op">%&gt;%</span></span>
-<span id="cb24-12"><a href="3-2-univariate-descriptives.html#cb24-12"></a><span class="st">  </span><span class="kw">print</span>(.)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="3-2-univariate-descriptives.html#cb25-1"></a><span class="co"># calculate descriptive statistics for each level of child&#39;s age</span></span>
+<span id="cb25-2"><a href="3-2-univariate-descriptives.html#cb25-2"></a>moment_tab &lt;-<span class="st"> </span>dat_final <span class="op">%&gt;%</span></span>
+<span id="cb25-3"><a href="3-2-univariate-descriptives.html#cb25-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">group_by</span>(., child_age) <span class="op">%&gt;%</span></span>
+<span id="cb25-4"><a href="3-2-univariate-descriptives.html#cb25-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">summarize</span>(</span>
+<span id="cb25-5"><a href="3-2-univariate-descriptives.html#cb25-5"></a>    <span class="dt">n =</span> dplyr<span class="op">::</span><span class="kw">n</span>(),</span>
+<span id="cb25-6"><a href="3-2-univariate-descriptives.html#cb25-6"></a>    <span class="dt">mean =</span> <span class="kw">round</span>(<span class="kw">mean</span>(anti_score, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dv">2</span>),</span>
+<span id="cb25-7"><a href="3-2-univariate-descriptives.html#cb25-7"></a>    <span class="dt">variance =</span> <span class="kw">round</span>(<span class="kw">var</span>(anti_score, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dv">2</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb25-8"><a href="3-2-univariate-descriptives.html#cb25-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(., <span class="dt">child_age =</span> dplyr<span class="op">::</span><span class="kw">case_when</span>(</span>
+<span id="cb25-9"><a href="3-2-univariate-descriptives.html#cb25-9"></a>    <span class="kw">is.na</span>(child_age) <span class="op">~</span><span class="st"> &quot;Missing&quot;</span>,</span>
+<span id="cb25-10"><a href="3-2-univariate-descriptives.html#cb25-10"></a>    <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="kw">as.character</span>(child_age)</span>
+<span id="cb25-11"><a href="3-2-univariate-descriptives.html#cb25-11"></a>  )) <span class="op">%&gt;%</span></span>
+<span id="cb25-12"><a href="3-2-univariate-descriptives.html#cb25-12"></a><span class="st">  </span><span class="kw">print</span>(.)</span></code></pre></div>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code>## # A tibble: 10 x 4
 ##    child_age     n   mean variance
@@ -2551,49 +2551,49 @@ white-space: inherit;
 <p>Now that we’ve calculated our univariate descriptive statistics, we will use the <code>gt</code> package to create a display-quality table of results. The <code>gt</code> package has a similar ethos to <code>ggplot2</code>, where each component of a table can be added on to the previous component. Although the intricacies of both <code>gt</code> and <code>ggplot2</code> are beyond the scope of this module, we thought it was important to demonstrate ways to create reproducible tables and plots for longitudinal data.</p>
 <div id="univariate-code" class="section level4">
 <h4><span class="header-section-number">3.2.2.1</span> Code</h4>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="3-2-univariate-descriptives.html#cb27-1"></a>gt_moments &lt;-<span class="st"> </span>moment_tab <span class="op">%&gt;%</span></span>
-<span id="cb27-2"><a href="3-2-univariate-descriptives.html#cb27-2"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">gt</span>(.) <span class="op">%&gt;%</span></span>
-<span id="cb27-3"><a href="3-2-univariate-descriptives.html#cb27-3"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_header</span>(</span>
-<span id="cb27-4"><a href="3-2-univariate-descriptives.html#cb27-4"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb27-5"><a href="3-2-univariate-descriptives.html#cb27-5"></a>    <span class="dt">title =</span> <span class="st">&quot;Univariate Descriptive Statistics for Anti-Social Behavior Scores&quot;</span>,</span>
-<span id="cb27-6"><a href="3-2-univariate-descriptives.html#cb27-6"></a>    <span class="dt">subtitle =</span> <span class="st">&quot;Means, variances, &amp; number of observations within each age.&quot;</span></span>
-<span id="cb27-7"><a href="3-2-univariate-descriptives.html#cb27-7"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb27-8"><a href="3-2-univariate-descriptives.html#cb27-8"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_spanner</span>(</span>
-<span id="cb27-9"><a href="3-2-univariate-descriptives.html#cb27-9"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb27-10"><a href="3-2-univariate-descriptives.html#cb27-10"></a>    <span class="dt">label =</span> <span class="st">&quot;Summary of Anti-Social Scores by Age&quot;</span>, </span>
-<span id="cb27-11"><a href="3-2-univariate-descriptives.html#cb27-11"></a>    <span class="dt">columns =</span> <span class="kw">c</span>(<span class="st">&quot;n&quot;</span>, <span class="st">&quot;mean&quot;</span>, <span class="st">&quot;variance&quot;</span>)</span>
-<span id="cb27-12"><a href="3-2-univariate-descriptives.html#cb27-12"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb27-13"><a href="3-2-univariate-descriptives.html#cb27-13"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_label</span>(</span>
-<span id="cb27-14"><a href="3-2-univariate-descriptives.html#cb27-14"></a>    <span class="dt">child_age =</span> <span class="st">&quot;Child Age&quot;</span>,</span>
-<span id="cb27-15"><a href="3-2-univariate-descriptives.html#cb27-15"></a>    <span class="dt">n =</span> <span class="st">&quot;Num. Obs.&quot;</span>,</span>
-<span id="cb27-16"><a href="3-2-univariate-descriptives.html#cb27-16"></a>    <span class="dt">mean =</span> <span class="st">&quot;Mean&quot;</span>,</span>
-<span id="cb27-17"><a href="3-2-univariate-descriptives.html#cb27-17"></a>    <span class="dt">variance =</span> <span class="st">&quot;Variance&quot;</span></span>
-<span id="cb27-18"><a href="3-2-univariate-descriptives.html#cb27-18"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb27-19"><a href="3-2-univariate-descriptives.html#cb27-19"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_options</span>(., <span class="dt">row.striping.include_table_body =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb27-20"><a href="3-2-univariate-descriptives.html#cb27-20"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_style</span>(</span>
-<span id="cb27-21"><a href="3-2-univariate-descriptives.html#cb27-21"></a>    <span class="dt">data =</span> .,</span>
-<span id="cb27-22"><a href="3-2-univariate-descriptives.html#cb27-22"></a>    <span class="dt">style =</span> gt<span class="op">::</span><span class="kw">cell_borders</span>(</span>
-<span id="cb27-23"><a href="3-2-univariate-descriptives.html#cb27-23"></a>      <span class="dt">sides =</span> <span class="kw">c</span>(<span class="st">&quot;top&quot;</span>, <span class="st">&quot;bottom&quot;</span>),</span>
-<span id="cb27-24"><a href="3-2-univariate-descriptives.html#cb27-24"></a>      <span class="dt">color =</span> <span class="st">&quot;#ffffff&quot;</span>,</span>
-<span id="cb27-25"><a href="3-2-univariate-descriptives.html#cb27-25"></a>      <span class="dt">weight =</span> gt<span class="op">::</span><span class="kw">px</span>(<span class="dv">0</span>),</span>
-<span id="cb27-26"><a href="3-2-univariate-descriptives.html#cb27-26"></a>      <span class="dt">style =</span> <span class="st">&quot;solid&quot;</span></span>
-<span id="cb27-27"><a href="3-2-univariate-descriptives.html#cb27-27"></a>    ),</span>
-<span id="cb27-28"><a href="3-2-univariate-descriptives.html#cb27-28"></a>    <span class="dt">locations =</span> gt<span class="op">::</span><span class="kw">cells_body</span>(</span>
-<span id="cb27-29"><a href="3-2-univariate-descriptives.html#cb27-29"></a>      <span class="dt">columns =</span> dplyr<span class="op">::</span><span class="kw">everything</span>(),</span>
-<span id="cb27-30"><a href="3-2-univariate-descriptives.html#cb27-30"></a>      <span class="dt">rows =</span> dplyr<span class="op">::</span><span class="kw">everything</span>())</span>
-<span id="cb27-31"><a href="3-2-univariate-descriptives.html#cb27-31"></a>    ) <span class="op">%&gt;%</span></span>
-<span id="cb27-32"><a href="3-2-univariate-descriptives.html#cb27-32"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_align</span>(., <span class="dt">align =</span> <span class="st">&quot;center&quot;</span>, <span class="dt">columns =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb27-33"><a href="3-2-univariate-descriptives.html#cb27-33"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">fmt_missing</span>(., <span class="dt">columns =</span> <span class="kw">c</span>(<span class="st">&quot;n&quot;</span>, <span class="st">&quot;mean&quot;</span>, <span class="st">&quot;variance&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="3-2-univariate-descriptives.html#cb28-1"></a>gt_moments &lt;-<span class="st"> </span>moment_tab <span class="op">%&gt;%</span></span>
+<span id="cb28-2"><a href="3-2-univariate-descriptives.html#cb28-2"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">gt</span>(.) <span class="op">%&gt;%</span></span>
+<span id="cb28-3"><a href="3-2-univariate-descriptives.html#cb28-3"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_header</span>(</span>
+<span id="cb28-4"><a href="3-2-univariate-descriptives.html#cb28-4"></a>    <span class="dt">data =</span> .,</span>
+<span id="cb28-5"><a href="3-2-univariate-descriptives.html#cb28-5"></a>    <span class="dt">title =</span> <span class="st">&quot;Univariate Descriptive Statistics for Anti-Social Behavior Scores&quot;</span>,</span>
+<span id="cb28-6"><a href="3-2-univariate-descriptives.html#cb28-6"></a>    <span class="dt">subtitle =</span> <span class="st">&quot;Means, variances, &amp; number of observations within each age.&quot;</span></span>
+<span id="cb28-7"><a href="3-2-univariate-descriptives.html#cb28-7"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb28-8"><a href="3-2-univariate-descriptives.html#cb28-8"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_spanner</span>(</span>
+<span id="cb28-9"><a href="3-2-univariate-descriptives.html#cb28-9"></a>    <span class="dt">data =</span> .,</span>
+<span id="cb28-10"><a href="3-2-univariate-descriptives.html#cb28-10"></a>    <span class="dt">label =</span> <span class="st">&quot;Summary of Anti-Social Scores by Age&quot;</span>, </span>
+<span id="cb28-11"><a href="3-2-univariate-descriptives.html#cb28-11"></a>    <span class="dt">columns =</span> <span class="kw">c</span>(<span class="st">&quot;n&quot;</span>, <span class="st">&quot;mean&quot;</span>, <span class="st">&quot;variance&quot;</span>)</span>
+<span id="cb28-12"><a href="3-2-univariate-descriptives.html#cb28-12"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb28-13"><a href="3-2-univariate-descriptives.html#cb28-13"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_label</span>(</span>
+<span id="cb28-14"><a href="3-2-univariate-descriptives.html#cb28-14"></a>    <span class="dt">child_age =</span> <span class="st">&quot;Child Age&quot;</span>,</span>
+<span id="cb28-15"><a href="3-2-univariate-descriptives.html#cb28-15"></a>    <span class="dt">n =</span> <span class="st">&quot;Num. Obs.&quot;</span>,</span>
+<span id="cb28-16"><a href="3-2-univariate-descriptives.html#cb28-16"></a>    <span class="dt">mean =</span> <span class="st">&quot;Mean&quot;</span>,</span>
+<span id="cb28-17"><a href="3-2-univariate-descriptives.html#cb28-17"></a>    <span class="dt">variance =</span> <span class="st">&quot;Variance&quot;</span></span>
+<span id="cb28-18"><a href="3-2-univariate-descriptives.html#cb28-18"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb28-19"><a href="3-2-univariate-descriptives.html#cb28-19"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_options</span>(., <span class="dt">row.striping.include_table_body =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb28-20"><a href="3-2-univariate-descriptives.html#cb28-20"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">tab_style</span>(</span>
+<span id="cb28-21"><a href="3-2-univariate-descriptives.html#cb28-21"></a>    <span class="dt">data =</span> .,</span>
+<span id="cb28-22"><a href="3-2-univariate-descriptives.html#cb28-22"></a>    <span class="dt">style =</span> gt<span class="op">::</span><span class="kw">cell_borders</span>(</span>
+<span id="cb28-23"><a href="3-2-univariate-descriptives.html#cb28-23"></a>      <span class="dt">sides =</span> <span class="kw">c</span>(<span class="st">&quot;top&quot;</span>, <span class="st">&quot;bottom&quot;</span>),</span>
+<span id="cb28-24"><a href="3-2-univariate-descriptives.html#cb28-24"></a>      <span class="dt">color =</span> <span class="st">&quot;#ffffff&quot;</span>,</span>
+<span id="cb28-25"><a href="3-2-univariate-descriptives.html#cb28-25"></a>      <span class="dt">weight =</span> gt<span class="op">::</span><span class="kw">px</span>(<span class="dv">0</span>),</span>
+<span id="cb28-26"><a href="3-2-univariate-descriptives.html#cb28-26"></a>      <span class="dt">style =</span> <span class="st">&quot;solid&quot;</span></span>
+<span id="cb28-27"><a href="3-2-univariate-descriptives.html#cb28-27"></a>    ),</span>
+<span id="cb28-28"><a href="3-2-univariate-descriptives.html#cb28-28"></a>    <span class="dt">locations =</span> gt<span class="op">::</span><span class="kw">cells_body</span>(</span>
+<span id="cb28-29"><a href="3-2-univariate-descriptives.html#cb28-29"></a>      <span class="dt">columns =</span> dplyr<span class="op">::</span><span class="kw">everything</span>(),</span>
+<span id="cb28-30"><a href="3-2-univariate-descriptives.html#cb28-30"></a>      <span class="dt">rows =</span> dplyr<span class="op">::</span><span class="kw">everything</span>())</span>
+<span id="cb28-31"><a href="3-2-univariate-descriptives.html#cb28-31"></a>    ) <span class="op">%&gt;%</span></span>
+<span id="cb28-32"><a href="3-2-univariate-descriptives.html#cb28-32"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">cols_align</span>(., <span class="dt">align =</span> <span class="st">&quot;center&quot;</span>, <span class="dt">columns =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb28-33"><a href="3-2-univariate-descriptives.html#cb28-33"></a><span class="st">  </span>gt<span class="op">::</span><span class="kw">fmt_missing</span>(., <span class="dt">columns =</span> <span class="kw">c</span>(<span class="st">&quot;n&quot;</span>, <span class="st">&quot;mean&quot;</span>, <span class="st">&quot;variance&quot;</span>))</span></code></pre></div>
 </div>
 <div id="univariate-printed" class="section level4">
 <h4><span class="header-section-number">3.2.2.2</span> Printed Table</h4>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="3-2-univariate-descriptives.html#cb28-1"></a><span class="co"># print univariate stats table</span></span>
-<span id="cb28-2"><a href="3-2-univariate-descriptives.html#cb28-2"></a>gt_moments</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="3-2-univariate-descriptives.html#cb29-1"></a><span class="co"># print univariate stats table</span></span>
+<span id="cb29-2"><a href="3-2-univariate-descriptives.html#cb29-2"></a>gt_moments</span></code></pre></div>
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#puzpacroub .gt_table {
+#wwmegjadwf .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -2618,7 +2618,7 @@ white-space: inherit;
   border-left-color: #D3D3D3;
 }
 
-#puzpacroub .gt_heading {
+#wwmegjadwf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2630,7 +2630,7 @@ white-space: inherit;
   border-right-color: #D3D3D3;
 }
 
-#puzpacroub .gt_title {
+#wwmegjadwf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2640,7 +2640,7 @@ white-space: inherit;
   border-bottom-width: 0;
 }
 
-#puzpacroub .gt_subtitle {
+#wwmegjadwf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2650,13 +2650,13 @@ white-space: inherit;
   border-top-width: 0;
 }
 
-#puzpacroub .gt_bottom_border {
+#wwmegjadwf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#puzpacroub .gt_col_headings {
+#wwmegjadwf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2671,7 +2671,7 @@ white-space: inherit;
   border-right-color: #D3D3D3;
 }
 
-#puzpacroub .gt_col_heading {
+#wwmegjadwf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2691,7 +2691,7 @@ white-space: inherit;
   overflow-x: hidden;
 }
 
-#puzpacroub .gt_column_spanner_outer {
+#wwmegjadwf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2703,15 +2703,15 @@ white-space: inherit;
   padding-right: 4px;
 }
 
-#puzpacroub .gt_column_spanner_outer:first-child {
+#wwmegjadwf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#puzpacroub .gt_column_spanner_outer:last-child {
+#wwmegjadwf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#puzpacroub .gt_column_spanner {
+#wwmegjadwf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2723,7 +2723,7 @@ white-space: inherit;
   width: 100%;
 }
 
-#puzpacroub .gt_group_heading {
+#wwmegjadwf .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2745,7 +2745,7 @@ white-space: inherit;
   vertical-align: middle;
 }
 
-#puzpacroub .gt_empty_group_heading {
+#wwmegjadwf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2760,15 +2760,15 @@ white-space: inherit;
   vertical-align: middle;
 }
 
-#puzpacroub .gt_from_md > :first-child {
+#wwmegjadwf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#puzpacroub .gt_from_md > :last-child {
+#wwmegjadwf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#puzpacroub .gt_row {
+#wwmegjadwf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2787,7 +2787,7 @@ white-space: inherit;
   overflow-x: hidden;
 }
 
-#puzpacroub .gt_stub {
+#wwmegjadwf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2799,7 +2799,7 @@ white-space: inherit;
   padding-left: 12px;
 }
 
-#puzpacroub .gt_summary_row {
+#wwmegjadwf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2809,7 +2809,7 @@ white-space: inherit;
   padding-right: 5px;
 }
 
-#puzpacroub .gt_first_summary_row {
+#wwmegjadwf .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2819,7 +2819,7 @@ white-space: inherit;
   border-top-color: #D3D3D3;
 }
 
-#puzpacroub .gt_grand_summary_row {
+#wwmegjadwf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2829,7 +2829,7 @@ white-space: inherit;
   padding-right: 5px;
 }
 
-#puzpacroub .gt_first_grand_summary_row {
+#wwmegjadwf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2839,11 +2839,11 @@ white-space: inherit;
   border-top-color: #D3D3D3;
 }
 
-#puzpacroub .gt_striped {
+#wwmegjadwf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#puzpacroub .gt_table_body {
+#wwmegjadwf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2852,7 +2852,7 @@ white-space: inherit;
   border-bottom-color: #D3D3D3;
 }
 
-#puzpacroub .gt_footnotes {
+#wwmegjadwf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2866,13 +2866,13 @@ white-space: inherit;
   border-right-color: #D3D3D3;
 }
 
-#puzpacroub .gt_footnote {
+#wwmegjadwf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#puzpacroub .gt_sourcenotes {
+#wwmegjadwf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2886,46 +2886,46 @@ white-space: inherit;
   border-right-color: #D3D3D3;
 }
 
-#puzpacroub .gt_sourcenote {
+#wwmegjadwf .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#puzpacroub .gt_left {
+#wwmegjadwf .gt_left {
   text-align: left;
 }
 
-#puzpacroub .gt_center {
+#wwmegjadwf .gt_center {
   text-align: center;
 }
 
-#puzpacroub .gt_right {
+#wwmegjadwf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#puzpacroub .gt_font_normal {
+#wwmegjadwf .gt_font_normal {
   font-weight: normal;
 }
 
-#puzpacroub .gt_font_bold {
+#wwmegjadwf .gt_font_bold {
   font-weight: bold;
 }
 
-#puzpacroub .gt_font_italic {
+#wwmegjadwf .gt_font_italic {
   font-style: italic;
 }
 
-#puzpacroub .gt_super {
+#wwmegjadwf .gt_super {
   font-size: 65%;
 }
 
-#puzpacroub .gt_footnote_marks {
+#wwmegjadwf .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="puzpacroub" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="wwmegjadwf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   <thead class="gt_header">
     <tr>
       <th colspan="4" class="gt_heading gt_title gt_font_normal" style>Univariate Descriptive Statistics for Anti-Social Behavior Scores</th>

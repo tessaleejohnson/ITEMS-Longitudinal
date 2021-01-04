@@ -2517,25 +2517,25 @@ white-space: inherit;
 <p>Because we have 3 repeated measures variables (“ag”, “an” and “r”), we use the “names_pattern” argument of <code>tidyr::pivot_longer</code>. “names_pattern” uses a regular expression &quot;(.+)_(.+)&quot; in combo with the “names_to” argument c(“.value”, “wave”) to save all of the data from each repeated measures variable under the names “an”, “r”, and “ag”. The new “wave” variable contains information about when each measurement was taken, drawing its values from the number at the end of the original column name. For example, all of the data from the original column “an_2” will be stored in the new “an” variable with a “wave” code of “2”. Because there are 4 waves of measurement, there will now be 4 rows for each person with complete data (n.b., children with missing data will have fewer rows), which you can double check by looking at the “id” column.</p>
 <p>In the <code>dplyr::mutate</code> step, we subtract 1 from each value of “wave” because we want our initial measurement to be coded “0”. This will have implications for the interpretation of the intercept when we move to the modeling phase.</p>
 <p>Finally, we rename all our variables to something more informative. This step isn’t strictly necessary, but often it is useful for revisiting and collaborating on code to use informative variable names.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="2-2-wide-to-long.html#cb3-1"></a><span class="co"># pivot wide to long</span></span>
-<span id="cb3-2"><a href="2-2-wide-to-long.html#cb3-2"></a>dat_long &lt;-<span class="st"> </span>dat_wide <span class="op">%&gt;%</span></span>
-<span id="cb3-3"><a href="2-2-wide-to-long.html#cb3-3"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(</span>
-<span id="cb3-4"><a href="2-2-wide-to-long.html#cb3-4"></a>    <span class="dt">cols =</span> <span class="kw">c</span>(dplyr<span class="op">::</span><span class="kw">contains</span>(<span class="st">&quot;_&quot;</span>)),</span>
-<span id="cb3-5"><a href="2-2-wide-to-long.html#cb3-5"></a>    <span class="dt">names_to =</span> <span class="kw">c</span>(<span class="st">&quot;.value&quot;</span>, <span class="st">&quot;wave&quot;</span>),</span>
-<span id="cb3-6"><a href="2-2-wide-to-long.html#cb3-6"></a>    <span class="dt">names_pattern =</span> <span class="kw">c</span>(<span class="st">&quot;(.+)_(.+)&quot;</span>)</span>
-<span id="cb3-7"><a href="2-2-wide-to-long.html#cb3-7"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb3-8"><a href="2-2-wide-to-long.html#cb3-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(., <span class="dt">wave =</span> <span class="kw">as.numeric</span>(wave) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></span>
-<span id="cb3-9"><a href="2-2-wide-to-long.html#cb3-9"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(</span>
-<span id="cb3-10"><a href="2-2-wide-to-long.html#cb3-10"></a>    <span class="dt">person_id =</span> id,</span>
-<span id="cb3-11"><a href="2-2-wide-to-long.html#cb3-11"></a>    <span class="dt">assigned_sex =</span> gen,</span>
-<span id="cb3-12"><a href="2-2-wide-to-long.html#cb3-12"></a>    <span class="dt">mom_age =</span> momage,</span>
-<span id="cb3-13"><a href="2-2-wide-to-long.html#cb3-13"></a>    <span class="dt">home_cog =</span> homecog,</span>
-<span id="cb3-14"><a href="2-2-wide-to-long.html#cb3-14"></a>    <span class="dt">home_emo =</span> homeemo,</span>
-<span id="cb3-15"><a href="2-2-wide-to-long.html#cb3-15"></a>    <span class="dt">anti_score =</span> an,</span>
-<span id="cb3-16"><a href="2-2-wide-to-long.html#cb3-16"></a>    <span class="dt">read_score =</span> r,</span>
-<span id="cb3-17"><a href="2-2-wide-to-long.html#cb3-17"></a>    <span class="dt">child_age =</span> ag</span>
-<span id="cb3-18"><a href="2-2-wide-to-long.html#cb3-18"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb3-19"><a href="2-2-wide-to-long.html#cb3-19"></a><span class="st">  </span><span class="kw">print</span>(.)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="2-2-wide-to-long.html#cb4-1"></a><span class="co"># pivot wide to long</span></span>
+<span id="cb4-2"><a href="2-2-wide-to-long.html#cb4-2"></a>dat_long &lt;-<span class="st"> </span>dat_wide <span class="op">%&gt;%</span></span>
+<span id="cb4-3"><a href="2-2-wide-to-long.html#cb4-3"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(</span>
+<span id="cb4-4"><a href="2-2-wide-to-long.html#cb4-4"></a>    <span class="dt">cols =</span> <span class="kw">c</span>(dplyr<span class="op">::</span><span class="kw">contains</span>(<span class="st">&quot;_&quot;</span>)),</span>
+<span id="cb4-5"><a href="2-2-wide-to-long.html#cb4-5"></a>    <span class="dt">names_to =</span> <span class="kw">c</span>(<span class="st">&quot;.value&quot;</span>, <span class="st">&quot;wave&quot;</span>),</span>
+<span id="cb4-6"><a href="2-2-wide-to-long.html#cb4-6"></a>    <span class="dt">names_pattern =</span> <span class="kw">c</span>(<span class="st">&quot;(.+)_(.+)&quot;</span>)</span>
+<span id="cb4-7"><a href="2-2-wide-to-long.html#cb4-7"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb4-8"><a href="2-2-wide-to-long.html#cb4-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(., <span class="dt">wave =</span> <span class="kw">as.numeric</span>(wave) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></span>
+<span id="cb4-9"><a href="2-2-wide-to-long.html#cb4-9"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(</span>
+<span id="cb4-10"><a href="2-2-wide-to-long.html#cb4-10"></a>    <span class="dt">person_id =</span> id,</span>
+<span id="cb4-11"><a href="2-2-wide-to-long.html#cb4-11"></a>    <span class="dt">assigned_sex =</span> gen,</span>
+<span id="cb4-12"><a href="2-2-wide-to-long.html#cb4-12"></a>    <span class="dt">mom_age =</span> momage,</span>
+<span id="cb4-13"><a href="2-2-wide-to-long.html#cb4-13"></a>    <span class="dt">home_cog =</span> homecog,</span>
+<span id="cb4-14"><a href="2-2-wide-to-long.html#cb4-14"></a>    <span class="dt">home_emo =</span> homeemo,</span>
+<span id="cb4-15"><a href="2-2-wide-to-long.html#cb4-15"></a>    <span class="dt">anti_score =</span> an,</span>
+<span id="cb4-16"><a href="2-2-wide-to-long.html#cb4-16"></a>    <span class="dt">read_score =</span> r,</span>
+<span id="cb4-17"><a href="2-2-wide-to-long.html#cb4-17"></a>    <span class="dt">child_age =</span> ag</span>
+<span id="cb4-18"><a href="2-2-wide-to-long.html#cb4-18"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb4-19"><a href="2-2-wide-to-long.html#cb4-19"></a><span class="st">  </span><span class="kw">print</span>(.)</span></code></pre></div>
 <pre><code>## # A tibble: 1,620 x 9
 ##    person_id assigned_sex mom_age home_cog home_emo  wave anti_score read_score
 ##        &lt;dbl&gt; &lt;fct&gt;          &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;

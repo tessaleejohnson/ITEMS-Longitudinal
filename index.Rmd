@@ -125,6 +125,20 @@ Throughout these sections, we present example code for producing display-quality
 
 *  Pinheiro, J., & Bates, D. (2006). _Mixed-effects models in S and S-PLUS._ Springer Science & Business Media.
 
+In order to follow along, you may need to first install the following packages (click to show the code block if not currently visible):
+
+```{r load-packages, eval=FALSE}
+
+install.packages("tidyverse")
+install.packages("corrr")
+install.packages("viridis")
+install.packages("gt")
+install.packages("nlme")
+install.packages("broom.mixed")
+
+```
+
+
 ## Load Data {#load-data}
 
 To load the data, we use the `readr::read_csv` function. The `na = "-99"` statement tells `readr` how to recode missing data.

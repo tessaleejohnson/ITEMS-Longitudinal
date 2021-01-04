@@ -2526,32 +2526,32 @@ white-space: inherit;
 <li>0 = “female” and</li>
 <li>1 = “male”.</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="2-1-load-data.html#cb1-1"></a><span class="co">##--TUTORIAL DATASETS--##</span></span>
-<span id="cb1-2"><a href="2-1-load-data.html#cb1-2"></a></span>
-<span id="cb1-3"><a href="2-1-load-data.html#cb1-3"></a><span class="co"># read data</span></span>
-<span id="cb1-4"><a href="2-1-load-data.html#cb1-4"></a>path_dat &lt;-<span class="st"> </span><span class="kw">system.file</span>(</span>
-<span id="cb1-5"><a href="2-1-load-data.html#cb1-5"></a>  <span class="st">&quot;extdata&quot;</span>,</span>
-<span id="cb1-6"><a href="2-1-load-data.html#cb1-6"></a>  <span class="st">&quot;anti-read.csv&quot;</span>,</span>
-<span id="cb1-7"><a href="2-1-load-data.html#cb1-7"></a>  <span class="dt">package =</span> <span class="st">&quot;ITEMSlme&quot;</span>,</span>
-<span id="cb1-8"><a href="2-1-load-data.html#cb1-8"></a>  <span class="dt">mustWork =</span> <span class="ot">TRUE</span></span>
-<span id="cb1-9"><a href="2-1-load-data.html#cb1-9"></a>)</span>
-<span id="cb1-10"><a href="2-1-load-data.html#cb1-10"></a></span>
-<span id="cb1-11"><a href="2-1-load-data.html#cb1-11"></a><span class="co"># renaming function</span></span>
-<span id="cb1-12"><a href="2-1-load-data.html#cb1-12"></a>insert_underscore &lt;-<span class="st"> </span><span class="cf">function</span>(names){</span>
-<span id="cb1-13"><a href="2-1-load-data.html#cb1-13"></a>  <span class="kw">sub</span>(<span class="st">&quot;^([[:alpha:]]+)&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1_&quot;</span>, names)</span>
-<span id="cb1-14"><a href="2-1-load-data.html#cb1-14"></a>}</span>
-<span id="cb1-15"><a href="2-1-load-data.html#cb1-15"></a></span>
-<span id="cb1-16"><a href="2-1-load-data.html#cb1-16"></a><span class="co"># read in the data with readr::read_csv</span></span>
-<span id="cb1-17"><a href="2-1-load-data.html#cb1-17"></a>dat_wide &lt;-<span class="st"> </span>path_dat <span class="op">%&gt;%</span></span>
-<span id="cb1-18"><a href="2-1-load-data.html#cb1-18"></a><span class="st">  </span>readr<span class="op">::</span><span class="kw">read_csv</span>(., <span class="dt">na =</span> <span class="st">&quot;-99&quot;</span>, <span class="dt">col_types =</span> readr<span class="op">::</span><span class="kw">cols</span>()) <span class="op">%&gt;%</span></span>
-<span id="cb1-19"><a href="2-1-load-data.html#cb1-19"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename_with</span>(</span>
-<span id="cb1-20"><a href="2-1-load-data.html#cb1-20"></a>    insert_underscore,</span>
-<span id="cb1-21"><a href="2-1-load-data.html#cb1-21"></a>    dplyr<span class="op">::</span><span class="kw">starts_with</span>(<span class="kw">c</span>(<span class="st">&quot;ag&quot;</span>, <span class="st">&quot;an&quot;</span>, <span class="st">&quot;r&quot;</span>))</span>
-<span id="cb1-22"><a href="2-1-load-data.html#cb1-22"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb1-23"><a href="2-1-load-data.html#cb1-23"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(</span>
-<span id="cb1-24"><a href="2-1-load-data.html#cb1-24"></a>    <span class="dt">gen =</span> forcats<span class="op">::</span><span class="kw">fct_recode</span>(<span class="kw">as.factor</span>(gen), <span class="dt">female =</span> <span class="st">&quot;0&quot;</span>, <span class="dt">male =</span> <span class="st">&quot;1&quot;</span>)</span>
-<span id="cb1-25"><a href="2-1-load-data.html#cb1-25"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb1-26"><a href="2-1-load-data.html#cb1-26"></a><span class="st">  </span><span class="kw">print</span>(.)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="2-1-load-data.html#cb2-1"></a><span class="co">##--TUTORIAL DATASETS--##</span></span>
+<span id="cb2-2"><a href="2-1-load-data.html#cb2-2"></a></span>
+<span id="cb2-3"><a href="2-1-load-data.html#cb2-3"></a><span class="co"># read data</span></span>
+<span id="cb2-4"><a href="2-1-load-data.html#cb2-4"></a>path_dat &lt;-<span class="st"> </span><span class="kw">system.file</span>(</span>
+<span id="cb2-5"><a href="2-1-load-data.html#cb2-5"></a>  <span class="st">&quot;extdata&quot;</span>,</span>
+<span id="cb2-6"><a href="2-1-load-data.html#cb2-6"></a>  <span class="st">&quot;anti-read.csv&quot;</span>,</span>
+<span id="cb2-7"><a href="2-1-load-data.html#cb2-7"></a>  <span class="dt">package =</span> <span class="st">&quot;ITEMSlme&quot;</span>,</span>
+<span id="cb2-8"><a href="2-1-load-data.html#cb2-8"></a>  <span class="dt">mustWork =</span> <span class="ot">TRUE</span></span>
+<span id="cb2-9"><a href="2-1-load-data.html#cb2-9"></a>)</span>
+<span id="cb2-10"><a href="2-1-load-data.html#cb2-10"></a></span>
+<span id="cb2-11"><a href="2-1-load-data.html#cb2-11"></a><span class="co"># renaming function</span></span>
+<span id="cb2-12"><a href="2-1-load-data.html#cb2-12"></a>insert_underscore &lt;-<span class="st"> </span><span class="cf">function</span>(names){</span>
+<span id="cb2-13"><a href="2-1-load-data.html#cb2-13"></a>  <span class="kw">sub</span>(<span class="st">&quot;^([[:alpha:]]+)&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1_&quot;</span>, names)</span>
+<span id="cb2-14"><a href="2-1-load-data.html#cb2-14"></a>}</span>
+<span id="cb2-15"><a href="2-1-load-data.html#cb2-15"></a></span>
+<span id="cb2-16"><a href="2-1-load-data.html#cb2-16"></a><span class="co"># read in the data with readr::read_csv</span></span>
+<span id="cb2-17"><a href="2-1-load-data.html#cb2-17"></a>dat_wide &lt;-<span class="st"> </span>path_dat <span class="op">%&gt;%</span></span>
+<span id="cb2-18"><a href="2-1-load-data.html#cb2-18"></a><span class="st">  </span>readr<span class="op">::</span><span class="kw">read_csv</span>(., <span class="dt">na =</span> <span class="st">&quot;-99&quot;</span>, <span class="dt">col_types =</span> readr<span class="op">::</span><span class="kw">cols</span>()) <span class="op">%&gt;%</span></span>
+<span id="cb2-19"><a href="2-1-load-data.html#cb2-19"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename_with</span>(</span>
+<span id="cb2-20"><a href="2-1-load-data.html#cb2-20"></a>    insert_underscore,</span>
+<span id="cb2-21"><a href="2-1-load-data.html#cb2-21"></a>    dplyr<span class="op">::</span><span class="kw">starts_with</span>(<span class="kw">c</span>(<span class="st">&quot;ag&quot;</span>, <span class="st">&quot;an&quot;</span>, <span class="st">&quot;r&quot;</span>))</span>
+<span id="cb2-22"><a href="2-1-load-data.html#cb2-22"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb2-23"><a href="2-1-load-data.html#cb2-23"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(</span>
+<span id="cb2-24"><a href="2-1-load-data.html#cb2-24"></a>    <span class="dt">gen =</span> forcats<span class="op">::</span><span class="kw">fct_recode</span>(<span class="kw">as.factor</span>(gen), <span class="dt">female =</span> <span class="st">&quot;0&quot;</span>, <span class="dt">male =</span> <span class="st">&quot;1&quot;</span>)</span>
+<span id="cb2-25"><a href="2-1-load-data.html#cb2-25"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb2-26"><a href="2-1-load-data.html#cb2-26"></a><span class="st">  </span><span class="kw">print</span>(.)</span></code></pre></div>
 <pre><code>## # A tibble: 405 x 17
 ##       id gen   momage homecog homeemo  an_1  an_2  an_3  an_4   r_1   r_2   r_3
 ##    &lt;dbl&gt; &lt;fct&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
