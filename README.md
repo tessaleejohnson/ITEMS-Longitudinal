@@ -6,5 +6,5 @@ Module:
 Guided Examples with Sample Code:
 https://tessaleejohnson.github.io/ITEMS-Longitudinal/
 
-Longitudinal Data Analysis in R Cloud Tutorial (supports up to 5 users):
+Longitudinal Data Analysis in R Cloud Tutorial (supports up to 25 user-hours per month):
 https://tessaleejohnson.shinyapps.io/ITEMS-Longitudinal/
